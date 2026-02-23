@@ -76,7 +76,7 @@ $section_main_title = 'Explore Exciting Opportunities';
         }
 
         .breadcrumb-custom .breadcrumb-item.active {
-            color: #3C72FC;
+            color: #EB7700;
             font-weight: 700;
         }
 
@@ -118,7 +118,7 @@ $section_main_title = 'Explore Exciting Opportunities';
         }
         .job-post-card .job-meta i {
             margin-right: 8px;
-            color: #3C72FC;
+            color: #EB7700;
         }
         .job-post-card .job-description {
             font-size: 1rem;
@@ -127,7 +127,7 @@ $section_main_title = 'Explore Exciting Opportunities';
             margin-bottom: 25px;
         }
         .job-post-card .apply-btn {
-            background-color: #3C72FC;
+            background-color: #EB7700;
             color: #fff;
             border: none;
             padding: 12px 25px;
@@ -156,7 +156,7 @@ $section_main_title = 'Explore Exciting Opportunities';
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
         }
         .modal-header {
-            background: linear-gradient(to right, #3C72FC 0%, #00174D 100%); /* Gradient background */
+            background: linear-gradient(to right, #EB7700 0%, #004E91 100%); /* Gradient background */
             color: #fff;
             border-top-left-radius: 15px;
             border-top-right-radius: 15px;
@@ -183,11 +183,11 @@ $section_main_title = 'Explore Exciting Opportunities';
             transition: all 0.2s ease-in-out;
         }
         .form-control:focus {
-            border-color: #3C72FC;
+            border-color: #EB7700;
             box-shadow: 0 0 0 0.25rem rgba(60, 114, 252, 0.25);
         }
         .btn-custom-apply { /* Custom class for the submit button */
-            background-color: #3C72FC;
+            background-color: #EB7700;
             color: #fff;
             border: none;
             padding: 12px 25px;
@@ -204,12 +204,12 @@ $section_main_title = 'Explore Exciting Opportunities';
 
         /* Pagination Styling */
         .pagination-custom .page-item.active .page-link {
-            background-color: #3C72FC;
-            border-color: #3C72FC;
+            background-color: #EB7700;
+            border-color: #EB7700;
             color: #fff;
         }
         .pagination-custom .page-link {
-            color: #3C72FC;
+            color: #EB7700;
         }
         .pagination-custom .page-link:hover {
             color: #000;

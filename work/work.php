@@ -35,7 +35,7 @@
         }
 
         .breadcrumb-custom .breadcrumb-item.active {
-            color: #3C72FC;
+            color: #EB7700;
             font-weight: 700;
         }
 
@@ -60,7 +60,7 @@
         }
         .icon-card .icon {
             font-size: 30px;
-            color: #3C72FC;
+            color: #EB7700;
             margin-right: 20px;
             min-width: 40px;
         }
@@ -117,7 +117,7 @@
             text-decoration: none;
         }
         .work-card:hover .project-title a {
-            color: #3C72FC;
+            color: #EB7700;
         }
         .work-card .project-description {
             font-size: 15px;
@@ -126,7 +126,7 @@
             flex-grow: 1;
         }
         .work-card .view-project {
-            color: #3C72FC;
+            color: #EB7700;
             font-weight: 600;
             text-decoration: none;
             transition: transform 0.3s ease;

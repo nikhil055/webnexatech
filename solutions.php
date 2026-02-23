@@ -37,7 +37,7 @@
         }
 
         .breadcrumb-custom .breadcrumb-item.active {
-            color: #3C72FC;
+            color: #EB7700;
             font-weight: 700;
         }
         .content-section {
@@ -78,7 +78,7 @@
         .solution-card .btn-style-one {
             text-decoration: none;
             color: #fff;
-            background: #3C72FC;
+            background: #EB7700;
             padding: 10px 25px;
             border-radius: 25px;
             font-weight: 600;

@@ -49,7 +49,7 @@
                 <div class="col-md-6">
                     <div class="top-right text-end">
                         
-                        <ul>
+                        <ul class="d-inline-block me-3">
                             <li class="dropdown"><a style="border: none;" class="dropbtn" href="#">Help Center<i class="fa-solid fa-angle-down"></i></a> 
                                 <div class="dropdown-content  text-start">
                                 <a href="tel:+91 9910893885"> <i class="fa-solid fa-headset"></i>Call</a>
@@ -57,9 +57,13 @@
                             </div></li>
                             <li><a href="<?php echo BASE_URL; ?>/policy.php">Our Policy</a></li>
                             <li><a href="<?php echo BASE_URL; ?>/about.php">About Us</a></li>
-                            
-                            
                         </ul>
+                        <div class="top-social d-inline-block">
+                            <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                            <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                            <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                        </div>
                     </div>
                 </div>
 
@@ -68,7 +72,7 @@
         </div>
     </section>
 
-    <nav class="navbar navbar-01 navbar-expand-lg navbar-dark fixed-top head-lap">
+    <nav class="navbar navbar-01 navbar-expand-lg navbar-dark fixed-top head-lap main-header-nav">
       <div class="container">
         <a class="navbar-brand" href="<?php echo BASE_URL; ?>/index.php">
           <img src="<?php echo BASE_URL; ?>/assets/images/logo-web/logo.jpg" width="100%" alt=" logo"></a>
@@ -78,7 +82,7 @@
          <i class="fa-solid fa-bars"></i>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
-          <ul class="navbar-nav ms-auto">
+          <ul class="navbar-nav ms-auto align-items-lg-center">
             <li class="nav-item">
               <a class="nav-link " aria-current="page" href="<?php echo BASE_URL; ?>/index.php">Home</a>
             </li>
@@ -379,7 +383,7 @@
              <li class="nav-item">
               <a class="nav-link " aria-current="page" href="<?php echo BASE_URL; ?>/blog.php">Blog</a>
             </li>
-            <li class="nav-item  front dropdown">
+            <li class="nav-item  front dropdown me-lg-3">
               <a class="nav-link dropdown-toggle" href="<?php echo BASE_URL; ?>/contact.php" data-bs-toggle="dropdown">Contact</a>
               <ul class="dropdown-menu abbbtt">
                 <li class="dropdown-item "> <a href="<?php echo BASE_URL; ?>/career.php"><i class="fa-solid fa-circle-caret-right"></i>Careers</a> </li>
@@ -387,7 +391,9 @@
 
               </ul>
              </li>
-         
+             <li class="nav-item d-none d-lg-block">
+                <a href="<?php echo BASE_URL; ?>/contact.php" class="header-cta-btn">Get Started <i class="fa-solid fa-arrow-right-long"></i></a>
+             </li>
           
           </ul>
           <button id="openPopup" class="bars-btn">
@@ -408,6 +414,20 @@
       
       </div>
     </nav>
+
+    <script>
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.main-header-nav');
+            const topbar = document.querySelector('.topbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('navbar-scrolled');
+                topbar.style.display = 'none';
+            } else {
+                navbar.classList.remove('navbar-scrolled');
+                topbar.style.display = 'block';
+            }
+        });
+    </script>
 
 
 

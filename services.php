@@ -37,7 +37,7 @@
         }
 
         .breadcrumb-custom .breadcrumb-item.active {
-            color: #3C72FC;
+            color: #EB7700;
             font-weight: 700;
         }
         .content-section {
@@ -57,11 +57,11 @@
         .service-category-card:hover {
             transform: translateY(-10px);
             box-shadow: 0 15px 40px rgba(60, 114, 252, 0.2);
-            border-color: #3C72FC;
+            border-color: #EB7700;
         }
         .service-category-card .icon-header {
             font-size: 45px;
-            color: #3C72FC;
+            color: #EB7700;
             margin-bottom: 20px;
         }
         .service-category-card h4 {
@@ -77,7 +77,7 @@
         .service-category-card .btn-style-one {
             text-decoration: none;
             color: #fff;
-            background: #3C72FC;
+            background: #EB7700;
             padding: 10px 25px;
             border-radius: 25px;
             font-weight: 600;

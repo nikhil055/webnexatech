@@ -1,57 +1,96 @@
 <?php include 'header.php'; ?>
 <section class="banner-index">
-      <div class="bottom-shape">
-        <img src="assets/images/banner/bottom-shape.png" width="100%" alt="">
-      </div>
-      <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
+      <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-pause="false">
         <div class="carousel-inner">
-          <div class="carousel-item">
-            <div class="border-shape">
-              <img src="assets/images/banner/border-shape.png" width="100%" alt="">
-            </div>
-            <img src="assets/images/banner/bg-slider1.jpg" class="d-block w-100" alt="...">
-            <div class="carousel-caption d-block">
-              <div class="content">
-                <h6>Best It Company</h6>
-                  <a href="about.php" class=" btn-style-one">Explore more<i class="fa-sharp fa-light fa-arrow-right"></i></a>
-                  <a href="about.php" class=" btn-style-two">Contact US<i class="fa-sharp fa-light fa-arrow-right"></i></a>
-              </div>
-            </div>
-          </div>
-          <div class="carousel-item">
-            <img src="assets/images/banner/banner-02.jpg" class="d-block w-100" alt="...">
-            <div class="border-shape">
-              <img src="assets/images/banner/border-shape.png" width="100%" alt="">
-            </div>
-            <div class="carousel-caption d-block">
-              <div class="content">
-                <h6>Best It Company</h6>
-                <h3>Transform Ideas into <br> Powerful Apps!</h3>
-                <p>We specialize in creating innovative mobile apps and custom software solutions tailored to your business needs, helping you stay ahead in <br>a fast-paced digital world.</p>
-                <div class="link-box">
-                  <a href="about.php" class=" btn-style-one">Explore more<i class="fa-sharp fa-light fa-arrow-right"></i></a>
-                  <a href="about.php" class=" btn-style-two">Contact US<i class="fa-sharp fa-light fa-arrow-right"></i></a>
-                </div>
-              </div>
-  
-            </div>
-          </div>
           <div class="carousel-item active">
-            <img src="assets/images/banner/banner-03.jpg" class="d-block w-100" alt="...">
+            <div class="border-shape">
+              <img src="assets/images/banner/border-shape.png" width="100%" alt="">
+            </div>
+            <img src="assets/images/banner/bg-slider1.jpg" class="d-block w-100 banner-img" alt="...">
+            
+            <div class="carousel-caption d-block">
+              <div class="content">
+                <h6 data-aos="fade-right" data-aos-delay="100">Innovating the Future</h6>
+                <h2 data-aos="fade-up" data-aos-delay="300">Next-Gen Digital <br> <span>Transformation</span></h2>
+                <p data-aos="fade-up" data-aos-delay="500">Empowering global enterprises with cutting-edge IT solutions, from cloud architecture to AI-driven automation. We don't just build software; we build your competitive advantage.</p>
+                <div class="link-box" data-aos="fade-up" data-aos-delay="700">
+                  <a href="about.php" class="btn-style-one">Discover Excellence <i class="fa-sharp fa-light fa-arrow-right"></i></a>
+                  <a href="contact.php" class="btn-style-two">Get a Consultation <i class="fa-sharp fa-light fa-arrow-right"></i></a>
+                </div>
+                <!-- Hero Trust Badge -->
+                <div class="hero-trust-badge" data-aos="zoom-in" data-aos-delay="900">
+                    <div class="badge-item">
+                        <span class="count">10+</span>
+                        <span class="txt">Years of Experience</span>
+                    </div>
+                    <div class="badge-divider"></div>
+                    <div class="badge-item">
+                        <span class="count">250+</span>
+                        <span class="txt">Projects Delivered</span>
+                    </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="hero-decoration d-none d-xl-flex">
+                <div class="float-card" data-aos="fade-left" data-aos-delay="1000">
+                    <i class="fas fa-cloud"></i>
+                    <span>Cloud Solutions</span>
+                </div>
+                <div class="float-card" data-aos="fade-left" data-aos-delay="1200">
+                    <i class="fas fa-brain"></i>
+                    <span>AI & Automation</span>
+                </div>
+                <div class="float-card" data-aos="fade-left" data-aos-delay="1400">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Cyber Security</span>
+                </div>
+            </div>
+
+            <div class="bottom-shape">
+                <img src="assets/images/banner/bottom-shape.png" width="100%" alt="">
+            </div>
+          </div>
+          
+          <div class="carousel-item">
+            <img src="assets/images/banner/banner-02.jpg" class="d-block w-100 banner-img" alt="...">
             <div class="border-shape">
               <img src="assets/images/banner/border-shape.png" width="100%" alt="">
             </div>
             <div class="carousel-caption d-block">
               <div class="content">
-                <h6>Best SEO Company</h6>
-                <h3>Boost Your Online <br> Presence!</h3>
-                <p>We implement powerful SEO techniques and paid media strategies to enhance your visibility, drive targeted traffic, and ensure your business thrives in today’s <br> competitive landscape.</p>
+                <h6>Custom Mobility Solutions</h6>
+                <h3>Transform Ideas into <br> <span>Powerful Apps!</span></h3>
+                <p>We specialize in creating innovative mobile apps and custom software solutions tailored to your business needs, helping you stay ahead in a fast-paced digital world with scalable technology.</p>
                 <div class="link-box">
-                  <a href="about.php" class=" btn-style-one">Explore more<i class="fa-sharp fa-light fa-arrow-right"></i></a>
-                  <a href="about.php" class=" btn-style-two">Contact US<i class="fa-sharp fa-light fa-arrow-right"></i></a>
+                  <a href="services.php" class="btn-style-one">Our Solutions <i class="fa-sharp fa-light fa-arrow-right"></i></a>
+                  <a href="contact.php" class="btn-style-two">Start a Project <i class="fa-sharp fa-light fa-arrow-right"></i></a>
                 </div>
               </div>
-  
+            </div>
+            <div class="bottom-shape">
+                <img src="assets/images/banner/bottom-shape.png" width="100%" alt="">
+            </div>
+          </div>
+
+          <div class="carousel-item">
+            <img src="assets/images/banner/banner-03.jpg" class="d-block w-100 banner-img" alt="...">
+            <div class="border-shape">
+              <img src="assets/images/banner/border-shape.png" width="100%" alt="">
+            </div>
+            <div class="carousel-caption d-block">
+              <div class="content">
+                <h6>Dominating the Search Engine</h6>
+                <h3>Boost Your Online <br> <span>Presence!</span></h3>
+                <p>We implement powerful SEO techniques and paid media strategies to enhance your visibility, drive targeted traffic, and ensure your business thrives in today’s competitive landscape.</p>
+                <div class="link-box">
+                  <a href="seo/seo-services.php" class="btn-style-one">View SEO Plans <i class="fa-sharp fa-light fa-arrow-right"></i></a>
+                  <a href="contact.php" class="btn-style-two">Free SEO Audit <i class="fa-sharp fa-light fa-arrow-right"></i></a>
+                </div>
+              </div>
+            </div>
+            <div class="bottom-shape">
+                <img src="assets/images/banner/bottom-shape.png" width="100%" alt="">
             </div>
           </div>
         </div>
