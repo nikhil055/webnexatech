@@ -1,0 +1,37 @@
+<svg width="600" height="400" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <style type="text/css"><![CDATA[
+            @keyframes drawIn {
+                0% { stroke-dasharray: 0 500; }
+                100% { stroke-dasharray: 500 0; }
+            }
+            @keyframes fadeInUp {
+                0% { opacity: 0; transform: translateY(20px); }
+                100% { opacity: 1; transform: translateY(0); }
+            }
+            .line-draw {
+                stroke-dasharray: 500;
+                stroke-dashoffset: 500;
+                animation: drawIn 2s forwards ease-out;
+            }
+            .fade-up {
+                animation: fadeInUp 1s forwards ease-out;
+                opacity: 0;
+            }
+        ]]></style>
+    </defs>
+
+    <!-- Main animated elements -->
+    <rect x="150" y="80" width="300" height="180" fill="#F0F0F0" rx="10" ry="10" class="fade-up"/>
+    
+    <line x1="160" y1="100" x2="440" y2="100" stroke="#607D8B" stroke-width="3" class="line-draw" style="animation-delay: 0.2s;"/>
+    <line x1="160" y1="130" x2="350" y2="130" stroke="#90A4AE" stroke-width="3" class="line-draw" style="animation-delay: 0.4s;"/>
+    <line x1="160" y1="160" x2="400" y2="160" stroke="#90A4AE" stroke-width="3" class="line-draw" style="animation-delay: 0.6s;"/>
+    <line x1="160" y1="190" x2="300" y2="190" stroke="#90A4AE" stroke-width="3" class="line-draw" style="animation-delay: 0.8s;"/>
+    <line x1="160" y1="220" x2="440" y2="220" stroke="#607D8B" stroke-width="3" class="line-draw" style="animation-delay: 1s;"/>
+
+    <path d="M460 100 L490 130 L460 160 Z" fill="#4CAF50" class="fade-up" style="animation-delay: 1.2s;"/> <!-- Green checkmark-like shape -->
+
+    <!-- Title text -->
+    <text x="50%" y="350" font-family="Arial, sans-serif" font-size="30" font-weight="bold" fill="#333" text-anchor="middle" dominant-baseline="middle">Technical SEO</text>
+</svg>

@@ -1,0 +1,36 @@
+<svg width="600" height="400" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <style type="text/css"><![CDATA[
+            @keyframes slideInLeft {
+                0% { transform: translateX(-100px); opacity: 0; }
+                100% { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes slideInRight {
+                0% { transform: translateX(100px); opacity: 0; }
+                100% { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes screenContent {
+                0%, 100% { transform: scale(1); opacity: 1; }
+                50% { transform: scale(0.98); opacity: 0.8; }
+            }
+            .phone { animation: slideInLeft 1s forwards ease-out; opacity: 0; }
+            .tablet { animation: slideInRight 1s forwards ease-out; opacity: 0; animation-delay: 0.5s; }
+            .screen { animation: screenContent 3s infinite ease-in-out alternate; transform-origin: center; }
+        ]]></style>
+    </defs>
+
+    <!-- Main animated elements -->
+    <g class="phone" transform="translate(100, 50)">
+        <rect x="0" y="0" width="100" height="200" rx="15" ry="15" fill="#333"/>
+        <rect x="10" y="15" width="80" height="150" rx="5" ry="5" fill="#F0F0F0" class="screen"/>
+        <circle cx="50" cy="185" r="5" fill="#CCC"/>
+    </g>
+
+    <g class="tablet" transform="translate(350, 80)">
+        <rect x="0" y="0" width="200" height="150" rx="15" ry="15" fill="#333"/>
+        <rect x="15" y="15" width="170" height="120" rx="5" ry="5" fill="#F0F0F0" class="screen"/>
+    </g>
+
+    <!-- Title text -->
+    <text x="50%" y="350" font-family="Arial, sans-serif" font-size="30" font-weight="bold" fill="#333" text-anchor="middle" dominant-baseline="middle">Mobile App Dev</text>
+</svg>

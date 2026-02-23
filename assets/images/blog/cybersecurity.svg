@@ -1,0 +1,30 @@
+<svg width="600" height="400" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <style type="text/css"><![CDATA[
+            @keyframes shieldPulse {
+                0%, 100% { transform: scale(1); }
+                50% { transform: scale(1.05); }
+            }
+            @keyframes lockFadeIn {
+                0% { opacity: 0; transform: translateY(10px); }
+                100% { opacity: 1; transform: translateY(0); }
+            }
+            .shield { animation: shieldPulse 3s infinite ease-in-out alternate; transform-origin: center; }
+            .lock { animation: lockFadeIn 1s forwards ease-out; animation-delay: 1s; opacity: 0; }
+        ]]></style>
+    </defs>
+
+    <!-- Main animated elements -->
+    <g class="shield" transform="translate(0, 0)">
+        <path d="M300 50 L150 200 L150 280 A150 150 0 0 0 300 330 A150 150 0 0 0 450 280 L450 200 Z" fill="#BBDEFB"/>
+        <path d="M300 130 L250 180 L350 180 Z M300 130 L350 180 L250 180 Z" fill="#4CAF50" class="lock"/> <!-- Stylized lock icon -->
+    </g>
+
+    <rect x="280" y="160" width="40" height="50" rx="5" ry="5" fill="#607D8B" class="lock"/>
+    <circle cx="300" cy="150" r="15" fill="#607D8B" class="lock"/>
+    <rect x="295" y="135" width="10" height="20" fill="white" class="lock"/>
+
+
+    <!-- Title text -->
+    <text x="50%" y="350" font-family="Arial, sans-serif" font-size="30" font-weight="bold" fill="#333" text-anchor="middle" dominant-baseline="middle">Cybersecurity</text>
+</svg>

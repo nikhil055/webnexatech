@@ -1,0 +1,42 @@
+<svg width="600" height="400" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <style type="text/css"><![CDATA[
+            @keyframes fadeIn {
+                0% { opacity: 0; }
+                100% { opacity: 1; }
+            }
+            @keyframes writeLine {
+                0% { stroke-dashoffset: 1000; }
+                100% { stroke-dashoffset: 0; }
+            }
+            @keyframes bubblePop {
+                0% { transform: scale(0); opacity: 0; }
+                80% { transform: scale(1.1); opacity: 1; }
+                100% { transform: scale(1); opacity: 1; }
+            }
+            .fade-in { animation: fadeIn 1s forwards ease-out; opacity: 0; }
+            .pen-path {
+                stroke-dasharray: 1000;
+                stroke-dashoffset: 1000;
+                animation: writeLine 2s forwards ease-out;
+                fill: none;
+            }
+            .bubble { animation: bubblePop 0.5s forwards ease-out; opacity: 0; transform-origin: center; }
+        ]]></style>
+    </defs>
+
+    <!-- Main animated elements -->
+    <path d="M200 100 L400 100 L400 200 L200 200 Z" fill="#F0F0F0" class="fade-in" style="animation-delay: 0.2s;"/> <!-- Base paper/canvas -->
+    <path d="M220 120 L380 120 L380 140 L220 140 Z M220 150 L350 150 L350 170 L220 170 Z M220 180 L300 180 L300 200 L220 200 Z" fill="#CCC" class="fade-in" style="animation-delay: 0.4s;"/> <!-- Lines on paper -->
+    
+    <path d="M450 100 L470 80 L490 100 L470 120 Z" fill="#FFC107" class="bubble" style="animation-delay: 1.5s;"/> <!-- Speech bubble 1 -->
+    <path d="M480 150 L500 130 L520 150 L500 170 Z" fill="#4CAF50" class="bubble" style="animation-delay: 1.7s;"/> <!-- Speech bubble 2 -->
+
+    <g transform="translate(100, 50) rotate(-15 200 150)">
+        <path d="M250 150 L270 140 A10 10 0 0 1 280 130 L280 120 L260 120 L260 130 L240 130 A10 10 0 0 0 230 140 L230 150 Z" fill="#2196F3" stroke="#2196F3" stroke-width="5" class="pen-path" style="animation-delay: 0.8s;"/>
+    </g>
+
+
+    <!-- Title text -->
+    <text x="50%" y="350" font-family="Arial, sans-serif" font-size="30" font-weight="bold" fill="#333" text-anchor="middle" dominant-baseline="middle">Content Marketing</text>
+</svg>
