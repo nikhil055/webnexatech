@@ -1,176 +1,263 @@
-<?php include 'header.php'; ?>
-<?php
-// Simulate data coming from a backend/database for the 'Future' page
-$page_data = [
-    'title' => 'Our Vision for the Future',
-    'banner_title' => 'The Road Ahead',
-    'banner_image' => 'assets/images/banner/banner.webp', // Placeholder, ideally dynamic
-    'breadcrumb_active' => 'Future',
-    'section_subtitle' => 'Innovation and Growth',
-    'section_main_title' => 'Pioneering Tomorrow\'s Technology Solutions Today',
-    'vision_statement' => 'At Web Nexa Technologies, we are constantly looking forward, anticipating the next wave of technological advancements and preparing our clients to thrive in a rapidly evolving digital world. Our vision is to be at the forefront of innovation, delivering solutions that are not just current, but future-proof.',
-    'pillars' => [
-        [
-            'icon' => 'fa-solid fa-rocket',
-            'title' => 'Sustainable Innovation',
-            'description' => 'Investing in R&D to develop eco-friendly and sustainable tech solutions.'
-        ],
-        [
-            'icon' => 'fa-solid fa-chart-line',
-            'title' => 'Global Expansion',
-            'description' => 'Extending our reach and services to new markets and diverse industries worldwide.'
-        ],
-        [
-            'icon' => 'fa-solid fa-users',
-            'title' => 'Talent Development',
-            'description' => 'Fostering a culture of continuous learning and growth for our talented team.'
-        ],
-        [
-            'icon' => 'fa-solid fa-shield-alt',
-            'title' => 'Enhanced Security',
-            'description' => 'Prioritizing advanced cybersecurity measures to protect digital assets and data.'
-        ]
-        // More future pillars/goals would come from the backend
-    ],
-    'future_image' => 'assets/images/why/side.jpg' // Reusing an existing image for placeholder
-];
+<?php include_once __DIR__ . '/../config.php'; include_once __DIR__ . '/../header.php'; ?>
+<?php 
+include_once __DIR__ . '/../backend/db.php';
+$page_file = 'about/future.php';
+$banner_res = $conn->query("SELECT * FROM page_banners WHERE page_name = '$page_file'");
+$banner_data = ($banner_res && $banner_res->num_rows > 0) ? $banner_res->fetch_assoc() : null;
+
+$display_banner_img = ($banner_data && !empty($banner_data['banner_image'])) ? $banner_data['banner_image'] : 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop';
+$display_banner_title = ($banner_data && !empty($banner_data['banner_title'])) ? $banner_data['banner_title'] : 'Our Future Vision';
 ?>
 
     <style>
-        /* General Page Banner Styling (similar to team.php) */
         .page-banner {
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('<?php echo $page_data['banner_image']; ?>');
+            background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(10, 25, 47, 0.6)), url('<?php echo $display_banner_img; ?>');
             background-size: cover;
             background-position: center;
             padding-top: 220px;
-            padding-bottom: 100px;
+            padding-bottom: 120px;
             text-align: center;
             color: #fff;
-            margin-bottom: 50px;
         }
 
         .page-banner h2 {
-            font-size: 55px;
-            font-weight: 800;
+            font-size: 60px;
+            font-weight: 900;
             margin-bottom: 15px;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
         }
 
         .breadcrumb-custom {
             justify-content: center;
             background: rgba(255, 255, 255, 0.1);
             display: inline-flex;
-            padding: 10px 20px;
-            border-radius: 30px;
-            backdrop-filter: blur(5px);
+            padding: 10px 25px;
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        .breadcrumb-custom .breadcrumb-item a {
+        .breadcrumb-custom .breadcrumb-item a { color: #fff; text-decoration: none; font-weight: 600; }
+        .breadcrumb-custom .breadcrumb-item.active { color: var(--primary-blue); font-weight: 800; }
+
+        /* Future Vision Section */
+        .future-intro { padding: 100px 0; background: #fff; }
+        .vision-card {
+            background: var(--dark-navy);
             color: #fff;
-            text-decoration: none;
-            font-weight: 500;
+            padding: 60px;
+            border-radius: 30px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+        }
+        .vision-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 400px;
+            height: 400px;
+            background: var(--primary-blue);
+            filter: blur(150px);
+            opacity: 0.2;
         }
 
-        .breadcrumb-custom .breadcrumb-item.active {
-            color: #3C72FC;
-            font-weight: 700;
+        /* Pillars Grid */
+        .pillar-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 60px; }
+        .pillar-item {
+            background: #f8f9fa;
+            padding: 40px;
+            border-radius: 20px;
+            border-bottom: 4px solid transparent;
+            transition: all 0.4s ease;
+            height: 100%;
         }
-
-        /* Additional styling for future page content */
-        .future-section {
-            padding-bottom: 80px;
-        }
-        .vision-text {
-            margin-bottom: 50px;
-            font-size: 18px;
-            line-height: 1.8;
-            color: #444;
-        }
-        .pillar-card {
+        .pillar-item:hover {
+            transform: translateY(-10px);
             background: #fff;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+            border-bottom-color: var(--primary-blue);
+        }
+        .pillar-icon {
+            width: 70px;
+            height: 70px;
+            background: rgba(60, 114, 252, 0.1);
+            color: var(--primary-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
             border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            padding: 30px;
-            text-align: center;
-            margin-bottom: 30px;
-            transition: transform 0.3s ease;
+            margin-bottom: 25px;
+            transition: 0.3s;
         }
-        .pillar-card:hover {
-            transform: translateY(-5px);
+        .pillar-item:hover .pillar-icon { background: var(--primary-blue); color: #fff; transform: rotateY(360deg); }
+        .pillar-item h4 { font-weight: 800; margin-bottom: 15px; color: #1a1a1a; }
+        .pillar-item p { color: #666; line-height: 1.7; margin: 0; }
+
+        /* Interactive Timeline */
+        .roadmap-section { padding: 100px 0; background: #fdfdfd; }
+        .roadmap-container { position: relative; padding: 40px 0; }
+        .roadmap-line {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #eee;
+            transform: translateX(-50%);
         }
-        .pillar-card .icon {
-            font-size: 48px;
-            color: #3C72FC;
-            margin-bottom: 20px;
+        .roadmap-step { display: flex; justify-content: space-between; align-items: center; margin-bottom: 60px; width: 100%; position: relative; }
+        .roadmap-step:nth-child(even) { flex-direction: row-reverse; }
+        .roadmap-content { width: 45%; padding: 30px; background: #fff; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .roadmap-dot {
+            position: absolute;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            background: var(--primary-blue);
+            border: 4px solid #fff;
+            border-radius: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            box-shadow: 0 0 0 5px rgba(60, 114, 252, 0.2);
         }
-        .pillar-card h4 {
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-        .pillar-card p {
-            font-size: 16px;
-            color: #666;
-            margin-bottom: 0;
+        .roadmap-year { font-weight: 900; color: var(--primary-blue); font-size: 24px; margin-bottom: 10px; display: block; }
+
+        @media (max-width: 768px) {
+            .roadmap-line { left: 20px; }
+            .roadmap-dot { left: 20px; }
+            .roadmap-step, .roadmap-step:nth-child(even) { flex-direction: column; align-items: flex-start; padding-left: 50px; }
+            .roadmap-content { width: 100%; }
+            .page-banner h2 { font-size: 40px; }
         }
     </style>
 
-    <section class="page-banner">
+<section class="page-banner">
         <div class="container">
-            <div class="row">
-                <div class="col-md-12" data-aos="zoom-in">
-                    <h2><?php echo $page_data['banner_title']; ?></h2>
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb breadcrumb-custom">
-                            <li class="breadcrumb-item"><a href="<?php echo BASE_URL; ?>index.php">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page"><?php echo $page_data['breadcrumb_active']; ?></li>
-                        </ol>
-                    </nav>
-                </div>
+            <div data-aos="zoom-in">
+                <h2><?php echo $display_banner_title; ?></h2>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb breadcrumb-custom">
+                        <li class="breadcrumb-item"><a href="<?php echo BASE_URL; ?>index.php">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Future</li>
+                    </ol>
+                </nav>
             </div>
         </div>
     </section>
 
-    <section class="future-section">
+    <section class="future-intro">
         <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                   <div class="ser-head text-center mb-5" data-aos="fade-up">
-                      <div class="hed text-center">
-                         <img src="<?php echo BASE_URL; ?>assets/images/about/arrowLeft.svg" width="6%" alt="">
-                         <span><?php echo $page_data['section_subtitle']; ?></span>
-                         <img src="<?php echo BASE_URL; ?>assets/images/about/arrowRight.svg" width="6%" alt="">
-                      </div>
-                      <h3><?php echo $page_data['section_main_title']; ?></h3>
-                   </div>
-                </div>
-           </div>
-
-            <div class="row justify-content-center mb-5">
-                <div class="col-lg-8 text-center" data-aos="fade-up" data-aos-delay="100">
-                    <p class="vision-text"><?php echo $page_data['vision_statement']; ?></p>
-                    <img src="<?php echo $page_data['future_image']; ?>" class="img-fluid rounded shadow-lg mt-4" alt="Future Vision">
-                </div>
-            </div>
-
-            <div class="row justify-content-center mt-5">
-                <?php foreach ($page_data['pillars'] as $pillar):
-                ?>
-                <div class="col-lg-3 col-md-6" data-aos="fade-up">
-                    <div class="pillar-card">
-                        <div class="icon">
-                            <i class="<?php echo $pillar['icon']; ?>"></i>
+            <div class="row align-items-center">
+                <div class="col-lg-12">
+                    <div class="vision-card" data-aos="fade-up">
+                        <div class="row align-items-center">
+                            <div class="col-lg-7">
+                                <h3 class="display-4 fw-bold mb-4">The Next Frontier of Technology</h3>
+                                <p class="lead opacity-75 mb-4">At Web Nexa Technologies, we aren't just adapting to the future—we are building it. Our roadmap is defined by a commitment to sustainable innovation, ethical AI, and global digital empowerment.</p>
+                                <div class="d-flex gap-3">
+                                    <div class="text-center">
+                                        <h4 class="fw-bold text-primary mb-0">2030</h4>
+                                        <small class="opacity-50">Vision Goal</small>
+                                    </div>
+                                    <div style="width: 2px; background: rgba(255,255,255,0.1);"></div>
+                                    <div class="text-center">
+                                        <h4 class="fw-bold text-primary mb-0">100%</h4>
+                                        <small class="opacity-50">Digital First</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-5 d-none d-lg-block text-end">
+                                <i class="fa-solid fa-microchip" style="font-size: 200px; opacity: 0.1;"></i>
+                            </div>
                         </div>
-                        <h4><?php echo $pillar['title']; ?></h4>
-                        <p><?php echo $pillar['description']; ?></p>
                     </div>
                 </div>
-                <?php endforeach;
-                ?>
+            </div>
+
+            <div class="pillar-grid">
+                <div class="pillar-item" data-aos="fade-up" data-aos-delay="100">
+                    <div class="pillar-icon"><i class="fa-solid fa-brain"></i></div>
+                    <h4>Cognitive Computing</h4>
+                    <p>Moving beyond basic automation into self-learning systems that predict and solve complex business challenges.</p>
+                </div>
+                <div class="pillar-item" data-aos="fade-up" data-aos-delay="200">
+                    <div class="pillar-icon"><i class="fa-solid fa-leaf"></i></div>
+                    <h4>Green Tech Initiative</h4>
+                    <p>Optimizing code and infrastructure to minimize the carbon footprint of global digital operations.</p>
+                </div>
+                <div class="pillar-item" data-aos="fade-up" data-aos-delay="300">
+                    <div class="pillar-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                    <h4>Quantum Security</h4>
+                    <p>Preparing for the next era of cybersecurity with encryption that stays ahead of quantum computing threats.</p>
+                </div>
+                <div class="pillar-item" data-aos="fade-up" data-aos-delay="400">
+                    <div class="pillar-icon"><i class="fa-solid fa-earth-americas"></i></div>
+                    <h4>Borderless Workforce</h4>
+                    <p>Expanding our global innovation hubs to tap into diverse talent from every corner of the world.</p>
+                </div>
             </div>
         </div>
     </section>
 
-<?php include 'footer.php'; ?>
+    <section class="roadmap-section">
+        <div class="container">
+            <div class="ser-head text-center mb-5" data-aos="fade-up">
+                <div class="hed text-center">
+                    <img src="<?php echo BASE_URL; ?>assets/images/about/arrowLeft.svg" width="6%" alt="">
+                    <span>Strategic Roadmap</span>
+                    <img src="<?php echo BASE_URL; ?>assets/images/about/arrowRight.svg" width="6%" alt="">
+                </div>
+                <h3>Our Journey to 2030</h3>
+            </div>
 
+            <div class="roadmap-container">
+                <div class="roadmap-line"></div>
+                
+                <div class="roadmap-step" data-aos="fade-right">
+                    <div class="roadmap-dot"></div>
+                    <div class="roadmap-content">
+                        <span class="roadmap-year">2026</span>
+                        <h4>AI-Native Integration</h4>
+                        <p>Fully transitioning our core development workflows to an AI-native model, increasing delivery speed by 40%.</p>
+                    </div>
+                    <div style="width: 45%;"></div>
+                </div>
+
+                <div class="roadmap-step" data-aos="fade-left">
+                    <div class="roadmap-dot"></div>
+                    <div class="roadmap-content">
+                        <span class="roadmap-year">2027</span>
+                        <h4>European Hub Expansion</h4>
+                        <p>Establishing three new physical innovation centers across major European tech capitals.</p>
+                    </div>
+                    <div style="width: 45%;"></div>
+                </div>
+
+                <div class="roadmap-step" data-aos="fade-right">
+                    <div class="roadmap-dot"></div>
+                    <div class="roadmap-content">
+                        <span class="roadmap-year">2028</span>
+                        <h4>Sustainability Milestone</h4>
+                        <p>Achieving carbon-neutral status for all our cloud-hosted client projects through optimized architecture.</p>
+                    </div>
+                    <div style="width: 45%;"></div>
+                </div>
+
+                <div class="roadmap-step" data-aos="fade-left">
+                    <div class="roadmap-dot"></div>
+                    <div class="roadmap-content">
+                        <span class="roadmap-year">2030</span>
+                        <h4>The Autonomous Era</h4>
+                        <p>Launching our proprietary platform for fully autonomous enterprise management and digital transformation.</p>
+                    </div>
+                    <div style="width: 45%;"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<?php include_once __DIR__ . '/../footer.php'; ?>

@@ -1,15 +1,24 @@
 <?php include_once __DIR__ . '/../config.php'; include_once __DIR__ . '/../header.php'; ?>
+<?php 
+include_once __DIR__ . '/../backend/db.php';
+$page_file = 'creative/creative-services.php';
+$banner_res = $conn->query("SELECT * FROM page_banners WHERE page_name = '$page_file'");
+$banner_data = ($banner_res && $banner_res->num_rows > 0) ? $banner_res->fetch_assoc() : null;
 
-<style>
-    .page-banner {
-        background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('<?php echo BASE_URL; ?>assets/images/services/Creative.jpg');
-        background-size: cover;
-        background-position: center;
-        padding-top: 220px;
-        padding-bottom: 100px;
-        text-align: center;
-        color: #fff;
-    }
+$display_banner_img = ($banner_data && !empty($banner_data['banner_image'])) ? $banner_data['banner_image'] : BASE_URL . 'assets/images/services/creativity.png';
+$display_banner_title = ($banner_data && !empty($banner_data['banner_title'])) ? $banner_data['banner_title'] : 'Creative Services';
+?>
+
+    <style>
+        .page-banner {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('<?php echo $display_banner_img; ?>');
+            background-size: cover;
+            background-position: center;
+            padding-top: 220px;
+            padding-bottom: 100px;
+            text-align: center;
+            color: #fff;
+        }
     .page-banner h2 {
         font-size: 55px;
         font-weight: 800;
@@ -107,11 +116,10 @@
 </style>
 
 <section class="page-banner">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12" data-aos="zoom-in">
-                <h2>Creative Services</h2>
-                <nav aria-label="breadcrumb">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12" data-aos="zoom-in">
+                    <h2><?php echo $display_banner_title; ?></h2>                <nav aria-label="breadcrumb">
                     <ol class="breadcrumb breadcrumb-custom">
                         <li class="breadcrumb-item"><a href="<?php echo BASE_URL; ?>index.php">Home</a></li>
                         <li class="breadcrumb-item"><a href="<?php echo BASE_URL; ?>services.php">Services</a></li>
@@ -290,23 +298,24 @@
     </div>
 </section>
 
-    <section class="content-section contact-cta">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-10 col-lg-8">
-                    <div class="ser-head text-center" data-aos="fade-up">
-                        <div class="hed text-center">
-                            <img src="<?php echo BASE_URL; ?>assets/images/about/arrowLeft.svg" width="6%" alt="">
-                            <span>Let's Talk</span>
-                            <img src="<?php echo BASE_URL; ?>assets/images/about/arrowRight.svg" width="6%" alt="">
-                        </div>
-                        <h3>Ready to Ignite Your Brand?</h3>
-                        <p class="lead mt-3">Contact us today to discuss your creative needs and bring your vision to life. Let's create something extraordinary together.</p>
-                        <a href="<?php echo BASE_URL; ?>contact.php" class="btn btn-style-one mt-4">Get in Touch</a>
+
+<section class="content-section contact-cta">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-10 col-lg-8">
+                <div class="ser-head text-center" data-aos="fade-up">
+                    <div class="hed">
+                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowLeft.svg" width="6%" alt="">
+                        <span>Let's Talk</span>
+                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowRight.svg" width="6%" alt="">
                     </div>
+                    <h3>Ready to Ignite Your Brand's Creativity?</h3>
+                    <p class="lead mt-3">Contact us today to discuss your creative needs and get a free consultation. Let's work together to achieve your business goals.</p>
+                    <a href="<?php echo BASE_URL; ?>contact.php" class="btn btn-style-one mt-4">Get in Touch</a>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
 <?php include_once __DIR__ . '/../footer.php'; ?>

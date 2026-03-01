@@ -1,4 +1,5 @@
 <?php include_once __DIR__ . '/../config.php'; include_once __DIR__ . '/../header.php'; ?>
+<?php include_once __DIR__ . '/../backend/db.php'; ?>
 
     <style>
         .page-banner {
@@ -42,38 +43,6 @@
         .content-section {
             padding-top: 80px;
             padding-bottom: 80px;
-        }
-        .icon-card {
-            display: flex;
-            align-items: flex-start;
-            background: #fff;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 5px 25px rgba(0,0,0,0.07);
-            margin-bottom: 20px;
-            transition: all 0.3s ease;
-            height: calc(100% - 20px);
-        }
-        .icon-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 35px rgba(0,0,0,0.1);
-        }
-        .icon-card .icon {
-            font-size: 30px;
-            color: #3C72FC;
-            margin-right: 20px;
-            min-width: 40px;
-        }
-        .icon-card h5 {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 5px;
-        }
-        .icon-card p {
-            font-size: 15px;
-            color: #666;
-            margin-bottom: 0;
-            line-height: 1.6;
         }
         .award-item-v2 {
             background: #fff;
@@ -174,72 +143,37 @@
            </div>
 
             <div class="row justify-content-center">
-                <!-- Static Award Item 1 -->
+                <?php
+                $awards_sql = "SELECT * FROM awards ORDER BY award_year DESC, reg_date DESC";
+                $awards_result = $conn->query($awards_sql);
+                if ($awards_result && $awards_result->num_rows > 0):
+                    while($row = $awards_result->fetch_assoc()):
+                ?>
+                <!-- Dynamic Award Item -->
                 <div class="col-lg-4 col-md-6" data-aos="fade-up">
                     <div class="award-item-v2">
-                        <img src="<?php echo BASE_URL; ?>assets/images/awards/award-1.png" class="award-image" alt="Best Digital Agency Award">
-                        <div class="award-year">2023</div>
-                        <h4 class="award-title">Best Digital Agency</h4>
-                        <p class="awarding-body">Global Digital Excellence Awards</p>
-                        <p class="award-description">Recognized for outstanding innovation and client success in digital marketing solutions.</p>
-                        <a href="#" target="_blank" class="award-link">View Details</a>
+                        <?php if(!empty($row['image_url'])): ?>
+                            <img src="<?php echo $row['image_url']; ?>" class="award-image" alt="<?php echo htmlspecialchars($row['title']); ?>">
+                        <?php else: ?>
+                            <img src="<?php echo BASE_URL; ?>assets/images/awards/award-placeholder.png" class="award-image" alt="Placeholder">
+                        <?php endif; ?>
+                        <div class="award-year"><?php echo htmlspecialchars($row['award_year']); ?></div>
+                        <h4 class="award-title"><?php echo htmlspecialchars($row['title']); ?></h4>
+                        <p class="awarding-body"><?php echo htmlspecialchars($row['awarding_body'] ?? ''); ?></p>
+                        <p class="award-description"><?php echo htmlspecialchars($row['description'] ?? ''); ?></p>
+                        <?php if(!empty($row['link_url'])): ?>
+                            <a href="<?php echo $row['link_url']; ?>" target="_blank" class="award-link">View Details</a>
+                        <?php endif; ?>
                     </div>
                 </div>
-                <!-- Static Award Item 2 -->
-                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
-                    <div class="award-item-v2">
-                        <img src="<?php echo BASE_URL; ?>assets/images/awards/award-2.png" class="award-image" alt="Top Web Development Firm">
-                        <div class="award-year">2022</div>
-                        <h4 class="award-title">Top Web Development Firm</h4>
-                        <p class="awarding-body">Tech Innovators Magazine</p>
-                        <p class="award-description">Honored for delivering cutting-edge, scalable, and user-centric web development projects.</p>
-                        <a href="#" target="_blank" class="award-link">View Details</a>
+                <?php 
+                    endwhile;
+                else:
+                ?>
+                    <div class="col-12 text-center">
+                        <p>No awards or recognition records found at the moment.</p>
                     </div>
-                </div>
-                <!-- Static Award Item 3 -->
-                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
-                    <div class="award-item-v2">
-                        <img src="<?php echo BASE_URL; ?>assets/images/awards/award-3.png" class="award-image" alt="Excellence in Mobile App Design">
-                        <div class="award-year">2021</div>
-                        <h4 class="award-title">Excellence in Mobile App Design</h4>
-                        <p class="awarding-body">Mobile Tech Summit</p>
-                        <p class="award-description">Awarded for creating highly intuitive and engaging mobile applications with superior UX/UI.</p>
-                        <a href="#" target="_blank" class="award-link">View Details</a>
-                    </div>
-                </div>
-                <!-- Static Award Item 4 -->
-                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
-                    <div class="award-item-v2">
-                        <img src="<?php echo BASE_URL; ?>assets/images/awards/award-4.png" class="award-image" alt="Best SEO Campaign">
-                        <div class="award-year">2023</div>
-                        <h4 class="award-title">Best SEO Campaign</h4>
-                        <p class="awarding-body">Search Engine Marketing Awards</p>
-                        <p class="award-description">Recognized for a data-driven SEO campaign that achieved significant organic traffic growth.</p>
-                        <a href="#" target="_blank" class="award-link">View Details</a>
-                    </div>
-                </div>
-                <!-- Static Award Item 5 -->
-                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
-                    <div class="award-item-v2">
-                        <img src="<?php echo BASE_URL; ?>assets/images/awards/award-5.png" class="award-image" alt="Creative Agency of the Year">
-                        <div class="award-year">2022</div>
-                        <h4 class="award-title">Creative Agency of the Year</h4>
-                        <p class="awarding-body">National Creative Industries</p>
-                        <p class="award-description">Honored for innovative and impactful creative solutions across various client projects.</p>
-                        <a href="#" target="_blank" class="award-link">View Details</a>
-                    </div>
-                </div>
-                <!-- Static Award Item 6 -->
-                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="500">
-                    <div class="award-item-v2">
-                        <img src="<?php echo BASE_URL; ?>assets/images/awards/award-6.png" class="award-image" alt="Excellence in Content Marketing">
-                        <div class="award-year">2021</div>
-                        <h4 class="award-title">Excellence in Content Marketing</h4>
-                        <p class="awarding-body">Content Marketing Institute</p>
-                        <p class="award-description">Awarded for strategic content campaigns that built authority and generated high-quality leads.</p>
-                        <a href="#" target="_blank" class="award-link">View Details</a>
-                    </div>
-                </div>
+                <?php endif; ?>
             </div>
         </div>
     </section>

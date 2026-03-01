@@ -113,18 +113,13 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link <?php echo (basename($_SERVER['PHP_SELF']) == 'manage_case_studies.php' || basename($_SERVER['PHP_SELF']) == 'edit_case_study.php') ? 'active' : ''; ?>" href="manage_case_studies.php">
-                    <i class="fas fa-folder-open me-2"></i> Manage Case Studies
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link <?php echo (basename($_SERVER['PHP_SELF']) == 'manage_awards.php' || basename($_SERVER['PHP_SELF']) == 'edit_award.php') ? 'active' : ''; ?>" href="manage_awards.php">
-                    <i class="fas fa-trophy me-2"></i> Manage Awards
-                </a>
-            </li>
-            <li class="nav-item">
                 <a class="nav-link <?php echo (basename($_SERVER['PHP_SELF']) == 'manage_clients.php' || basename($_SERVER['PHP_SELF']) == 'edit_client.php') ? 'active' : ''; ?>" href="manage_clients.php">
                     <i class="fas fa-users me-2"></i> Manage Clients
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link <?php echo (basename($_SERVER['PHP_SELF']) == 'manage_banners.php') ? 'active' : ''; ?>" href="manage_banners.php">
+                    <i class="fas fa-image me-2"></i> Manage Banners
                 </a>
             </li>
             <li class="nav-item">

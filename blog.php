@@ -31,9 +31,14 @@ if ($total_posts_result) {
 }
 $total_pages = ceil($total_posts / $posts_per_page);
 
-// --- Page Data for Banner & Header (Static for this page, as it's not managed by dynamic pages API) ---
-$banner_title = 'Latest Insights & Articles';
-$banner_image = 'assets/images/banner/banner.webp'; // Placeholder
+// --- Fetch Dynamic Banner ---
+$page_file = 'blog.php';
+$banner_res = $conn->query("SELECT * FROM page_banners WHERE page_name = '$page_file'");
+$banner_data = ($banner_res && $banner_res->num_rows > 0) ? $banner_res->fetch_assoc() : null;
+
+$display_banner_img = ($banner_data && !empty($banner_data['banner_image'])) ? $banner_data['banner_image'] : BASE_URL . 'assets/images/banner/banner.webp';
+$display_banner_title = ($banner_data && !empty($banner_data['banner_title'])) ? $banner_data['banner_title'] : 'Latest Insights & Articles';
+
 $breadcrumb_active = 'Blog';
 $section_subtitle = 'Stay Updated';
 $section_main_title = 'Explore Our Latest Blog Posts';
@@ -42,7 +47,7 @@ $section_main_title = 'Explore Our Latest Blog Posts';
     <style>
         /* General Page Banner Styling (similar to team.php) */
         .page-banner {
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('<?php echo $banner_image; ?>');
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('<?php echo $display_banner_img; ?>');
             background-size: cover;
             background-position: center;
             padding-top: 220px;
@@ -196,11 +201,11 @@ $section_main_title = 'Explore Our Latest Blog Posts';
         }
     </style>
 
-    <section class="page-banner">
+<section class="page-banner">
         <div class="container">
             <div class="row">
                 <div class="col-md-12" data-aos="zoom-in">
-                    <h2><?php echo $banner_title; ?></h2>
+                    <h2><?php echo $display_banner_title; ?></h2>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb breadcrumb-custom">
                             <li class="breadcrumb-item"><a href="<?php echo BASE_URL; ?>index.php">Home</a></li>

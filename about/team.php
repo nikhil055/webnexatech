@@ -1,15 +1,24 @@
-<?php include 'header.php'; ?>
+<?php include_once __DIR__ . '/../config.php'; include_once __DIR__ . '/../header.php'; ?>
+<?php 
+include_once __DIR__ . '/../backend/db.php';
+$page_file = 'about/team.php';
+$banner_res = $conn->query("SELECT * FROM page_banners WHERE page_name = '$page_file'");
+$banner_data = ($banner_res && $banner_res->num_rows > 0) ? $banner_res->fetch_assoc() : null;
+
+$display_banner_img = ($banner_data && !empty($banner_data['banner_image'])) ? $banner_data['banner_image'] : 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070&auto=format&fit=crop';
+$display_banner_title = ($banner_data && !empty($banner_data['banner_title'])) ? $banner_data['banner_title'] : 'Our Experts';
+?>
+
     <style>
-        /* Professional Banner */
         .page-banner {
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070&auto=format&fit=crop');
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('<?php echo $display_banner_img; ?>');
             background-size: cover;
             background-position: center;
             padding-top: 220px;
             padding-bottom: 100px;
             text-align: center;
             color: #fff;
-            margin-bottom: 50px;
+        }
         }
 
         .page-banner h2 {
@@ -169,10 +178,10 @@
         }
     </style>
     <section class="page-banner">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12" data-aos="zoom-in">
-                    <h2>Meet Our Experts</h2>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12" data-aos="zoom-in">
+                        <h2><?php echo $display_banner_title; ?></h2>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb breadcrumb-custom">
                             <li class="breadcrumb-item"><a href="<?php echo BASE_URL; ?>index.php">Home</a></li>
@@ -316,5 +325,5 @@
             </div>
         </div>
     </section>
-<?php include 'footer.php'; ?>
+<?php include_once __DIR__ . '/../footer.php'; ?>
 

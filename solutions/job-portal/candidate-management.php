@@ -1,8 +1,17 @@
 <?php include_once __DIR__ . '/../../config.php'; include_once __DIR__ . '/../../header.php'; ?>
+<?php 
+include_once __DIR__ . '/../../backend/db.php';
+$page_file = 'solutions/job-portal/candidate-management.php';
+$banner_res = $conn->query("SELECT * FROM page_banners WHERE page_name = '$page_file'");
+$banner_data = ($banner_res && $banner_res->num_rows > 0) ? $banner_res->fetch_assoc() : null;
+
+$display_banner_img = ($banner_data && !empty($banner_data['banner_image'])) ? $banner_data['banner_image'] : BASE_URL . 'assets/images/header-icon/solution/candidate-management.png';
+$display_banner_title = ($banner_data && !empty($banner_data['banner_title'])) ? $banner_data['banner_title'] : 'Candidate Management System';
+?>
 
     <style>
         .page-banner {
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('<?php echo BASE_URL; ?>assets/images/header-icon/solution/candidate-management.png');
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('<?php echo $display_banner_img; ?>');
             background-size: cover;
             background-position: center;
             padding-top: 220px;
@@ -98,11 +107,11 @@
         }
     </style>
 
-    <section class="page-banner">
+<section class="page-banner">
         <div class="container">
             <div class="row">
                 <div class="col-md-12" data-aos="zoom-in">
-                    <h2>Candidate Management System</h2>
+                    <h2><?php echo $display_banner_title; ?></h2>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb breadcrumb-custom">
                             <li class="breadcrumb-item"><a href="<?php echo BASE_URL; ?>index.php">Home</a></li>
@@ -282,6 +291,25 @@
             <div class="col-md-4 mb-4">
                 <h5>Companies with High-Volume Hiring</h5>
                 <p>That need robust tools to handle a large number of applicants, automate communication, and maintain an organized talent pipeline.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="content-section contact-cta">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-10 col-lg-8">
+                <div class="ser-head text-center" data-aos="fade-up">
+                    <div class="hed">
+                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowLeft.svg" width="6%" alt="">
+                        <span>Let's Talk</span>
+                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowRight.svg" width="6%" alt="">
+                    </div>
+                    <h3>Ready to Simplify Your Hiring Process?</h3>
+                    <p class="lead mt-3">Contact us today to discuss your recruitment needs and get a free consultation. Let's work together to achieve your business goals.</p>
+                    <a href="<?php echo BASE_URL; ?>contact.php" class="btn btn-style-one mt-4">Get in Touch</a>
+                </div>
             </div>
         </div>
     </div>

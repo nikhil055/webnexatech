@@ -1,4 +1,5 @@
 <?php include_once __DIR__ . '/../config.php'; include_once __DIR__ . '/../header.php'; ?>
+<?php include_once __DIR__ . '/../backend/db.php'; ?>
 
     <style>
         .page-banner {
@@ -42,38 +43,6 @@
         .content-section {
             padding-top: 80px;
             padding-bottom: 80px;
-        }
-        .icon-card {
-            display: flex;
-            align-items: flex-start;
-            background: #fff;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 5px 25px rgba(0,0,0,0.07);
-            margin-bottom: 20px;
-            transition: all 0.3s ease;
-            height: calc(100% - 20px);
-        }
-        .icon-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 35px rgba(0,0,0,0.1);
-        }
-        .icon-card .icon {
-            font-size: 30px;
-            color: #3C72FC;
-            margin-right: 20px;
-            min-width: 40px;
-        }
-        .icon-card h5 {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 5px;
-        }
-        .icon-card p {
-            font-size: 15px;
-            color: #666;
-            margin-bottom: 0;
-            line-height: 1.6;
         }
         .client-logo-item-v2 {
             background: #fff;
@@ -165,86 +134,43 @@
            </div>
 
             <div class="row justify-content-center">
-                <!-- Static Client Item 1 -->
+                <?php
+                $clients_sql = "SELECT * FROM clients WHERE is_active = TRUE ORDER BY reg_date DESC";
+                $clients_result = $conn->query($clients_sql);
+                if ($clients_result && $clients_result->num_rows > 0):
+                    while($row = $clients_result->fetch_assoc()):
+                ?>
+                <!-- Dynamic Client Item -->
                 <div class="col-lg-3 col-md-4 col-sm-6" data-aos="fade-up">
                     <div class="client-logo-item-v2">
-                        <a href="https://example.com/client1" target="_blank">
-                            <img src="<?php echo BASE_URL; ?>assets/images/clients/client1.png" class="client-logo-img" alt="Client 1 Logo">
-                        </a>
-                        <a href="https://example.com/client1" target="_blank" class="client-website-link">ClientCorp.com</a>
-                        <p class="client-testimonial">"Web Nexa transformed our digital strategy. Highly recommended!"</p>
+                        <?php if(!empty($row['website_url'])): ?>
+                            <a href="<?php echo $row['website_url']; ?>" target="_blank">
+                        <?php endif; ?>
+                        
+                        <?php if(!empty($row['logo_url'])): ?>
+                            <img src="<?php echo $row['logo_url']; ?>" class="client-logo-img" alt="<?php echo htmlspecialchars($row['name']); ?>">
+                        <?php else: ?>
+                            <div class="client-name"><?php echo htmlspecialchars($row['name']); ?></div>
+                        <?php endif; ?>
+
+                        <?php if(!empty($row['website_url'])): ?>
+                            </a>
+                            <a href="<?php echo $row['website_url']; ?>" target="_blank" class="client-website-link"><?php echo parse_url($row['website_url'], PHP_URL_HOST); ?></a>
+                        <?php endif; ?>
+
+                        <?php if(!empty($row['testimonial'])): ?>
+                            <p class="client-testimonial">"<?php echo htmlspecialchars($row['testimonial']); ?>"</p>
+                        <?php endif; ?>
                     </div>
                 </div>
-                <!-- Static Client Item 2 -->
-                <div class="col-lg-3 col-md-4 col-sm-6" data-aos="fade-up" data-aos-delay="100">
-                    <div class="client-logo-item-v2">
-                        <a href="https://example.com/client2" target="_blank">
-                            <img src="<?php echo BASE_URL; ?>assets/images/clients/client2.png" class="client-logo-img" alt="Client 2 Logo">
-                        </a>
-                        <a href="https://example.com/client2" target="_blank" class="client-website-link">InnovateSolutions.co</a>
-                        <p class="client-testimonial">"Their software development was top-notch, exceeding all expectations."</p>
+                <?php 
+                    endwhile;
+                else:
+                ?>
+                    <div class="col-12 text-center">
+                        <p>No clients found at the moment.</p>
                     </div>
-                </div>
-                <!-- Static Client Item 3 -->
-                <div class="col-lg-3 col-md-4 col-sm-6" data-aos="fade-up" data-aos-delay="200">
-                    <div class="client-logo-item-v2">
-                        <a href="https://example.com/client3" target="_blank">
-                            <img src="<?php echo BASE_URL; ?>assets/images/clients/client3.png" class="client-logo-img" alt="Client 3 Logo">
-                        </a>
-                        <a href="https://example.com/client3" target="_blank" class="client-website-link">GlobalConnect.net</a>
-                        <p class="client-testimonial">"Exceptional design and seamless integration. A true partner."</p>
-                    </div>
-                </div>
-                <!-- Static Client Item 4 -->
-                <div class="col-lg-3 col-md-4 col-sm-6" data-aos="fade-up" data-aos-delay="300">
-                    <div class="client-logo-item-v2">
-                        <a href="https://example.com/client4" target="_blank">
-                            <img src="<?php echo BASE_URL; ?>assets/images/clients/client4.png" class="client-logo-img" alt="Client 4 Logo">
-                        </a>
-                        <a href="https://example.com/client4" target="_blank" class="client-website-link">FutureTech.org</a>
-                        <p class="client-testimonial">"Their SEO expertise brought us to the first page of Google!"</p>
-                    </div>
-                </div>
-                <!-- Static Client Item 5 -->
-                <div class="col-lg-3 col-md-4 col-sm-6" data-aos="fade-up" data-aos-delay="400">
-                    <div class="client-logo-item-v2">
-                        <a href="https://example.com/client5" target="_blank">
-                            <img src="<?php echo BASE_URL; ?>assets/images/clients/client5.png" class="client-logo-img" alt="Client 5 Logo">
-                        </a>
-                        <a href="https://example.com/client5" target="_blank" class="client-website-link">GreenEnergy.com</a>
-                        <p class="client-testimonial">"Sustainable growth and brilliant content marketing campaigns."</p>
-                    </div>
-                </div>
-                <!-- Static Client Item 6 -->
-                <div class="col-lg-3 col-md-4 col-sm-6" data-aos="fade-up" data-aos-delay="500">
-                    <div class="client-logo-item-v2">
-                        <a href="https://example.com/client6" target="_blank">
-                            <img src="<?php echo BASE_URL; ?>assets/images/clients/client6.png" class="client-logo-img" alt="Client 6 Logo">
-                        </a>
-                        <a href="https://example.com/client6" target="_blank" class="client-website-link">EcoInnovations.net</a>
-                        <p class="client-testimonial">"Responsive web design and outstanding mobile app development."</p>
-                    </div>
-                </div>
-                <!-- Static Client Item 7 -->
-                <div class="col-lg-3 col-md-4 col-sm-6" data-aos="fade-up" data-aos-delay="600">
-                    <div class="client-logo-item-v2">
-                        <a href="https://example.com/client7" target="_blank">
-                            <img src="<?php echo BASE_URL; ?>assets/images/clients/client7.png" class="client-logo-img" alt="Client 7 Logo">
-                        </a>
-                        <a href="https://example.com/client7" target="_blank" class="client-website-link">HealthPlus.org</a>
-                        <p class="client-testimonial">"Their healthcare solutions are simply revolutionary."</p>
-                    </div>
-                </div>
-                <!-- Static Client Item 8 -->
-                <div class="col-lg-3 col-md-4 col-sm-6" data-aos="fade-up" data-aos-delay="700">
-                    <div class="client-logo-item-v2">
-                        <a href="https://example.com/client8" target="_blank">
-                            <img src="<?php echo BASE_URL; ?>assets/images/clients/client8.png" class="client-logo-img" alt="Client 8 Logo">
-                        </a>
-                        <a href="https://example.com/client8" target="_blank" class="client-website-link">SportGear.shop</a>
-                        <p class="client-testimonial">"Boosted our e-commerce sales with fantastic paid media campaigns."</p>
-                    </div>
-                </div>
+                <?php endif; ?>
             </div>
         </div>
     </section>

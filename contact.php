@@ -12,7 +12,7 @@ $page_data = [
         [
             'icon_class' => 'fa-solid fa-map-marker-alt',
             'title' => 'Our Address',
-            'details' => 'Gaur city Center, Greater Noida West, Uttar Pradesh, 201306'
+            'details' => 'Gali No. 9, near Star Furniture, Bharat Colony, Sector 87, Neharpar Faridabad, Faridabad, Haryana 121002'
         ],
         [
             'icon_class' => 'fa-solid fa-phone-alt',

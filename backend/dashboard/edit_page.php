@@ -1,11 +1,12 @@
 <?php
 include 'auth.php';
 include '../db.php';
+include_once __DIR__ . '/../../config.php';
 
 $page = null;
 $page_sections = [];
 $page_id = null;
-$api_endpoint = 'http://localhost/public_html/backend/api/pages.php'; // Absolute URL to the API
+$api_endpoint = BASE_URL . 'backend/api/pages.php'; // Use BASE_URL from config.php
 
 // If ID is provided, fetch existing page data
 if (isset($_GET['id'])) {

@@ -1,4 +1,5 @@
 <?php include_once __DIR__ . '/../config.php'; include_once __DIR__ . '/../header.php'; ?>
+<?php include_once __DIR__ . '/../backend/db.php'; ?>
 
     <style>
         .page-banner {
@@ -43,38 +44,6 @@
             padding-top: 80px;
             padding-bottom: 80px;
         }
-        .icon-card {
-            display: flex;
-            align-items: flex-start;
-            background: #fff;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 5px 25px rgba(0,0,0,0.07);
-            margin-bottom: 20px;
-            transition: all 0.3s ease;
-            height: calc(100% - 20px);
-        }
-        .icon-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 35px rgba(0,0,0,0.1);
-        }
-        .icon-card .icon {
-            font-size: 30px;
-            color: #3C72FC;
-            margin-right: 20px;
-            min-width: 40px;
-        }
-        .icon-card h5 {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 5px;
-        }
-        .icon-card p {
-            font-size: 15px;
-            color: #666;
-            margin-bottom: 0;
-            line-height: 1.6;
-        }
         .case-study-item-v2 {
             background: #fff;
             border-radius: 15px;
@@ -84,6 +53,7 @@
             display: flex;
             flex-direction: column;
             overflow: hidden;
+            height: 100%;
         }
         .case-study-item-v2:hover {
             transform: translateY(-10px);
@@ -93,8 +63,6 @@
             position: relative;
             height: 250px;
             overflow: hidden;
-            border-top-left-radius: 15px;
-            border-top-right-radius: 15px;
         }
         .case-study-item-v2 img {
             width: 100%;
@@ -148,13 +116,13 @@
             text-decoration: none;
             display: inline-flex;
             align-items: center;
-            transition: transform 0.3s ease;
+            margin-top: auto;
         }
         .case-study-item-v2 .read-more-link i {
             margin-left: 8px;
             transition: transform 0.3s ease;
         }
-        .case-study-item-v2 .read-more-link:hover i {
+        .case-study-item-v2:hover .read-more-link i {
             transform: translateX(5px);
         }
     </style>
@@ -192,102 +160,48 @@
            </div>
 
             <div class="row justify-content-center">
-                <!-- Static Case Study 1 -->
+                <?php
+                $cs_sql = "SELECT * FROM case_studies ORDER BY reg_date DESC";
+                $cs_result = $conn->query($cs_sql);
+                if ($cs_result && $cs_result->num_rows > 0):
+                    while($row = $cs_result->fetch_assoc()):
+                ?>
+                <!-- Dynamic Case Study Item -->
                 <div class="col-lg-4 col-md-6" data-aos="fade-up">
                     <div class="case-study-item-v2">
                         <div class="image-wrapper">
-                            <img src="<?php echo BASE_URL; ?>assets/images/case_studies/69594103f1870_Screenshot_2026-01-02_195103-removebg-preview.png" class="img-fluid" alt="Client X E-commerce Redesign">
+                            <?php if(!empty($row['image_url'])): ?>
+                                <img src="<?php echo $row['image_url']; ?>" class="img-fluid" alt="<?php echo htmlspecialchars($row['title']); ?>">
+                            <?php else: ?>
+                                <img src="<?php echo BASE_URL; ?>assets/images/work/project-placeholder.jpg" class="img-fluid" alt="Placeholder">
+                            <?php endif; ?>
                         </div>
                         <div class="content-body">
                             <div class="client-info">
-                                <i class="fas fa-user-tie"></i> Client X &nbsp; | &nbsp; <i class="fas fa-industry"></i> Retail E-commerce
+                                <i class="fas fa-user-tie"></i> <?php echo htmlspecialchars($row['client_name'] ?? 'Client'); ?> &nbsp; | &nbsp; <i class="fas fa-industry"></i> <?php echo htmlspecialchars($row['industry'] ?? 'Technology'); ?>
                             </div>
-                            <h4 class="main-title"><a href="#">E-commerce Platform Redesign & Optimization</a></h4>
-                            <p class="brief-description">Revamped a lagging online store, leading to a 45% increase in conversion rates and 60% growth in annual online revenue within 12 months.</p>
-                            <a href="#" class="read-more-link">Read Case Study <i class="fa-solid fa-arrow-right"></i></a>
+                            <h4 class="main-title">
+                                <?php if(!empty($row['case_study_link'])): ?>
+                                    <a href="<?php echo $row['case_study_link']; ?>" target="_blank"><?php echo htmlspecialchars($row['title']); ?></a>
+                                <?php else: ?>
+                                    <?php echo htmlspecialchars($row['title']); ?>
+                                <?php endif; ?>
+                            </h4>
+                            <p class="brief-description"><?php echo htmlspecialchars($row['description'] ?? ''); ?></p>
+                            <?php if(!empty($row['case_study_link'])): ?>
+                                <a href="<?php echo $row['case_study_link']; ?>" target="_blank" class="read-more-link">Read Case Study <i class="fa-solid fa-arrow-right"></i></a>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>
-                <!-- Static Case Study 2 -->
-                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
-                    <div class="case-study-item-v2">
-                        <div class="image-wrapper">
-                            <img src="<?php echo BASE_URL; ?>assets/images/work/project-2.jpg" class="img-fluid" alt="Client Y Mobile App Development">
-                        </div>
-                        <div class="content-body">
-                            <div class="client-info">
-                                <i class="fas fa-user-tie"></i> Client Y &nbsp; | &nbsp; <i class="fas fa-industry"></i> Healthcare Technology
-                            </div>
-                            <h4 class="main-title"><a href="#">Custom Mobile App for Patient Engagement</a></h4>
-                            <p class="brief-description">Developed an intuitive mobile application for a healthcare provider, improving patient communication and appointment adherence by 35%.</p>
-                            <a href="#" class="read-more-link">Read Case Study <i class="fa-solid fa-arrow-right"></i></a>
-                        </div>
+                <?php 
+                    endwhile;
+                else:
+                ?>
+                    <div class="col-12 text-center">
+                        <p>No case studies found at the moment.</p>
                     </div>
-                </div>
-                <!-- Static Case Study 3 -->
-                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
-                    <div class="case-study-item-v2">
-                        <div class="image-wrapper">
-                            <img src="<?php echo BASE_URL; ?>assets/images/work/project-3.jpg" class="img-fluid" alt="Client Z SaaS Platform UX">
-                        </div>
-                        <div class="content-body">
-                            <div class="client-info">
-                                <i class="fas fa-user-tie"></i> Client Z &nbsp; | &nbsp; <i class="fas fa-industry"></i> Enterprise SaaS
-                            </div>
-                            <h4 class="main-title"><a href="#">Enterprise SaaS Platform UX/UI Enhancement</a></h4>
-                            <p class="brief-description">Enhanced the user experience and interface of a complex enterprise SaaS platform, resulting in a 20% increase in user productivity.</p>
-                            <a href="#" class="read-more-link">Read Case Study <i class="fa-solid fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <!-- Static Case Study 4 -->
-                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
-                    <div class="case-study-item-v2">
-                        <div class="image-wrapper">
-                            <img src="<?php echo BASE_URL; ?>assets/images/work/project-4.jpg" class="img-fluid" alt="Client A Digital Marketing Strategy">
-                        </div>
-                        <div class="content-body">
-                            <div class="client-info">
-                                <i class="fas fa-user-tie"></i> Client A &nbsp; | &nbsp; <i class="fas fa-industry"></i> Financial Services
-                            </div>
-                            <h4 class="main-title"><a href="#">Integrated Digital Marketing Strategy for FinTech</a></h4>
-                            <p class="brief-description">Developed a holistic digital marketing campaign (SEO, PPC, Content) for a FinTech startup, achieving 150% growth in leads.</p>
-                            <a href="#" class="read-more-link">Read Case Study <i class="fa-solid fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <!-- Static Case Study 5 -->
-                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
-                    <div class="case-study-item-v2">
-                        <div class="image-wrapper">
-                            <img src="<?php echo BASE_URL; ?>assets/images/work/project-5.jpg" class="img-fluid" alt="Client B Brand Identity">
-                        </div>
-                        <div class="content-body">
-                            <div class="client-info">
-                                <i class="fas fa-user-tie"></i> Client B &nbsp; | &nbsp; <i class="fas fa-industry"></i> Consumer Goods
-                            </div>
-                            <h4 class="main-title"><a href="#">Comprehensive Brand Identity & Packaging Design</a></h4>
-                            <p class="brief-description">Created a captivating new brand identity and packaging for a consumer goods brand, significantly boosting market presence.</p>
-                            <a href="#" class="read-more-link">Read Case Study <i class="fa-solid fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <!-- Static Case Study 6 -->
-                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="500">
-                    <div class="case-study-item-v2">
-                        <div class="image-wrapper">
-                            <img src="<?php echo BASE_URL; ?>assets/images/work/project-6.jpg" class="img-fluid" alt="Client C Mobile Learning Platform">
-                        </div>
-                        <div class="content-body">
-                            <div class="client-info">
-                                <i class="fas fa-user-tie"></i> Client C &nbsp; | &nbsp; <i class="fas fa-industry"></i> Education
-                            </div>
-                            <h4 class="main-title"><a href="#">Development of an Interactive Mobile Learning Platform</a></h4>
-                            <p class="brief-description">Developed an engaging mobile learning platform for K-12 education, increasing user retention and learning outcomes by 25%.</p>
-                            <a href="#" class="read-more-link">Read Case Study <i class="fa-solid fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-                </div>
+                <?php endif; ?>
             </div>
         </div>
     </section>

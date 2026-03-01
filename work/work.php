@@ -1,4 +1,5 @@
 <?php include_once __DIR__ . '/../config.php'; include_once __DIR__ . '/../header.php'; ?>
+<?php include_once __DIR__ . '/../backend/db.php'; ?>
 
     <style>
         .page-banner {
@@ -179,78 +180,44 @@
                 </div>
            </div>
             <div class="row justify-content-center">
-                <!-- Static Work Item 1 -->
+                <?php
+                $work_sql = "SELECT * FROM work_items ORDER BY reg_date DESC";
+                $work_result = $conn->query($work_sql);
+                if ($work_result && $work_result->num_rows > 0):
+                    while($row = $work_result->fetch_assoc()):
+                ?>
+                <!-- Dynamic Work Item -->
                 <div class="col-lg-4 col-md-6" data-aos="fade-up">
                     <div class="work-card">
-                        <img src="<?php echo BASE_URL; ?>assets/images/work/project-1.jpg" class="img-fluid" alt="Project Title 1">
+                        <?php if(!empty($row['image_url'])): ?>
+                            <img src="<?php echo $row['image_url']; ?>" class="img-fluid" alt="<?php echo htmlspecialchars($row['title']); ?>">
+                        <?php else: ?>
+                            <img src="<?php echo BASE_URL; ?>assets/images/work/project-placeholder.jpg" class="img-fluid" alt="Placeholder">
+                        <?php endif; ?>
                         <div class="card-body">
-                            <h4 class="project-title"><a href="<?php echo BASE_URL; ?>work/case-studies.php">Dynamic E-commerce Platform</a></h4>
-                            <p class="project-description">Developed a custom e-commerce solution with advanced features for a fashion retailer, enhancing user experience and sales.</p>
-                            <a href="<?php echo BASE_URL; ?>work/case-studies.php" class="view-project">View Project <i class="fa-solid fa-arrow-right"></i></a>
-                            <div class="project-date">January 15, 2023</div>
+                            <h4 class="project-title">
+                                <?php if(!empty($row['project_link'])): ?>
+                                    <a href="<?php echo $row['project_link']; ?>" target="_blank"><?php echo htmlspecialchars($row['title']); ?></a>
+                                <?php else: ?>
+                                    <?php echo htmlspecialchars($row['title']); ?>
+                                <?php endif; ?>
+                            </h4>
+                            <p class="project-description"><?php echo htmlspecialchars($row['description'] ?? ''); ?></p>
+                            <?php if(!empty($row['project_link'])): ?>
+                                <a href="<?php echo $row['project_link']; ?>" target="_blank" class="view-project">View Project <i class="fa-solid fa-arrow-right"></i></a>
+                            <?php endif; ?>
+                            <div class="project-date"><?php echo date('F d, Y', strtotime($row['reg_date'])); ?></div>
                         </div>
                     </div>
                 </div>
-                <!-- Static Work Item 2 -->
-                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
-                    <div class="work-card">
-                        <img src="<?php echo BASE_URL; ?>assets/images/work/project-2.jpg" class="img-fluid" alt="Project Title 2">
-                        <div class="card-body">
-                            <h4 class="project-title"><a href="<?php echo BASE_URL; ?>work/case-studies.php">Interactive Mobile App Design</a></h4>
-                            <p class="project-description">Crafted a user-centric mobile application for a fitness brand, focusing on intuitive UX/UI and engaging features.</p>
-                            <a href="<?php echo BASE_URL; ?>work/case-studies.php" class="view-project">View Project <i class="fa-solid fa-arrow-right"></i></a>
-                            <div class="project-date">February 20, 2023</div>
-                        </div>
+                <?php 
+                    endwhile;
+                else:
+                ?>
+                    <div class="col-12 text-center">
+                        <p>No projects found in our portfolio yet.</p>
                     </div>
-                </div>
-                <!-- Static Work Item 3 -->
-                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
-                    <div class="work-card">
-                        <img src="<?php echo BASE_URL; ?>assets/images/work/project-3.jpg" class="img-fluid" alt="Project Title 3">
-                        <div class="card-body">
-                            <h4 class="project-title"><a href="<?php echo BASE_URL; ?>work/case-studies.php">Brand Identity Redesign</a></h4>
-                            <p class="project-description">Executed a complete brand overhaul for a tech startup, delivering a fresh logo, guidelines, and marketing collateral.</p>
-                            <a href="<?php echo BASE_URL; ?>work/case-studies.php" class="view-project">View Project <i class="fa-solid fa-arrow-right"></i></a>
-                            <div class="project-date">March 10, 2023</div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Static Work Item 4 -->
-                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
-                    <div class="work-card">
-                        <img src="<?php echo BASE_URL; ?>assets/images/work/project-4.jpg" class="img-fluid" alt="Project Title 4">
-                        <div class="card-body">
-                            <h4 class="project-title"><a href="<?php echo BASE_URL; ?>work/case-studies.php">SEO & Content Strategy</a></h4>
-                            <p class="project-description">Developed and implemented an SEO-driven content strategy for a B2B SaaS company, significantly increasing organic traffic.</p>
-                            <a href="<?php echo BASE_URL; ?>work/case-studies.php" class="view-project">View Project <i class="fa-solid fa-arrow-right"></i></a>
-                            <div class="project-date">April 05, 2023</div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Static Work Item 5 -->
-                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
-                    <div class="work-card">
-                        <img src="<?php echo BASE_URL; ?>assets/images/work/project-5.jpg" class="img-fluid" alt="Project Title 5">
-                        <div class="card-body">
-                            <h4 class="project-title"><a href="<?php echo BASE_URL; ?>work/case-studies.php">Paid Media Campaign for Lead Gen</a></h4>
-                            <p class="project-description">Managed a highly successful Google Ads and social media campaign that generated qualified leads for a real estate client.</p>
-                            <a href="<?php echo BASE_URL; ?>work/case-studies.php" class="view-project">View Project <i class="fa-solid fa-arrow-right"></i></a>
-                            <div class="project-date">May 12, 2023</div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Static Work Item 6 -->
-                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="500">
-                    <div class="work-card">
-                        <img src="<?php echo BASE_URL; ?>assets/images/work/project-6.jpg" class="img-fluid" alt="Project Title 6">
-                        <div class="card-body">
-                            <h4 class="project-title"><a href="<?php echo BASE_URL; ?>work/case-studies.php">Custom Healthcare Platform</a></h4>
-                            <p class="project-description">Designed and developed a secure, user-friendly platform for patient management and telehealth services for a clinic network.</p>
-                            <a href="<?php echo BASE_URL; ?>work/case-studies.php" class="view-project">View Project <i class="fa-solid fa-arrow-right"></i></a>
-                            <div class="project-date">June 01, 2023</div>
-                        </div>
-                    </div>
-                </div>
+                <?php endif; ?>
             </div>
         </div>
     </section>

@@ -287,23 +287,25 @@
     </div>
 </section>
 
-    <section class="content-section contact-cta">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-10 col-lg-8">
-                    <div class="ser-head text-center" data-aos="fade-up">
-                        <div class="hed text-center">
-                            <img src="<?php echo BASE_URL; ?>assets/images/about/arrowLeft.svg" width="6%" alt="">
-                            <span>Let's Talk</span>
-                            <img src="<?php echo BASE_URL; ?>assets/images/about/arrowRight.svg" width="6%" alt="">
-                        </div>
-                        <h3>Ready to Ignite Your Brand?</h3>
-                        <p class="lead mt-3">Contact us today to discuss your creative needs and bring your vision to life. Let's create something extraordinary together.</p>
-                        <a href="<?php echo BASE_URL; ?>contact.php" class="btn btn-style-one mt-4">Get in Touch</a>
+   
+
+<section class="content-section contact-cta">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-10 col-lg-8">
+                <div class="ser-head text-center" data-aos="fade-up">
+                    <div class="hed">
+                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowLeft.svg" width="6%" alt="">
+                        <span>Let's Talk</span>
+                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowRight.svg" width="6%" alt="">
                     </div>
+                    <h3>Ready to Capture Your Brand's Best Angle?</h3>
+                    <p class="lead mt-3">Contact us today to discuss your photography needs and get a free consultation. Let's work together to achieve your business goals.</p>
+                    <a href="<?php echo BASE_URL; ?>contact.php" class="btn btn-style-one mt-4">Get in Touch</a>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
 <?php include_once __DIR__ . '/../footer.php'; ?>

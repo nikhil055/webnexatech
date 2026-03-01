@@ -35,35 +35,29 @@
                 <div class="col-md-6">
                     <div class="top-left text-start">
                         <ul>
-                            <li>  
+                            <li>
                                    <a href="tel:+91 9910893885"><i class="fa-solid fa-headset"></i>+91 9910893885</a>
                                 </li>
-                              <li > 
+                              <li >
                                  <a style="border: none;" href="Mailto:info@webnexatechnologies.com"><i class="fa-solid fa-envelope"></i>info@webnexatechnologies.com</a>
-                            
+
                                 </li>
-                         
+
                         </ul>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="top-right text-end">
-                        
+
                         <ul class="d-inline-block me-3">
-                            <li class="dropdown"><a style="border: none;" class="dropbtn" href="#">Help Center<i class="fa-solid fa-angle-down"></i></a> 
+                            <li class="dropdown"><a style="border: none;" class="dropbtn" href="#">Help Center<i class="fa-solid fa-angle-down"></i></a>
                                 <div class="dropdown-content  text-start">
                                 <a href="tel:+91 9910893885"> <i class="fa-solid fa-headset"></i>Call</a>
-                                <a href="https://wa.me/+91 9910893885" target="_blank"> <i class="fa-brands fa-whatsapp"></i>WhatsApp</a>
+                                <a href="https://wa.me/+91 9910893885" target="_blank"> <i class="fa-brands fa-whatsapp"></i>WhatsApp</a> 
                             </div></li>
                             <li><a href="<?php echo BASE_URL; ?>/policy.php">Our Policy</a></li>
-                            <li><a href="<?php echo BASE_URL; ?>/about.php">About Us</a></li>
+                            <li><a href="<?php echo BASE_URL; ?>about/about.php">About Us</a></li>
                         </ul>
-                        <div class="top-social d-inline-block">
-                            <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
-                            <a href="#"><i class="fa-brands fa-twitter"></i></a>
-                            <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
-                            <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                        </div>
                     </div>
                 </div>
 
@@ -76,36 +70,34 @@
       <div class="container">
         <a class="navbar-brand" href="<?php echo BASE_URL; ?>/index.php">
           <img src="<?php echo BASE_URL; ?>/assets/images/logo-web/logo.jpg" width="100%" alt=" logo"></a>
-  
+
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
           aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
          <i class="fa-solid fa-bars"></i>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
-          <ul class="navbar-nav ms-auto align-items-lg-center">
+          <ul class="navbar-nav mx-auto align-items-lg-center">
             <li class="nav-item">
               <a class="nav-link " aria-current="page" href="<?php echo BASE_URL; ?>/index.php">Home</a>
             </li>
-         
+
             <li class="nav-item  front dropdown">
-              <a class="nav-link dropdown-toggle" href="<?php echo BASE_URL; ?>/about.php" data-bs-toggle="dropdown">About</a>
+              <a class="nav-link dropdown-toggle" href="<?php echo BASE_URL; ?>about/about.php" data-bs-toggle="dropdown">About</a>
               <ul class="dropdown-menu abbbtt">
-                <li class="dropdown-item "> <a href="<?php echo BASE_URL; ?>/leadership.php"><i class="fa-solid fa-circle-caret-right"></i>Leadership</a> </li>
-                <li class="dropdown-item "> <a href="<?php echo BASE_URL; ?>/team.php"><i class="fa-solid fa-circle-caret-right"></i>Team</a> </li>
-                <li class="dropdown-item "> <a href="<?php echo BASE_URL; ?>/media.php"><i class="fa-solid fa-circle-caret-right"></i>Media</a> </li>
-                <li class="dropdown-item "> <a href="<?php echo BASE_URL; ?>/future.php"><i class="fa-solid fa-circle-caret-right"></i>Future</a> </li>
-                <li class="dropdown-item "> <a href="<?php echo BASE_URL; ?>/gallery.php"><i class="fa-solid fa-circle-caret-right"></i>Gallery</a> </li>
+                <li class="dropdown-item "> <a href="<?php echo BASE_URL; ?>about/leadership.php"><i class="fa-solid fa-circle-caret-right"></i>Leadership</a> </li>
+                <li class="dropdown-item "> <a href="<?php echo BASE_URL; ?>about/team.php"><i class="fa-solid fa-circle-caret-right"></i>Team</a> </li>
+                <li class="dropdown-item "> <a href="<?php echo BASE_URL; ?>about/gallery.php"><i class="fa-solid fa-circle-caret-right"></i>Gallery</a> </li>
               </ul>
              </li>
             <li class="nav-item  front dropdown">
-              <a class="nav-link dropdown-toggle" href="<?php echo BASE_URL; ?>/services.php" data-bs-toggle="dropdown"> Services </a>
+              <a class="nav-link dropdown-toggle" href="<?php echo BASE_URL; ?>/services.php" data-bs-toggle="dropdown"> Services </a>    
               <ul class="dropdown-menu abbbt">
                <div class="container">
-                
+
                 <div class="row">
-  
+
                   <div class="col" id="side-line">
-                    
+
                     <h6> <div class="head-icon">
                       <img src="<?php echo BASE_URL; ?>/assets/images/header-icon/seo.png" width="100%" alt="">
                     </div><a href="<?php echo BASE_URL; ?>seo/seo-services.php"> SEO SERVICES</a></h6>
@@ -113,11 +105,11 @@
                     <li class="dropdown-item"> <a href="<?php echo BASE_URL; ?>seo/local-seo.php"><i class="fa-solid fa-circle-caret-right"></i>Local SEO</a> </li>
                     <li class="dropdown-item"> <a href="<?php echo BASE_URL; ?>seo/e-commerce-seo.php"><i class="fa-solid fa-circle-caret-right"></i>E-Commerce SEO</a> </li>
                     <li class="dropdown-item"> <a href="<?php echo BASE_URL; ?>seo/youtube-seo.php"><i class="fa-solid fa-circle-caret-right"></i>YouTube SEO</a> </li>
-                  
+
                   </div>
-                     
+
                   <div class="col" id="side-line">
-                    
+
                     <h6> <div class="head-icon">
                       <img src="<?php echo BASE_URL; ?>/assets/images/header-icon/Creative.png" width="100%" alt="">
                     </div><a href="<?php echo BASE_URL; ?>creative/creative-services.php">Creative </a></h6>
@@ -128,7 +120,7 @@
                     <li class="dropdown-item"> <a href="<?php echo BASE_URL; ?>creative/graphics-motion.php"><i class="fa-solid fa-circle-caret-right"></i>Graphics & Motion</a> </li>
                     <li class="dropdown-item"> <a href="<?php echo BASE_URL; ?>creative/web-design.php"><i class="fa-solid fa-circle-caret-right"></i>Web Design</a> </li>
                     <li class="dropdown-item"> <a href="<?php echo BASE_URL; ?>creative/photoshoot.php"><i class="fa-solid fa-circle-caret-right"></i>Photoshoot</a> </li>
-                   
+
                   </div>
                   <div class="col" id="side-line">
                     <h6> <div class="head-icon">
@@ -140,43 +132,46 @@
                     <li class="dropdown-item"> <a href="<?php echo BASE_URL; ?>paid-media/programmatic-display-ads.php"><i class="fa-solid fa-circle-caret-right"></i>Programmatic & Display Ads</a> </li>
                     <li class="dropdown-item"> <a href="<?php echo BASE_URL; ?>paid-media/ooh-advertising.php"><i class="fa-solid fa-circle-caret-right"></i>OOH Advertising</a> </li>
                     <li class="dropdown-item"> <a href="<?php echo BASE_URL; ?>paid-media/ott-ads.php"><i class="fa-solid fa-circle-caret-right"></i>OTT Ads</a> </li>
-                   
+
                   </div>
-             
-                
+
+
                   <div class="col" id="side-line">
-                    
+
                     <h6> <div class="head-icon">
                       <img src="<?php echo BASE_URL; ?>/assets/images/header-icon/Content.png" width="100%" alt="">
                     </div><a href="<?php echo BASE_URL; ?>content/content-services.php"> Content</a></h6>
                     <li class="dropdown-item"> <a href="<?php echo BASE_URL; ?>content/content-writing.php"><i class="fa-solid fa-circle-caret-right"></i>Content Writing</a> </li>
                     <li class="dropdown-item"> <a href="<?php echo BASE_URL; ?>content/content-marketing.php"><i class="fa-solid fa-circle-caret-right"></i>Content Marketing</a> </li>
                     <li class="dropdown-item"> <a href="<?php echo BASE_URL; ?>content/technical-writing.php"><i class="fa-solid fa-circle-caret-right"></i>Technical Writing</a> </li>
-                   
+
                   </div>
-                
+
                   <div class="col" id="side-line">
-                    
+
                     <h6> <div class="head-icon">
                       <img src="<?php echo BASE_URL; ?>/assets/images/header-icon/Untitled-1.png" width="100%" alt="">
                     </div><a href="<?php echo BASE_URL; ?>technology/technology-services.php">Technology</a></h6>
                     <li class="dropdown-item"> <a href="<?php echo BASE_URL; ?>technology/website-development.php"><i class="fa-solid fa-circle-caret-right"></i>Website Development</a> </li>
                     <li class="dropdown-item"> <a href="<?php echo BASE_URL; ?>technology/software-development.php"><i class="fa-solid fa-circle-caret-right"></i>Software Development</a> </li>
                     <li class="dropdown-item"> <a href="<?php echo BASE_URL; ?>technology/mobile-apps.php"><i class="fa-solid fa-circle-caret-right"></i>Mobile Apps</a> </li>
+                    <li class="dropdown-item"> <a href="<?php echo BASE_URL; ?>technology/shopify-development.php"><i class="fa-solid fa-circle-caret-right"></i>Shopify Development</a> </li>
+                    <li class="dropdown-item"> <a href="<?php echo BASE_URL; ?>technology/wordpress-development.php"><i class="fa-solid fa-circle-caret-right"></i>WordPress Development</a> </li>
+                    <li class="dropdown-item"> <a href="<?php echo BASE_URL; ?>technology/ios-apps.php"><i class="fa-solid fa-circle-caret-right"></i>iOS Apps</a> </li>
                   </div>
-                
-  
+
+
                 </div>
 
                </div>
               </ul>
             </li>
             <li class="nav-item  front dropdown">
-              <a class="nav-link dropdown-toggle" href="<?php echo BASE_URL; ?>solutions.php" data-bs-toggle="dropdown">Solutions</a>
+              <a class="nav-link dropdown-toggle" href="<?php echo BASE_URL; ?>solutions.php" data-bs-toggle="dropdown">Solutions</a>     
               <ul class="dropdown-menu abbbttt">
                 <div class="row">
                   <div class="d-flex align-items-start">
-                    <div class="nav flex-column nav-pills me-3" id="v-pills-tab-solutions" role="tablist" aria-orientation="vertical">
+                    <div class="nav flex-column nav-pills me-3" id="v-pills-tab-solutions" role="tablist" aria-orientation="vertical">    
                       <button class="nav-link active" id="v-pills-ecommerce-tab" data-bs-toggle="pill" data-bs-target="#v-pills-ecommerce" type="button" role="tab" aria-controls="v-pills-ecommerce" aria-selected="true">ECommerce</button>
                       <button class="nav-link" id="v-pills-healthcare-tab" data-bs-toggle="pill" data-bs-target="#v-pills-healthcare" type="button" role="tab" aria-controls="v-pills-healthcare" aria-selected="false">Healthcare</button>
                       <button class="nav-link" id="v-pills-jobportal-tab" data-bs-toggle="pill" data-bs-target="#v-pills-jobportal" type="button" role="tab" aria-controls="v-pills-jobportal" aria-selected="false">Job Portal</button>
@@ -192,6 +187,8 @@
                                 <img src="<?php echo BASE_URL; ?>assets/images/header-icon/solution/apparel-stores.png" width="100%" alt="">
                               </div>
                               <div class="solution-text">
+                                <h5>Apparel</h5>
+                                <p>Discover our trendy and high-quality apparel collection, crafted to define your style and ensure all-day comfort for every occasion.</p>
                                 <a href="<?php echo BASE_URL; ?>solutions/e-commerce/apparel-solution.php">Explore more<i class="fa-solid fa-arrow-right"></i></a>
                               </div>
                             </div>
@@ -199,9 +196,11 @@
                           <div class="col-md-3">
                             <div class="solution-box text-center">
                               <div class="solution-img text-center">
-                                <img src="<?php echo BASE_URL; ?>assets/images/header-icon/solution/Jewellery.png" width="100%" alt="">
+                                <img src="<?php echo BASE_URL; ?>assets/images/header-icon/solution/Jewellery.png" width="100%" alt="">   
                               </div>
                               <div class="solution-text">
+                                <h5>Jewellery</h5>
+                                <p>Elevate your elegance with our exquisite jewellery, blending timeless designs with superior craftsmanship to make every moment sparkle.</p>
                                 <a href="<?php echo BASE_URL; ?>solutions/e-commerce/jewellery-solution.php">Explore more<i class="fa-solid fa-arrow-right"></i></a>
                               </div>
                             </div>
@@ -209,7 +208,7 @@
                           <div class="col-md-3">
                             <div class="solution-box text-center">
                               <div class="solution-img text-center">
-                                <img src="<?php echo BASE_URL; ?>assets/images/header-icon/solution/Furniture.png" width="100%" alt="">
+                                <img src="<?php echo BASE_URL; ?>assets/images/header-icon/solution/Furniture.png" width="100%" alt="">   
                               </div>
                               <div class="solution-text">
                                 <h5>Furniture</h5>
@@ -221,9 +220,11 @@
                           <div class="col-md-3">
                             <div class="solution-box text-center">
                               <div class="solution-img text-center">
-                                <img src="<?php echo BASE_URL; ?>assets/images/header-icon/solution/Cosmetics.png" width="100%" alt="">
+                                <img src="<?php echo BASE_URL; ?>assets/images/header-icon/solution/Cosmetics.png" width="100%" alt="">   
                               </div>
                               <div class="solution-text">
+                                <h5>Cosmetics</h5>
+                                <p>Enhance your natural beauty with our premium cosmetics, formulated for long-lasting wear and a flawless finish that empowers your confidence.</p>
                                 <a href="<?php echo BASE_URL; ?>solutions/e-commerce/cosmetics-solution.php">Explore more<i class="fa-solid fa-arrow-right"></i></a>
                               </div>
                             </div>
@@ -251,6 +252,8 @@
                                 <img src="<?php echo BASE_URL; ?>assets/images/header-icon/solution/Hospital Management.png" width="100%" alt="">
                               </div>
                               <div class="solution-text">
+                                <h5>Hospital Management</h5>
+                                <p>Efficiently manage hospital workflows, patient records, and administrative tasks with our robust and secure hospital management system.</p>
                                 <a href="<?php echo BASE_URL; ?>solutions/healthcare/hospital-management-solution.php">Explore more<i class="fa-solid fa-arrow-right"></i></a>
                               </div>
                             </div>
@@ -276,7 +279,7 @@
                           <div class="col-md-3">
                             <div class="solution-box text-center">
                               <div class="solution-img text-center">
-                                <img src="<?php echo BASE_URL; ?>assets/images/header-icon/solution/job-portal.png" width="100%" alt="">
+                                <img src="<?php echo BASE_URL; ?>assets/images/header-icon/solution/job-portal.png" width="100%" alt="">  
                               </div>
                               <div class="solution-text">
                                 <h5>Job Portal Overview</h5>
@@ -318,7 +321,7 @@
                           <div class="col-md-3">
                             <div class="solution-box text-center">
                               <div class="solution-img text-center">
-                                <img src="<?php echo BASE_URL; ?>assets/images/header-icon/solution/car-rental.png" width="100%" alt="">
+                                <img src="<?php echo BASE_URL; ?>assets/images/header-icon/solution/car-rental.png" width="100%" alt="">  
                               </div>
                               <div class="solution-text">
                                 <h5>Car Rental Overview</h5>
@@ -330,7 +333,7 @@
                           <div class="col-md-3">
                             <div class="solution-box text-center">
                               <div class="solution-img text-center">
-                                <img src="<?php echo BASE_URL; ?>assets/images/header-icon/solution/self-drive.png" width="100%" alt="">
+                                <img src="<?php echo BASE_URL; ?>assets/images/header-icon/solution/self-drive.png" width="100%" alt="">  
                               </div>
                               <div class="solution-text">
                                 <h5>Self-Drive Portal</h5>
@@ -356,7 +359,7 @@
                       </div>
                     </div>
                   </div>
-                  
+
                   <script>
                     // Add hover functionality for Bootstrap tabs
                     document.querySelectorAll('#v-pills-tab-solutions button').forEach(function (tab) {
@@ -374,44 +377,25 @@
               <a class="nav-link dropdown-toggle" href="<?php echo BASE_URL; ?>work/work.php" data-bs-toggle="dropdown">Work</a>
               <ul class="dropdown-menu abbbtt">
                 <li class="dropdown-item "> <a href="<?php echo BASE_URL; ?>work/featured.php"><i class="fa-solid fa-circle-caret-right"></i>Featured</a> </li>
-                <li class="dropdown-item "> <a href="<?php echo BASE_URL; ?>work/case-studies.php"><i class="fa-solid fa-circle-caret-right"></i>Case Studies</a> </li>
-                <li class="dropdown-item "> <a href="<?php echo BASE_URL; ?>work/awards.php"><i class="fa-solid fa-circle-caret-right"></i>Awards</a> </li>
                 <li class="dropdown-item "> <a href="<?php echo BASE_URL; ?>work/clients.php"><i class="fa-solid fa-circle-caret-right"></i>Clients</a> </li>
               </ul>
              </li>
-             
+
              <li class="nav-item">
               <a class="nav-link " aria-current="page" href="<?php echo BASE_URL; ?>/blog.php">Blog</a>
             </li>
             <li class="nav-item  front dropdown me-lg-3">
-              <a class="nav-link dropdown-toggle" href="<?php echo BASE_URL; ?>/contact.php" data-bs-toggle="dropdown">Contact</a>
+              <a class="nav-link dropdown-toggle" href="<?php echo BASE_URL; ?>/contact.php" data-bs-toggle="dropdown">Contact</a>        
               <ul class="dropdown-menu abbbtt">
                 <li class="dropdown-item "> <a href="<?php echo BASE_URL; ?>/career.php"><i class="fa-solid fa-circle-caret-right"></i>Careers</a> </li>
                 <li class="dropdown-item "> <a href="<?php echo BASE_URL; ?>/get-in-touch.php"><i class="fa-solid fa-circle-caret-right"></i>Get in Touch</a> </li>
 
               </ul>
              </li>
-             <li class="nav-item d-none d-lg-block">
-                <a href="<?php echo BASE_URL; ?>/contact.php" class="header-cta-btn">Get Started <i class="fa-solid fa-arrow-right-long"></i></a>
-             </li>
-          
           </ul>
-          <button id="openPopup" class="bars-btn">
-            ☰
-          </button>
-          <!-- Popup Overlay -->
-  <div id="popup" class="popup-overlay">
-    <div class="popup-content">
-      <span id="closePopup" class="close-btn">&times;</span>
-      
-
-      <img src="<?php echo BASE_URL; ?>/assets/images/logo-web/logo.jpg" width="100%" alt="">
-    </div>
-  </div>
-
-
+          <a href="<?php echo BASE_URL; ?>/get-in-touch.php" class="btn-style-one d-none d-lg-block">Get a Quote</a>
         </div>
-      
+
       </div>
     </nav>
 
@@ -428,61 +412,3 @@
             }
         });
     </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

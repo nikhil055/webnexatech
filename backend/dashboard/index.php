@@ -98,24 +98,6 @@ ob_start(); // Start output buffering
                 </div>
             </div>
 
-            <!-- Total Awards Card -->
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-warning shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                    Total Awards</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $total_awards; ?></div>
-                            </div>
-                            <div class="col-auto">
-                                <i class="fas fa-trophy fa-2x text-gray-300"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
             <!-- Total Contact Submissions Card -->
             <div class="col-xl-3 col-md-6 mb-4">
                 <div class="card border-left-danger shadow h-100 py-2">
@@ -169,24 +151,6 @@ ob_start(); // Start output buffering
             <div class="col-lg-4 col-md-6 mb-4">
                 <div class="card h-100 shadow-sm dashboard-card">
                     <div class="card-body">
-                        <h5 class="card-title"><i class="fas fa-folder-open me-2"></i> Manage Case Studies</h5>
-                        <p class="card-text">View, add, edit, or delete your client case studies.</p>
-                        <a href="manage_case_studies.php" class="btn btn-outline-primary mt-3">Go to Case Studies</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 mb-4">
-                <div class="card h-100 shadow-sm dashboard-card">
-                    <div class="card-body">
-                        <h5 class="card-title"><i class="fas fa-trophy me-2"></i> Manage Awards</h5>
-                        <p class="card-text">View, add, edit, or delete your company awards and recognition.</p>
-                        <a href="manage_awards.php" class="btn btn-outline-primary mt-3">Go to Awards</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 mb-4">
-                <div class="card h-100 shadow-sm dashboard-card">
-                    <div class="card-body">
                         <h5 class="card-title"><i class="fas fa-users me-2"></i> Manage Clients</h5>
                         <p class="card-text">View, add, edit, or delete your client information.</p>
                         <a href="manage_clients.php" class="btn btn-outline-primary mt-3">Go to Clients</a>
@@ -197,8 +161,17 @@ ob_start(); // Start output buffering
             <div class="col-lg-4 col-md-6 mb-4">
                 <div class="card h-100 shadow-sm dashboard-card">
                     <div class="card-body">
+                        <h5 class="card-title"><i class="fas fa-image me-2"></i> Manage Banners</h5>
+                        <p class="card-text">Update images and titles for banners across all site pages.</p>
+                        <a href="manage_banners.php" class="btn btn-outline-primary mt-3">Go to Banners</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card h-100 shadow-sm dashboard-card">
+                    <div class="card-body">
                         <h5 class="card-title"><i class="fas fa-file-alt me-2"></i> Manage Pages</h5>
-                        <p class="card-text">Update content, banner, and sections for all dynamic pages.</p>
+                        <p class="card-text">Update content and sections for all dynamic pages.</p>
                         <a href="manage_pages.php" class="btn btn-outline-primary mt-3">Go to Pages</a>
                     </div>
                 </div>

@@ -32,14 +32,18 @@ if (!$post) {
     $breadcrumb_active = htmlspecialchars($post['title']);
 }
 
-// --- Page Data for Banner (Static for this page, similar to blog.php) ---
-$banner_image = 'assets/images/banner/banner.webp'; // Placeholder
+// --- Fetch Dynamic Banner Image ---
+$page_file = 'blog_post.php';
+$banner_res = $conn->query("SELECT * FROM page_banners WHERE page_name = '$page_file'");
+$banner_data = ($banner_res && $banner_res->num_rows > 0) ? $banner_res->fetch_assoc() : null;
+
+$display_banner_img = ($banner_data && !empty($banner_data['banner_image'])) ? $banner_data['banner_image'] : BASE_URL . 'assets/images/banner/banner.webp';
 ?>
 
     <style>
         /* General Page Banner Styling (similar to team.php) */
         .page-banner {
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('<?php echo $banner_image; ?>');
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('<?php echo $display_banner_img; ?>');
             background-size: cover;
             background-position: center;
             padding-top: 220px;

@@ -1181,21 +1181,21 @@
                         <i class="fas fa-map-marker-alt fa-2x" style="color: var(--red); margin-right: 15px;"></i>
                         <div>
                             <h6 class="mb-0">Address:</h6>
-                            <p class="mb-0">123, Street Name, City, Country</p>
+                            <p class="mb-0">Gali No. 9, near Star Furniture, Bharat Colony, Sector 87, Neharpar Faridabad, Faridabad, Haryana 121002</p>
                         </div>
                     </div>
                     <div class="d-flex align-items-center mb-3">
                         <i class="fas fa-phone-alt fa-2x" style="color: var(--red); margin-right: 15px;"></i>
                         <div>
                             <h6 class="mb-0">Phone:</h6>
-                            <p class="mb-0">+91 98765 43210</p>
+                            <p class="mb-0">+91 9910893885</p>
                         </div>
                     </div>
                     <div class="d-flex align-items-center mb-3">
                         <i class="fas fa-envelope fa-2x" style="color: var(--red); margin-right: 15px;"></i>
                         <div>
                             <h6 class="mb-0">Email:</h6>
-                            <p class="mb-0">info@example.com</p>
+                            <p class="mb-0">info@webnexatechnologies.com</p>
                         </div>
                     </div>
                     <div class="mt-4">
