@@ -1,4 +1,6 @@
-<?php include_once 'config.php'; ?><?php
+<?php 
+$page_title = 'Career';
+ include_once 'config.php'; ?><?php
 include 'header.php';
 include 'backend/db.php'; // Include database connection
 

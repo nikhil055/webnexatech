@@ -1,4 +1,6 @@
-<?php include_once 'config.php'; ?><?php include 'header.php'; ?>
+<?php 
+$page_title = 'Contact';
+ include_once 'config.php'; ?><?php include 'header.php'; ?>
 <?php
 // Simulate data coming from a backend/database for the 'Contact Us' page
 $page_data = [

@@ -1,4 +1,6 @@
-<?php include_once __DIR__ . '/../config.php'; include_once __DIR__ . '/../header.php'; ?>
+<?php 
+$page_title = 'Media';
+ include_once __DIR__ . '/../config.php'; include_once __DIR__ . '/../header.php'; ?>
 
     <style>
         :root {

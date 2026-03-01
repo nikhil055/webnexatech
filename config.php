@@ -4,3 +4,4 @@
 // Example: If your site is in a 'webnexa' folder, the value should be '/webnexa/'.
 // If your site is at the root of a domain, the value should be '/'.
 define('BASE_URL', 'http://localhost/webnexatech/');
+define('SITE_NAME', 'Web Nexa Technologies');

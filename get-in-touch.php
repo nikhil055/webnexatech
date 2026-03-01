@@ -1,4 +1,6 @@
-<?php include_once 'config.php'; ?><?php include 'header.php'; ?>
+<?php 
+$page_title = "Get in Touch";
+include_once 'config.php'; ?><?php include 'header.php'; ?>
 
 <section class="contact-section py-5" style="background-image: url(assets/images/solution/bg.png); background-size: cover; background-position: center;">
     <div class="container">

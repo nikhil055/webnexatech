@@ -1,4 +1,6 @@
-<?php include_once 'config.php'; ?><?php include 'header.php'; ?>
+<?php 
+$page_title = 'Real Estate Industry';
+ include_once 'config.php'; ?><?php include 'header.php'; ?>
 
     <style>
         /* Styles from about.php, ensuring consistency */

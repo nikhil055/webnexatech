@@ -1,4 +1,6 @@
-<?php include_once __DIR__ . '/../config.php'; include_once __DIR__ . '/../header.php'; ?>
+<?php 
+$page_title = 'Creative Services';
+ include_once __DIR__ . '/../config.php'; include_once __DIR__ . '/../header.php'; ?>
 <?php 
 include_once __DIR__ . '/../backend/db.php';
 $page_file = 'creative/creative-services.php';

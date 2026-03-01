@@ -1,4 +1,6 @@
-<?php
+<?php 
+$page_title = 'Blog Post';
+
 include 'header.php';
 include 'backend/db.php'; // Include database connection
 

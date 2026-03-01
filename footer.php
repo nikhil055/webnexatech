@@ -365,7 +365,7 @@
         <div id="chat-window-box" class="shadow-lg">
             <div class="chat-top-bar">
                 <div class="position-relative">
-                    <img src="https://cdn-icons-png.flaticon.com/512/4712/4712035.png" alt="AI">
+                    <img src="assets/images/logo-web/favicon.jpg" alt="AI">
                     <div style="width: 12px; height: 12px; background: #00d1b2; border-radius: 50%; position: absolute; bottom: 0; right: 0; border: 2px solid white;"></div>
                 </div>
                 <div class="flex-grow-1">

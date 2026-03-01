@@ -1,4 +1,7 @@
-<?php include 'header.php'; ?>
+<?php 
+$page_title = "Home";
+include 'header.php'; 
+?>
 <section class="banner-index">
       <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-pause="false">
         <div class="carousel-inner">
