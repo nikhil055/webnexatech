@@ -1,265 +1,136 @@
 <?php 
-$page_title = 'Future';
- include_once __DIR__ . '/../config.php'; include_once __DIR__ . '/../header.php'; ?>
-<?php 
-include_once __DIR__ . '/../backend/db.php';
-$page_file = 'about/future.php';
-$banner_res = $conn->query("SELECT * FROM page_banners WHERE page_name = '$page_file'");
-$banner_data = ($banner_res && $banner_res->num_rows > 0) ? $banner_res->fetch_assoc() : null;
-
-$display_banner_img = ($banner_data && !empty($banner_data['banner_image'])) ? $banner_data['banner_image'] : 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop';
-$display_banner_title = ($banner_data && !empty($banner_data['banner_title'])) ? $banner_data['banner_title'] : 'Our Future Vision';
+$page_title = 'Future Roadmap | WebNexa';
+include_once __DIR__ . '/../config.php'; 
+include_once __DIR__ . '/../header-new.php'; 
 ?>
 
-    <style>
-        .page-banner {
-            background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(10, 25, 47, 0.6)), url('<?php echo $display_banner_img; ?>');
-            background-size: cover;
-            background-position: center;
-            padding-top: 220px;
-            padding-bottom: 120px;
-            text-align: center;
-            color: #fff;
-        }
+<style>
+    .future-main { background: #05070a; color: #fff; font-family: 'Inter', sans-serif; overflow-x: hidden; }
+    
+    /* FUTURISTIC BANNER */
+    .future-hero { position: relative; padding: 220px 0 120px; background: #080b12; overflow: hidden; text-align: center; }
+    .neon-pulse { position: absolute; top: 50%; left: 50%; width: 600px; height: 600px; background: radial-gradient(circle, rgba(221, 0, 184, 0.15) 0%, transparent 70%); transform: translate(-50%, -50%); filter: blur(80px); animation: pulseNeon 4s infinite alternate; }
+    @keyframes pulseNeon { 0% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; } 100% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.8; } }
+    
+    .future-hero h1 { font-size: clamp(40px, 7vw, 85px); font-weight: 900; letter-spacing: -4px; line-height: 0.95; position: relative; z-index: 10; }
 
-        .page-banner h2 {
-            font-size: 60px;
-            font-weight: 900;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-        }
+    /* PILLAR GRID */
+    .pillar-section { padding: 120px 0; position: relative; z-index: 10; }
+    .pillar-grid-v2 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 25px; }
+    .pillar-card-v2 { background: rgba(255, 255, 255, 0.015); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 35px; padding: 45px 35px; backdrop-filter: blur(40px); transition: 0.4s; }
+    .pillar-card-v2:hover { border-color: rgb(216, 115, 255); transform: translateY(-12px); background: rgba(216, 115, 255, 0.03); }
+    .pillar-card-v2 i { font-size: 35px; color: rgb(216, 115, 255); margin-bottom: 25px; display: block; }
+    .pillar-card-v2 h4 { font-size: 22px; font-weight: 800; margin-bottom: 15px; }
+    .pillar-card-v2 p { color: #94a3b8; font-size: 14.5px; line-height: 1.6; }
 
-        .breadcrumb-custom {
-            justify-content: center;
-            background: rgba(255, 255, 255, 0.1);
-            display: inline-flex;
-            padding: 10px 25px;
-            border-radius: 50px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
+    /* TIMELINE */
+    .timeline-v2 { position: relative; padding: 100px 0; }
+    .timeline-v2::before { content: ""; position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background: linear-gradient(to bottom, transparent, rgba(114, 79, 255, 0.3), transparent); transform: translateX(-50%); }
+    .timeline-item-v2 { display: flex; justify-content: space-between; align-items: center; margin-bottom: 100px; width: 100%; position: relative; }
+    .timeline-item-v2:nth-child(even) { flex-direction: row-reverse; }
+    .t-content { width: 45%; background: rgba(255, 255, 255, 0.01); border: 1px solid rgba(255, 255, 255, 0.08); padding: 50px; border-radius: 40px; position: relative; backdrop-filter: blur(30px); }
+    .t-dot { position: absolute; left: 50%; width: 16px; height: 16px; background: rgb(114, 79, 255); border-radius: 50%; transform: translateX(-50%); box-shadow: 0 0 20px rgb(114, 79, 255); }
+    .t-year { position: absolute; top: -15px; left: 50px; font-size: 45px; font-weight: 900; color: rgba(255, 255, 255, 0.03); z-index: -1; }
 
-        .breadcrumb-custom .breadcrumb-item a { color: #fff; text-decoration: none; font-weight: 600; }
-        .breadcrumb-custom .breadcrumb-item.active { color: var(--primary-blue); font-weight: 800; }
+    @media (max-width: 991px) {
+        .pillar-grid-v2 { grid-template-columns: repeat(2, 1fr); }
+        .timeline-v2::before { left: 30px; }
+        .timeline-item-v2, .timeline-item-v2:nth-child(even) { flex-direction: column; align-items: flex-start; padding-left: 70px; }
+        .t-content { width: 100%; margin-bottom: 40px; }
+        .t-dot { left: 30px; }
+    }
+    @media (max-width: 767px) { .pillar-grid-v2 { grid-template-columns: 1fr; } }
+</style>
 
-        /* Future Vision Section */
-        .future-intro { padding: 100px 0; background: #fff; }
-        .vision-card {
-            background: var(--dark-navy);
-            color: #fff;
-            padding: 60px;
-            border-radius: 30px;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
-        }
-        .vision-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -10%;
-            width: 400px;
-            height: 400px;
-            background: var(--primary-blue);
-            filter: blur(150px);
-            opacity: 0.2;
-        }
-
-        /* Pillars Grid */
-        .pillar-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 60px; }
-        .pillar-item {
-            background: #f8f9fa;
-            padding: 40px;
-            border-radius: 20px;
-            border-bottom: 4px solid transparent;
-            transition: all 0.4s ease;
-            height: 100%;
-        }
-        .pillar-item:hover {
-            transform: translateY(-10px);
-            background: #fff;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.08);
-            border-bottom-color: var(--primary-blue);
-        }
-        .pillar-icon {
-            width: 70px;
-            height: 70px;
-            background: rgba(60, 114, 252, 0.1);
-            color: var(--primary-blue);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 30px;
-            border-radius: 15px;
-            margin-bottom: 25px;
-            transition: 0.3s;
-        }
-        .pillar-item:hover .pillar-icon { background: var(--primary-blue); color: #fff; transform: rotateY(360deg); }
-        .pillar-item h4 { font-weight: 800; margin-bottom: 15px; color: #1a1a1a; }
-        .pillar-item p { color: #666; line-height: 1.7; margin: 0; }
-
-        /* Interactive Timeline */
-        .roadmap-section { padding: 100px 0; background: #fdfdfd; }
-        .roadmap-container { position: relative; padding: 40px 0; }
-        .roadmap-line {
-            position: absolute;
-            left: 50%;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: #eee;
-            transform: translateX(-50%);
-        }
-        .roadmap-step { display: flex; justify-content: space-between; align-items: center; margin-bottom: 60px; width: 100%; position: relative; }
-        .roadmap-step:nth-child(even) { flex-direction: row-reverse; }
-        .roadmap-content { width: 45%; padding: 30px; background: #fff; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
-        .roadmap-dot {
-            position: absolute;
-            left: 50%;
-            width: 20px;
-            height: 20px;
-            background: var(--primary-blue);
-            border: 4px solid #fff;
-            border-radius: 50%;
-            transform: translateX(-50%);
-            z-index: 2;
-            box-shadow: 0 0 0 5px rgba(60, 114, 252, 0.2);
-        }
-        .roadmap-year { font-weight: 900; color: var(--primary-blue); font-size: 24px; margin-bottom: 10px; display: block; }
-
-        @media (max-width: 768px) {
-            .roadmap-line { left: 20px; }
-            .roadmap-dot { left: 20px; }
-            .roadmap-step, .roadmap-step:nth-child(even) { flex-direction: column; align-items: flex-start; padding-left: 50px; }
-            .roadmap-content { width: 100%; }
-            .page-banner h2 { font-size: 40px; }
-        }
-    </style>
-
-<section class="page-banner">
+<div class="future-main">
+    <section class="future-hero">
+        <div class="neon-pulse"></div>
         <div class="container">
-            <div data-aos="zoom-in">
-                <h2><?php echo $display_banner_title; ?></h2>
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb breadcrumb-custom">
-                        <li class="breadcrumb-item"><a href="<?php echo BASE_URL; ?>index.php">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Future</li>
-                    </ol>
-                </nav>
-            </div>
+            <div class="tech-badge" data-aos="fade-down">Roadmap 2030</div>
+            <h1 data-aos="zoom-in">The Quantum <br> <span class="gradient-tech-text">Future of Tech</span></h1>
+            <p style="color: #94a3b8; max-width: 800px; margin: 30px auto 0; font-size: 19px; line-height: 1.8;" data-aos="fade-up">We aren't just observing the evolution of technology—we are architecting the protocols that will define the next decade of digital dominance.</p>
         </div>
     </section>
 
-    <section class="future-intro">
+    <section class="pillar-section">
         <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-12">
-                    <div class="vision-card" data-aos="fade-up">
-                        <div class="row align-items-center">
-                            <div class="col-lg-7">
-                                <h3 class="display-4 fw-bold mb-4">The Next Frontier of Technology</h3>
-                                <p class="lead opacity-75 mb-4">At Web Nexa Technologies, we aren't just adapting to the future—we are building it. Our roadmap is defined by a commitment to sustainable innovation, ethical AI, and global digital empowerment.</p>
-                                <div class="d-flex gap-3">
-                                    <div class="text-center">
-                                        <h4 class="fw-bold text-primary mb-0">2030</h4>
-                                        <small class="opacity-50">Vision Goal</small>
-                                    </div>
-                                    <div style="width: 2px; background: rgba(255,255,255,0.1);"></div>
-                                    <div class="text-center">
-                                        <h4 class="fw-bold text-primary mb-0">100%</h4>
-                                        <small class="opacity-50">Digital First</small>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-5 d-none d-lg-block text-end">
-                                <i class="fa-solid fa-microchip" style="font-size: 200px; opacity: 0.1;"></i>
-                            </div>
-                        </div>
-                    </div>
+            <div class="pillar-grid-v2">
+                <div class="pillar-card-v2" data-aos="fade-up">
+                    <i class="fas fa-brain"></i>
+                    <h4>Cognitive AI</h4>
+                    <p>Transitioning from static automation to autonomous self-healing enterprise neural networks.</p>
                 </div>
-            </div>
-
-            <div class="pillar-grid">
-                <div class="pillar-item" data-aos="fade-up" data-aos-delay="100">
-                    <div class="pillar-icon"><i class="fa-solid fa-brain"></i></div>
-                    <h4>Cognitive Computing</h4>
-                    <p>Moving beyond basic automation into self-learning systems that predict and solve complex business challenges.</p>
+                <div class="pillar-item-v2 pillar-card-v2" data-aos="fade-up" data-aos-delay="100">
+                    <i class="fas fa-microchip"></i>
+                    <h4>Quantum Ready</h4>
+                    <p>Architecting security protocols that are fortified against the next generation of quantum decryption.</p>
                 </div>
-                <div class="pillar-item" data-aos="fade-up" data-aos-delay="200">
-                    <div class="pillar-icon"><i class="fa-solid fa-leaf"></i></div>
-                    <h4>Green Tech Initiative</h4>
-                    <p>Optimizing code and infrastructure to minimize the carbon footprint of global digital operations.</p>
+                <div class="pillar-card-v2" data-aos="fade-up" data-aos-delay="200">
+                    <i class="fas fa-server"></i>
+                    <h4>Edge Supremacy</h4>
+                    <p>Deploying sub-5ms latency systems through globally distributed edge-compute clusters.</p>
                 </div>
-                <div class="pillar-item" data-aos="fade-up" data-aos-delay="300">
-                    <div class="pillar-icon"><i class="fa-solid fa-shield-halved"></i></div>
-                    <h4>Quantum Security</h4>
-                    <p>Preparing for the next era of cybersecurity with encryption that stays ahead of quantum computing threats.</p>
-                </div>
-                <div class="pillar-item" data-aos="fade-up" data-aos-delay="400">
-                    <div class="pillar-icon"><i class="fa-solid fa-earth-americas"></i></div>
-                    <h4>Borderless Workforce</h4>
-                    <p>Expanding our global innovation hubs to tap into diverse talent from every corner of the world.</p>
+                <div class="pillar-card-v2" data-aos="fade-up" data-aos-delay="300">
+                    <i class="fas fa-leaf"></i>
+                    <h4>Zero-Carbon</h4>
+                    <p>Committing to 100% carbon-neutral code architectures by optimizing algorithmic efficiency.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="roadmap-section">
-        <div class="container">
-            <div class="ser-head text-center mb-5" data-aos="fade-up">
-                <div class="hed text-center">
-                    <img src="<?php echo BASE_URL; ?>assets/images/about/arrowLeft.svg" width="6%" alt="">
-                    <span>Strategic Roadmap</span>
-                    <img src="<?php echo BASE_URL; ?>assets/images/about/arrowRight.svg" width="6%" alt="">
-                </div>
-                <h3>Our Journey to 2030</h3>
+    <section class="timeline-section" style="background: #080b12; border-top: 1px solid rgba(255,255,255,0.05);">
+        <div class="container py-5">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <div class="tech-badge">Strategic Milestones</div>
+                <h2 class="section-title">Our Path to <span class="gradient-tech-text">Global Leadership</span></h2>
             </div>
 
-            <div class="roadmap-container">
-                <div class="roadmap-line"></div>
-                
-                <div class="roadmap-step" data-aos="fade-right">
-                    <div class="roadmap-dot"></div>
-                    <div class="roadmap-content">
-                        <span class="roadmap-year">2026</span>
-                        <h4>AI-Native Integration</h4>
-                        <p>Fully transitioning our core development workflows to an AI-native model, increasing delivery speed by 40%.</p>
+            <div class="timeline-v2">
+                <div class="timeline-item-v2" data-aos="fade-right">
+                    <div class="t-dot"></div>
+                    <div class="t-content">
+                        <span class="t-year">2026</span>
+                        <h4 class="gradient-tech-text">AI-Native Ecosystem</h4>
+                        <p>Fully integrating autonomous AI agents into our development lifecycle, reducing deployment cycles by 60% while maintaining absolute code integrity.</p>
                     </div>
                     <div style="width: 45%;"></div>
                 </div>
 
-                <div class="roadmap-step" data-aos="fade-left">
-                    <div class="roadmap-dot"></div>
-                    <div class="roadmap-content">
-                        <span class="roadmap-year">2027</span>
-                        <h4>European Hub Expansion</h4>
-                        <p>Establishing three new physical innovation centers across major European tech capitals.</p>
+                <div class="timeline-item-v2" data-aos="fade-left">
+                    <div class="t-dot"></div>
+                    <div class="t-content">
+                        <span class="t-year">2027</span>
+                        <h4 class="gradient-tech-text">Global Hub Expansion</h4>
+                        <p>Establishing three new "Excellence Centers" in London, Singapore, and New York to provide 24/7 localized high-tech support.</p>
                     </div>
                     <div style="width: 45%;"></div>
                 </div>
 
-                <div class="roadmap-step" data-aos="fade-right">
-                    <div class="roadmap-dot"></div>
-                    <div class="roadmap-content">
-                        <span class="roadmap-year">2028</span>
-                        <h4>Sustainability Milestone</h4>
-                        <p>Achieving carbon-neutral status for all our cloud-hosted client projects through optimized architecture.</p>
+                <div class="timeline-item-v2" data-aos="fade-right">
+                    <div class="t-dot"></div>
+                    <div class="t-content">
+                        <span class="t-year">2028</span>
+                        <h4 class="gradient-tech-text">Web 4.0 Governance</h4>
+                        <p>Launching the WebNexa Decentralized Governance Protocol for enterprise-grade secure asset management.</p>
                     </div>
                     <div style="width: 45%;"></div>
                 </div>
 
-                <div class="roadmap-step" data-aos="fade-left">
-                    <div class="roadmap-dot"></div>
-                    <div class="roadmap-content">
-                        <span class="roadmap-year">2030</span>
-                        <h4>The Autonomous Era</h4>
-                        <p>Launching our proprietary platform for fully autonomous enterprise management and digital transformation.</p>
+                <div class="timeline-item-v2" data-aos="fade-left">
+                    <div class="t-dot"></div>
+                    <div class="t-content">
+                        <span class="t-year">2030</span>
+                        <h4 class="gradient-tech-text">Singularity Milestone</h4>
+                        <p>Achieving the world's first fully autonomous digital transformation engine for Fortune 500 enterprises.</p>
                     </div>
                     <div style="width: 45%;"></div>
                 </div>
             </div>
         </div>
     </section>
+
+    <?php include_once __DIR__ . '/../contact-section-shared.php'; ?>
+</div>
 
 <?php include_once __DIR__ . '/../footer.php'; ?>

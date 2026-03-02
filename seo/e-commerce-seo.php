@@ -1,322 +1,148 @@
 <?php 
-$page_title = 'E Commerce Seo';
- include_once __DIR__ . '/../config.php'; include_once __DIR__ . '/../header.php'; ?>
-<?php 
-include_once __DIR__ . '/../backend/db.php';
-$page_file = 'seo/e-commerce-seo.php';
-$banner_res = $conn->query("SELECT * FROM page_banners WHERE page_name = '$page_file'");
-$banner_data = ($banner_res && $banner_res->num_rows > 0) ? $banner_res->fetch_assoc() : null;
-
-$display_banner_img = ($banner_data && !empty($banner_data['banner_image'])) ? $banner_data['banner_image'] : BASE_URL . 'assets/images/banner/banner-03.jpg';
-$display_banner_title = ($banner_data && !empty($banner_data['banner_title'])) ? $banner_data['banner_title'] : 'E-Commerce SEO';
+$page_title = 'Enterprise E-Commerce SEO | WebNexa';
+include_once __DIR__ . '/../config.php'; 
+include_once __DIR__ . '/../header-new.php'; 
 ?>
 
-    <style>
-        .page-banner {
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('<?php echo $display_banner_img; ?>');
-            background-size: cover;
-            background-position: center;
-            padding-top: 220px;
-            padding-bottom: 100px;
-            text-align: center;
-            color: #fff;
-        }
-        .page-banner h2 {
-            font-size: 55px;
-            font-weight: 800;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-        .breadcrumb-custom {
-            justify-content: center;
-            background: rgba(255, 255, 255, 0.1);
-            display: inline-flex;
-            padding: 10px 20px;
-            border-radius: 30px;
-            backdrop-filter: blur(5px);
-        }
-        .breadcrumb-custom .breadcrumb-item a {
-            color: #fff;
-            text-decoration: none;
-            font-weight: 500;
-        }
-        .breadcrumb-custom .breadcrumb-item.active {
-            color: #3C72FC;
-            font-weight: 700;
-        }
-        .content-section {
-            padding-top: 80px;
-            padding-bottom: 80px;
-        }
-        .icon-card {
-            display: flex;
-            align-items: flex-start;
-            background: #fff;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 5px 25px rgba(0,0,0,0.07);
-            margin-bottom: 20px;
-            transition: all 0.3s ease;
-            height: calc(100% - 20px);
-        }
-        .icon-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 35px rgba(0,0,0,0.1);
-        }
-        .icon-card .icon {
-            font-size: 30px;
-            color: #3C72FC;
-            margin-right: 20px;
-            min-width: 40px;
-        }
-        .icon-card h5 {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 5px;
-        }
-        .icon-card p {
-            font-size: 15px;
-            color: #666;
-            margin-bottom: 0;
-            line-height: 1.6;
-        }
-        .process-item {
-            text-align: center;
-            position: relative;
-        }
-        .process-item .process-icon {
-            width: 90px;
-            height: 90px;
-            background: #f1f5ff;
-            color: #3C72FC;
-            border-radius: 50%;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 40px;
-            border: 5px solid #fff;
-            box-shadow: 0 0 15px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
-        }
-        .process-item h4 {
-            font-size: 20px;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-        .contact-cta {
-            background: #f8f9fa;
-        }
-    </style>
+<style>
+    .seo-main { background: #05070a; color: #fff; font-family: 'Inter', sans-serif; overflow-x: hidden; }
+    .web-fixed-bg { position: fixed; inset: 0; z-index: 1; pointer-events: none; opacity: 0.2; }
+    .data-drop { position: absolute; width: 1px; height: 100px; background: linear-gradient(to bottom, transparent, #d500f9, transparent); animation: dropMove 5s infinite linear; }
+    @keyframes dropMove { 0% { transform: translateY(-100px); opacity: 0; } 50% { opacity: 0.5; } 100% { transform: translateY(100vh); opacity: 0; } }
 
-    <section class="page-banner">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12" data-aos="zoom-in">
-                        <h2><?php echo $display_banner_title; ?></h2>
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb breadcrumb-custom">
-                            <li class="breadcrumb-item"><a href="<?php echo BASE_URL; ?>index.php">Home</a></li>
-                            <li class="breadcrumb-item"><a href="<?php echo BASE_URL; ?>services.php">Services</a></li>
-                            <li class="breadcrumb-item"><a href="<?php echo BASE_URL; ?>seo/seo-services.php">SEO Services</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">E-commerce SEO</li>
-                        </ol>
-                    </nav>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="content-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="ser-head text-center mb-5" data-aos="fade-up">
-                        <div class="hed text-center">
-                            <img src="<?php echo BASE_URL; ?>assets/images/about/arrowLeft.svg" width="6%" alt="">
-                            <span>Turn Clicks into Customers</span>
-                            <img src="<?php echo BASE_URL; ?>assets/images/about/arrowRight.svg" width="6%" alt="">
-                        </div>
-                        <h3>Boost Your Online Store's Performance</h3>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-8 offset-lg-2 text-center lead">
-                    <p>In the competitive world of online retail, visibility is everything. Our E-commerce SEO services are specifically designed to help your online store rank higher, attract more qualified shoppers, and convert them into loyal customers. We focus on optimizing every aspect of your site, from product pages to category structure, to maximize your organic revenue.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- WHY IT MATTERS SECTION -->
-<section class="content-section bg-light">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-6 mb-4" data-aos="fade-right">
-                <img src="<?php echo BASE_URL; ?>assets/images/why/side.jpg" class="img-fluid rounded shadow-lg" alt="E-commerce SEO Importance">
-            </div>
-            <div class="col-lg-6 mb-4" data-aos="fade-left">
-                <div class="ser-head text-start">
-                    <div class="hed text-start">
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowLeft.svg" width="6%" alt="">
-                        <span>Why It Matters</span>
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowRight.svg" width="6%" alt="">
-                    </div>
-                    <h3>Turn Searches into Sales</h3>
-                    <p class="mt-4">In the crowded digital marketplace, potential customers must be able to find your products. E-commerce SEO is the art and science of making your online store more visible in search engine results. When customers search for products you sell, a strong SEO strategy ensures they land on your site, not your competitor's. It's the most sustainable way to drive qualified traffic and grow your online revenue.</p>
-                    <ul class="list-unstyled mt-3">
-                        <li class="mb-2"><i class="fa fa-check text-success me-2"></i>Attract high-intent shoppers who are ready to buy.</li>
-                        <li class="mb-2"><i class="fa fa-check text-success me-2"></i>Reduce reliance on paid advertising and lower customer acquisition costs.</li>
-                        <li class="mb-2"><i class="fa fa-check text-success me-2"></i>Build brand authority and trust in a competitive market.</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- HOW WE DO E-COMMERCE SEO SECTION -->
-<section class="content-section">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 text-center">
-                <div class="ser-head" data-aos="fade-up">
-                    <div class="hed">
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowLeft.svg" width="6%" alt="">
-                        <span>Our Process</span>
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowRight.svg" width="6%" alt="">
-                    </div>
-                    <h3>Our E-commerce SEO Process</h3>
-                </div>
-            </div>
-        </div>
-        <div class="row mt-5">
-            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="100">
-                <div class="process-item">
-                    <div class="process-icon"><i class="fa-solid fa-tags"></i></div>
-                    <h4>Product Optimization</h4>
-                    <p>Optimizing product titles, descriptions, images, and schema markup to rank higher and attract clicks.</p>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
-                <div class="process-item">
-                    <div class="process-icon"><i class="fa-solid fa-sitemap"></i></div>
-                    <h4>Site Structure</h4>
-                    <p>Structuring your categories and navigation to be user-friendly and maximize crawl efficiency for search engines.</p>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="300">
-                <div class="process-item">
-                    <div class="process-icon"><i class="fa-solid fa-magnifying-glass-dollar"></i></div>
-                    <h4>Keyword Research</h4>
-                    <p>Identifying high-intent, commercial keywords to target for product, category, and blog content that drives sales.</p>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="400">
-                <div class="process-item">
-                    <div class="process-icon"><i class="fa-solid fa-chart-line"></i></div>
-                    <h4>Performance & UX</h4>
-                    <p>Improving site speed, mobile responsiveness, and overall user experience to reduce bounce rates and boost conversions.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- WHAT YOU RECEIVE SECTION -->
-<section class="content-section bg-light">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 text-center">
-                <div class="ser-head" data-aos="fade-up">
-                    <div class="hed">
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowLeft.svg" width="6%" alt="">
-                        <span>Your Deliverables</span>
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowRight.svg" width="6%" alt="">
-                    </div>
-                    <h3>What You Get from Our E-commerce SEO Services</h3>
-                </div>
-            </div>
-        </div>
-        <div class="row mt-5">
-            <div class="col-lg-4 d-flex align-items-stretch mb-4" data-aos="fade-up" data-aos-delay="100">
-                <div class="icon-card w-100">
-                    <div class="icon"><i class="fa-solid fa-cart-shopping"></i></div>
-                    <div class="text">
-                        <h5>Increased Product Visibility</h5>
-                        <p>Your products will appear higher in search results, making them easily discoverable by potential customers.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 d-flex align-items-stretch mb-4" data-aos="fade-up" data-aos-delay="200">
-                <div class="icon-card w-100">
-                    <div class="icon"><i class="fa-solid fa-dollar-sign"></i></div>
-                    <div class="text">
-                        <h5>Higher Conversion Rates</h5>
-                        <p>Optimized product pages and user experience lead to more engaged visitors and increased sales.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 d-flex align-items-stretch mb-4" data-aos="fade-up" data-aos-delay="300">
-                <div class="icon-card w-100">
-                    <div class="icon"><i class="fa-solid fa-users"></i></div>
-                    <div class="text">
-                        <h5>Growth in Organic Traffic</h5>
-                        <p>Attract more qualified visitors to your online store who are actively searching for what you offer.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- WHO IS THIS FOR SECTION -->
-<section class="content-section">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 text-center">
-                <div class="ser-head" data-aos="fade-up">
-                    <h3>Is E-commerce SEO Right For You?</h3>
-                </div>
-            </div>
-        </div>
-        <div class="row mt-4 text-center">
-            <div class="col-md-4 mb-4">
-                <h5>Online Retailers</h5>
-                <p>Any business selling physical or digital products through an online storefront.</p>
-            </div>
-            <div class="col-md-4 mb-4">
-                <h5>D2C Brands</h5>
-                <p>Direct-to-consumer brands looking to grow their organic traffic and build a loyal customer base.</p>
-            </div>
-            <div class="col-md-4 mb-4">
-                <h5>Marketplaces</h5>
-                <p>Multi-vendor platforms that need to optimize thousands of product and category pages at scale.</p>
-            </div>
-        </div>
-    </div>
-</section>
-
+    .tech-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(213, 0, 249, 0.1); border: 1px solid rgba(213, 0, 249, 0.2); padding: 6px 18px; border-radius: 100px; font-size: 12px; font-weight: 800; color: #d500f9; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 25px; }
+    .section-title { font-size: clamp(32px, 4.5vw, 54px); font-weight: 900; line-height: 1.1; letter-spacing: -2px; }
+    .gradient-eco-text { background: linear-gradient(90deg, #d500f9, #f50057); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
     
+    .content-block { padding: 120px 0; position: relative; z-index: 10; }
+    .container { position: relative; z-index: 10; max-width: 1350px; }
+    .glass-card { background: rgba(255, 255, 255, 0.015); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 40px; backdrop-filter: blur(40px); transition: 0.4s; padding: 45px; height: 100%; display: flex; flex-direction: column; }
+    .glass-card:hover { border-color: #d500f9; transform: translateY(-10px); background: rgba(213, 0, 249, 0.03); }
 
-<section class="content-section contact-cta">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-10 col-lg-8">
-                <div class="ser-head text-center" data-aos="fade-up">
-                    <div class="hed">
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowLeft.svg" width="6%" alt="">
-                        <span>Let's Talk</span>
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowRight.svg" width="6%" alt="">
-                    </div>
-                    <h3>Ready to Scale Your E-commerce Sales?</h3>
-                    <p class="lead mt-3">Contact us today to discuss your E-commerce SEO needs and get a free consultation. Let's work together to achieve your business goals.</p>
-                    <a href="<?php echo BASE_URL; ?>contact.php" class="btn btn-style-one mt-4">Get in Touch</a>
+    .web-hero { position: relative; padding: 220px 0 120px; background: #080b12; overflow: hidden; text-align: center; }
+    .hero-grid { position: absolute; inset: 0; background-image: radial-gradient(rgba(213, 0, 249, 0.05) 1px, transparent 1px); background-size: 50px 50px; transform: perspective(500px) rotateX(60deg); }
+    .web-hero h1 { font-size: clamp(40px, 7vw, 85px); font-weight: 900; letter-spacing: -4px; line-height: 0.95; margin-bottom: 30px; }
+
+    .flow-timeline { position: relative; max-width: 900px; margin: 60px auto 0; padding-left: 80px; }
+    .flow-timeline::before { content: ""; position: absolute; left: 30px; top: 0; height: 100%; width: 2px; background: linear-gradient(to bottom, #d500f9, transparent); }
+    .flow-step { position: relative; margin-bottom: 60px; }
+    .flow-step::after { content: ""; position: absolute; left: -58px; top: 0; width: 16px; height: 18px; background: #05070a; border: 4px solid #d500f9; border-radius: 50%; box-shadow: 0 0 20px #d500f9; z-index: 5; }
+    .flow-step h5 { font-size: 22px; font-weight: 800; color: #fff; margin-bottom: 10px; }
+    .flow-step p { font-size: 16px; color: #94a3b8; }
+
+    .comp-box { background: rgba(255, 255, 255, 0.015); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 40px; padding: 60px; margin-top: 60px; }
+    .comp-row { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 40px; padding: 25px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .comp-header { font-weight: 800; color: #fff; text-transform: uppercase; letter-spacing: 1px; font-size: 12px; }
+    .comp-val { font-size: 15px; color: #94a3b8; display: flex; align-items: center; gap: 10px; }
+    .comp-val.best { color: #fff; font-weight: 700; }
+    .comp-val.best i { color: #22c55e; }
+
+    @media (max-width: 1199px) { .cap-grid-massive { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 991px) { .cap-grid-massive, .comp-row { grid-template-columns: 1fr; } }
+</style>
+
+<div class="seo-main">
+    <div class="web-fixed-bg" id="eco-fx-bg"></div>
+
+    <section class="web-hero">
+        <div class="hero-grid"></div>
+        <div class="container">
+            <div class="tech-badge" data-aos="fade-down">Retail Performance Engineering</div>
+            <h1 data-aos="zoom-in">High-Velocity <br> <span class="gradient-eco-text">E-Commerce SEO</span></h1>
+            <p style="color: #94a3b8; max-width: 750px; margin: 0 auto; font-size: 19px; line-height: 1.8;" data-aos="fade-up">Converting casual browsers into buyers through technical catalog optimization and specialized retail ranking protocols for massive inventories.</p>
+        </div>
+    </section>
+
+    <!-- ASSEMBLY LINE -->
+    <section class="content-block" style="background: #080b12; border-top: 1px solid rgba(255,255,255,0.05);">
+        <div class="container">
+            <div class="text-center" data-aos="fade-up">
+                <div class="tech-badge">Execution Protocol</div>
+                <h2 class="section-title">The Retail <br> <span class="gradient-eco-text">Ranking Matrix</span></h2>
+            </div>
+            <div class="flow-timeline">
+                <div class="flow-step" data-aos="fade-right">
+                    <h5>Catalog Mapping</h5>
+                    <p>Deep-layer intent mapping across thousands of SKUs to identify high-converting "Money Keywords."</p>
+                </div>
+                <div class="flow-step" data-aos="fade-right" data-aos-delay="100">
+                    <h5>Faceted Hardening</h5>
+                    <p>Optimizing filter and category URLs to capture long-tail searches while maintaining a clean crawl budget.</p>
+                </div>
+                <div class="flow-step" data-aos="fade-right" data-aos-delay="200">
+                    <h5>Dynamic Schema Markups</h5>
+                    <p>Injecting Product v3 and AggregateReview JSON-LD to dominate visual SERP features and price comparison blocks.</p>
+                </div>
+                <div class="flow-step" data-aos="fade-right" data-aos-delay="300">
+                    <h5>Revenue Attribution</h5>
+                    <p>Syncing search data with transaction logs to verify 1:1 ROI from organic ranking growth.</p>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+
+    <section class="content-block">
+        <div class="container">
+            <div class="text-center" data-aos="fade-up">
+                <div class="tech-badge">System Scope</div>
+                <h2 class="section-title">E-Comm SEO <span class="gradient-eco-text">Matrix</span></h2>
+            </div>
+            <div class="cap-grid-massive">
+                <div class="glass-card" data-aos="fade-up">
+                    <div class="cap-icon"><i class="fas fa-boxes-stacked"></i></div>
+                    <h4>Product & Category <br> Optimization</h4>
+                    <p>Engineering semantic category pages optimized for maximum purchase-intent visibility.</p>
+                    <ul class="cap-feat-list"><li>Meta Logic</li><li>SKU Mapping</li><li>Topical Flow</li></ul>
+                </div>
+                <div class="glass-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="cap-icon"><i class="fas fa-barcode"></i></div>
+                    <h4>Dynamic Product <br> Schema Stacks</h4>
+                    <p>Implementing rich snippets for pricing and reviews to dominate visual search.</p>
+                    <ul class="cap-feat-list"><li>Offer Mark</li><li>Live Stock</li><li>Review Logic</li></ul>
+                </div>
+                <div class="glass-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="cap-icon"><i class="fas fa-cart-shopping"></i></div>
+                    <h4>Conversion Led <br> Technical SEO</h4>
+                    <p>Optimizing faceted navigation and checkout speeds for massive enterprise retail scale.</p>
+                    <ul class="cap-feat-list"><li>Faceted SEO</li><li>Cart Speed</li><li>Checkout Sync</li></ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- COMPARISON -->
+    <section class="content-block" style="background: #080b12;">
+        <div class="container">
+            <div class="text-center" data-aos="fade-up">
+                <div class="tech-badge">Competitive Analysis</div>
+                <h2 class="section-title">Basic SEO vs <br> <span class="gradient-eco-text">WebNexa Retail SEO</span></h2>
+            </div>
+            <div class="comp-box" data-aos="zoom-in">
+                <div class="comp-row comp-header"><span>Features</span><span>Standard SEO</span><span style="color:#d500f9;">WebNexa Elite</span></div>
+                <div class="comp-row"><span>Logic</span><span class="comp-val">Keyword Density</span><span class="comp-val best"><i class="fas fa-bolt"></i> Behavioral Intent Architecture</span></div>
+                <div class="comp-row"><span>Scale</span><span class="comp-val">Manual 1-by-1 Edit</span><span class="comp-val best"><i class="fas fa-microchip"></i> Bulk Dynamic Meta-Generation</span></div>
+                <div class="comp-row"><span>Visuals</span><span class="comp-val">Plain Text Links</span><span class="comp-val best"><i class="fas fa-chart-line"></i> Full Rich Snippet Dominance</span></div>
+                <div class="comp-row" style="border:none;"><span>Focus</span><span class="comp-val">Traffic Counts</span><span class="comp-val best"><i class="fas fa-desktop"></i> Cart Conversion & ROAS</span></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-5" style="background: #d500f9; color:#fff;">
+        <div class="container d-flex justify-content-between align-items-center flex-wrap gap-3">
+            <h4 style="margin:0; font-weight:900;">24/7 E-COMMERCE RANKING GOVERNANCE ACTIVE</h4>
+            <div style="font-weight:700; letter-spacing:1px; background:rgba(0,0,0,0.2); padding:10px 25px; border-radius:50px;">STATUS: TRANSACTIONAL SYNC</div>
+        </div>
+    </section>
+
+    <?php include_once __DIR__ . '/../contact-section-shared.php'; ?>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+...
+            bg.appendChild(drop);
+        }
+    });
+</script>
 
 <?php include_once __DIR__ . '/../footer.php'; ?>

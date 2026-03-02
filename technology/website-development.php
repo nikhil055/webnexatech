@@ -1,320 +1,540 @@
-<?php 
-$page_title = 'Website Development';
- include_once __DIR__ . '/../config.php'; include_once __DIR__ . '/../header.php'; ?>
-<?php 
-include_once __DIR__ . '/../backend/db.php';
-$page_file = 'technology/website-development.php';
-$banner_res = $conn->query("SELECT * FROM page_banners WHERE page_name = '$page_file'");
-$banner_data = ($banner_res && $banner_res->num_rows > 0) ? $banner_res->fetch_assoc() : null;
-
-$display_banner_img = ($banner_data && !empty($banner_data['banner_image'])) ? $banner_data['banner_image'] : BASE_URL . 'assets/images/services/software.jpg';
-$display_banner_title = ($banner_data && !empty($banner_data['banner_title'])) ? $banner_data['banner_title'] : 'Website Development';
+<?php
+$page_title = 'Enterprise Web Engineering | WebNexa';
+include_once __DIR__ . '/../config.php';
+include_once __DIR__ . '/../header-new.php';
 ?>
 
-    <style>
-        .page-banner {
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('<?php echo $display_banner_img; ?>');
-            background-size: cover;
-            background-position: center;
-            padding-top: 220px;
-            padding-bottom: 100px;
-            text-align: center;
-            color: #fff;
-        }
-        .page-banner h2 {
-            font-size: 55px;
-            font-weight: 800;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-        .breadcrumb-custom {
-            justify-content: center;
-            background: rgba(255, 255, 255, 0.1);
-            display: inline-flex;
-            padding: 10px 20px;
-            border-radius: 30px;
-            backdrop-filter: blur(5px);
-        }
-        .breadcrumb-custom .breadcrumb-item a {
-            color: #fff;
-            text-decoration: none;
-            font-weight: 500;
-        }
-        .breadcrumb-custom .breadcrumb-item.active {
-            color: #3C72FC;
-            font-weight: 700;
-        }
-        .content-section {
-            padding-top: 80px;
-            padding-bottom: 80px;
-        }
-        .icon-card {
-            display: flex;
-            align-items: flex-start;
-            background: #fff;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 5px 25px rgba(0,0,0,0.07);
-            margin-bottom: 20px;
-            transition: all 0.3s ease;
-            height: calc(100% - 20px);
-        }
-        .icon-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 35px rgba(0,0,0,0.1);
-        }
-        .icon-card .icon {
-            font-size: 30px;
-            color: #3C72FC;
-            margin-right: 20px;
-            min-width: 40px;
-        }
-        .icon-card h5 {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 5px;
-        }
-        .icon-card p {
-            font-size: 15px;
-            color: #666;
-            margin-bottom: 0;
-            line-height: 1.6;
-        }
-        .process-item {
-            text-align: center;
-            position: relative;
-        }
-        .process-item .process-icon {
-            width: 90px;
-            height: 90px;
-            background: #f1f5ff;
-            color: #3C72FC;
-            border-radius: 50%;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 40px;
-            border: 5px solid #fff;
-            box-shadow: 0 0 15px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
-        }
-        .process-item h4 {
-            font-size: 20px;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-        .contact-cta {
-            background: #f8f9fa;
-        }
-    </style>
+<style>
+    .web-dev-main {
+        background: #05070a;
+        color: #fff;
+        font-family: 'Inter', sans-serif;
+        overflow-x: hidden;
+    }
 
-    <section class="page-banner">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12" data-aos="zoom-in">
-                        <h2><?php echo $display_banner_title; ?></h2>
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb breadcrumb-custom">
-                            <li class="breadcrumb-item"><a href="<?php echo BASE_URL; ?>index.php">Home</a></li>
-                            <li class="breadcrumb-item"><a href="<?php echo BASE_URL; ?>services.php">Services</a></li>
-                            <li class="breadcrumb-item"><a href="<?php echo BASE_URL; ?>technology/technology-services.php">Technology Services</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Website Development</li>
-                        </ol>
-                    </nav>
-                </div>
-            </div>
-        </div>
-    </section>
+    /* GLOBAL BG FX */
+    .web-fixed-bg {
+        position: fixed;
+        inset: 0;
+        z-index: 1;
+        pointer-events: none;
+        opacity: 0.2;
+    }
 
-    <section class="content-section">
+    .data-drop {
+        position: absolute;
+        width: 1px;
+        height: 100px;
+        background: linear-gradient(to bottom, transparent, rgb(114, 79, 255), transparent);
+        animation: dropMove 5s infinite linear;
+    }
+
+    @keyframes dropMove {
+        0% {
+            transform: translateY(-100px);
+            opacity: 0;
+        }
+
+        50% {
+            opacity: 0.5;
+        }
+
+        100% {
+            transform: translateY(100vh);
+            opacity: 0;
+        }
+    }
+
+    /* SHARED STYLES */
+    .tech-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(114, 79, 255, 0.1);
+        border: 1px solid rgba(114, 79, 255, 0.2);
+        padding: 6px 18px;
+        border-radius: 100px;
+        font-size: 12px;
+        font-weight: 800;
+        color: rgb(216, 115, 255);
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 25px;
+    }
+
+    .section-title {
+        font-size: clamp(32px, 4.5vw, 54px);
+        font-weight: 900;
+        line-height: 1.1;
+        letter-spacing: -2px;
+    }
+
+    .content-block {
+        padding: 140px 0;
+        position: relative;
+        z-index: 10;
+    }
+
+    .container {
+        position: relative;
+        z-index: 10;
+        max-width: 1350px;
+    }
+
+    .glass-card {
+        background: rgba(255, 255, 255, 0.015);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 40px;
+        backdrop-filter: blur(40px);
+        transition: 0.4s;
+        padding: 45px;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .glass-card:hover {
+        border-color: rgba(114, 79, 255, 0.4);
+        transform: translateY(-10px);
+        background: rgba(114, 79, 255, 0.03);
+    }
+
+    /* 1. HERO */
+    .web-hero {
+        position: relative;
+        padding: 220px 0 120px;
+        background: #080b12;
+        overflow: hidden;
+        text-align: center;
+    }
+
+    .hero-grid {
+        position: absolute;
+        inset: 0;
+        background-image: radial-gradient(rgba(114, 79, 255, 0.05) 1px, transparent 1px);
+        background-size: 50px 50px;
+        transform: perspective(500px) rotateX(60deg);
+    }
+
+    .web-hero h1 {
+        font-size: clamp(40px, 7vw, 85px);
+        font-weight: 900;
+        letter-spacing: -4px;
+        line-height: 0.95;
+        margin-bottom: 30px;
+    }
+
+    /* 2. CAPABILITIES EXPANDED */
+    .cap-grid-massive {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 40px;
+        margin-top: 60px;
+    }
+
+    .cap-icon {
+        width: 55px;
+        height: 55px;
+        background: rgba(114, 79, 255, 0.1);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 22px;
+        color: rgb(114, 79, 255);
+        margin-bottom: 25px;
+        transition: 0.4s;
+    }
+
+    .glass-card:hover .cap-icon {
+        background: rgb(114, 79, 255);
+        color: #fff;
+        box-shadow: 0 0 30px rgba(114, 79, 255, 0.4);
+    }
+
+    .glass-card h4 {
+        font-size: 22px;
+        font-weight: 800;
+        margin-bottom: 15px;
+        color: #fff;
+    }
+
+    .glass-card p {
+        font-size: 15px;
+        color: #94a3b8;
+        line-height: 1.6;
+        margin-bottom: 20px;
+    }
+
+    .cap-feat-list {
+        list-style: none;
+        padding: 0;
+        margin: auto 0 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .cap-feat-list li {
+        background: rgba(255, 255, 255, 0.03);
+        padding: 5px 12px;
+        border-radius: 6px;
+        font-size: 10px;
+        font-weight: 800;
+        color: rgb(216, 115, 255);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        text-transform: uppercase;
+    }
+
+    /* 3. ASSEMBLY LINE */
+    .assembly-section {
+        background: #080b12;
+        padding: 120px 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .assembly-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 20px;
+        margin-top: 60px;
+        position: relative;
+    }
+
+    .assembly-grid::before {
+        content: "";
+        position: absolute;
+        top: 40px;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: rgba(255, 255, 255, 0.05);
+        z-index: 1;
+    }
+
+    .assembly-item {
+        position: relative;
+        z-index: 5;
+        text-align: center;
+    }
+
+    .assembly-node {
+        width: 80px;
+        height: 80px;
+        background: #05070a;
+        border: 2px solid rgba(114, 79, 255, 0.2);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 30px;
+        font-size: 22px;
+        color: rgb(114, 79, 255);
+        transition: 0.4s;
+    }
+
+    .assembly-item:hover .assembly-node {
+        background: rgb(114, 79, 255);
+        color: #fff;
+        transform: scale(1.1);
+        box-shadow: 0 0 30px rgba(114, 79, 255, 0.4);
+    }
+
+    .assembly-item h5 {
+        font-size: 16px;
+        font-weight: 800;
+        color: #fff;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+    }
+
+    .assembly-item p {
+        font-size: 13px;
+        color: #64748b;
+        line-height: 1.5;
+        padding: 0 10px;
+    }
+
+    /* 4. COMPONENT VIEW */
+    .component-view {
+        padding: 120px 0;
+        background: radial-gradient(circle at top right, rgba(114, 79, 255, 0.05) 0%, transparent 50%);
+    }
+
+    .exploded-viz {
+        position: relative;
+        height: 500px;
+        background: rgba(255, 255, 255, 0.01);
+        border: 1px dashed rgba(255, 255, 255, 0.1);
+        border-radius: 40px;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .modular-block {
+        position: absolute;
+        background: rgba(114, 79, 255, 0.1);
+        border: 1px solid rgba(114, 79, 255, 0.3);
+        padding: 15px 25px;
+        border-radius: 12px;
+        font-family: monospace;
+        font-size: 12px;
+        color: #fff;
+        animation: blockFloat 6s infinite alternate ease-in-out;
+    }
+
+    @keyframes blockFloat {
+        from {
+            transform: translateY(0);
+        }
+
+        to {
+            transform: translateY(-30px);
+        }
+    }
+
+    /* 5. TECH STRIP */
+    .tech-strip {
+        background: #080b12;
+        padding: 80px 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .stack-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 30px;
+        text-align: center;
+    }
+
+    .stack-item i {
+        font-size: 40px;
+        color: rgba(255, 255, 255, 0.2);
+        margin-bottom: 15px;
+        display: block;
+    }
+
+    @media (max-width: 1199px) {
+        .cap-grid-massive {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (max-width: 991px) {
+
+        .cap-grid-massive,
+        .assembly-grid,
+        .stack-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .assembly-grid::before {
+            display: none;
+        }
+    }
+</style>
+
+<div class="web-dev-main">
+    <div class="web-fixed-bg" id="web-data-bg"></div>
+
+    <!-- 1. HERO -->
+    <section class="web-hero">
+        <div class="hero-grid"></div>
         <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="ser-head text-center mb-5" data-aos="fade-up">
-                        <div class="hed text-center">
-                            <img src="<?php echo BASE_URL; ?>assets/images/about/arrowLeft.svg" width="6%" alt="">
-                            <span>Build Your Digital Home</span>
-                            <img src="<?php echo BASE_URL; ?>assets/images/about/arrowRight.svg" width="6%" alt="">
-                        </div>
-                        <h3>Robust, Scalable, and Secure Websites</h3>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-8 offset-lg-2 text-center lead">
-                    <p>Your website is your most valuable digital asset. Our development team builds websites that are not only visually stunning but also fast, secure, and scalable. Following best practices in coding and architecture, we transform beautiful designs into fully functional digital experiences that are easy to manage and built to grow with your business.</p>
-                </div>
-            </div>
+            <div class="tech-badge" data-aos="fade-down">Architecture & Systems</div>
+            <h1 data-aos="zoom-in">Elite Web <br> <span class="gradient-tech-text">Engineering Core</span></h1>
+            <p style="color: #94a3b8; max-width: 750px; margin: 0 auto; font-size: 19px; line-height: 1.8;" data-aos="fade-up">We architect high-performance web ecosystems designed for absolute scale, zero-latency delivery, and military-grade security.</p>
         </div>
     </section>
 
-    <!-- WHY IT MATTERS SECTION -->
-<section class="content-section bg-light">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-6 mb-4" data-aos="fade-right">
-                <img src="<?php echo BASE_URL; ?>assets/images/services/web-development.jpg" class="img-fluid rounded shadow-lg" alt="Website Development Importance">
+    <!-- 2. CAPABILITIES (WHAT WE ENGINEER - EXPANDED) -->
+    <section class="content-block py-5">
+        <div class="container">
+            <div class="text-center" data-aos="fade-up">
+                <div class="tech-badge">System Scope</div>
+                <h2 class="section-title">Enterprise <span class="gradient-tech-text">Web Engineering Matrix</span></h2>
             </div>
-            <div class="col-lg-6 mb-4" data-aos="fade-left">
-                <div class="ser-head text-start">
-                    <div class="hed text-start">
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowLeft.svg" width="6%" alt="">
-                        <span>Why Professional Website Development?</span>
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowRight.svg" width="6%" alt="">
-                    </div>
-                    <h3>Your Online Presence Starts Here</h3>
-                    <p class="mt-4">In today's digital-first world, a high-quality website is critical for credibility, customer acquisition, and business growth. A professionally developed website serves as your 24/7 digital storefront, a powerful marketing tool, and a hub for customer engagement. It ensures you make a strong first impression, provide a seamless user experience, and stand out in a competitive online landscape. Don't let an outdated or poorly built website hinder your potential.</p>
-                    <ul class="list-unstyled mt-3">
-                        <li class="mb-2"><i class="fa fa-check text-success me-2"></i>Establish a credible and professional online presence.</li>
-                        <li class="mb-2"><i class="fa fa-check text-success me-2"></i>Attract and convert more customers with an optimized user experience.</li>
-                        <li class="mb-2"><i class="fa fa-check text-success me-2"></i>Ensure your website is secure, scalable, and performs flawlessly on all devices.</li>
+
+            <div class="cap-grid-massive">
+                <!-- 01: E-Commerce -->
+                <div class="glass-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="cap-icon"><i class="fas fa-cart-shopping"></i></div>
+                    <h4>Multi-Vendor <br> E-Commerce</h4>
+                    <p>End-to-end retail ecosystems with vendor onboarding, global payment hubs, and automated order logic.</p>
+                    <ul class="cap-feat-list">
+                        <li>Vendor Apps</li>
+                        <li>Super Admin</li>
+                        <li>Payout Logic</li>
+                        <li>Live Tracking</li>
+                    </ul>
+                </div>
+
+                <!-- 02: SaaS Dashboards -->
+                <div class="glass-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="cap-icon"><i class="fas fa-chart-line"></i></div>
+                    <h4>Enterprise SaaS <br> & CRM Portals</h4>
+                    <p>Internal high-security dashboards for data visualization, user governance, and automated workflow sync.</p>
+                    <ul class="cap-feat-list">
+                        <li>RBAC Security</li>
+                        <li>API First</li>
+                        <li>Data Viz</li>
+                        <li>Audit Logs</li>
+                    </ul>
+                </div>
+
+                <!-- 03: Booking Systems -->
+                <div class="glass-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="cap-icon"><i class="fas fa-calendar-check"></i></div>
+                    <h4>Dynamic <br> Booking Engines</h4>
+                    <p>Real-time availability platforms for Hotels, Car Rentals, and Appointment-based professional services.</p>
+                    <ul class="cap-feat-list">
+                        <li>Slot Logic</li>
+                        <li>IoT GPS Sync</li>
+                        <li>KYC Flow</li>
+                        <li>Auto Invoicing</li>
+                    </ul>
+                </div>
+
+                <!-- 04: Institutional Web -->
+                <div class="glass-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="cap-icon"><i class="fas fa-graduation-cap"></i></div>
+                    <h4>LMS & Educational <br> Ecosystems</h4>
+                    <p>Integrated learning platforms with video streaming, student databases, and automated assessment tools.</p>
+                    <ul class="cap-feat-list">
+                        <li>WebRTC Stream</li>
+                        <li>Smart Quizzes</li>
+                        <li>Cert Engine</li>
+                        <li>Parent Apps</li>
+                    </ul>
+                </div>
+
+                <!-- 05: FinTech Portals -->
+                <div class="glass-card" data-aos="fade-up" data-aos-delay="500">
+                    <div class="cap-icon"><i class="fas fa-wallet"></i></div>
+                    <h4>Secure FinTech <br> & Wealth Hubs</h4>
+                    <p>Ultra-secure financial dashboards featuring multi-currency wallets, high-speed indexing, and PCI compliance.</p>
+                    <ul class="cap-feat-list">
+                        <li>AES-256</li>
+                        <li>KYC Gateway</li>
+                        <li>Live Market</li>
+                        <li>Wealth Sync</li>
+                    </ul>
+                </div>
+
+                <!-- 06: AI-Enabled Apps -->
+                <div class="glass-card" data-aos="fade-up" data-aos-delay="600">
+                    <div class="cap-icon"><i class="fas fa-brain"></i></div>
+                    <h4>AI-Integrated <br> Intelligence Apps</h4>
+                    <p>Next-gen web tools with integrated LLMs, automated matching algorithms, and smart customer insights.</p>
+                    <ul class="cap-feat-list">
+                        <li>OpenAI API</li>
+                        <li>Neural Search</li>
+                        <li>Auto-Summarize</li>
+                        <li>Voice Ops</li>
                     </ul>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- OUR WEBSITE DEVELOPMENT PROCESS SECTION -->
-<section class="content-section">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 text-center">
-                <div class="ser-head" data-aos="fade-up">
-                    <div class="hed">
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowLeft.svg" width="6%" alt="">
-                        <span>Our Workflow</span>
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowRight.svg" width="6%" alt="">
-                    </div>
-                    <h3>Our Collaborative Website Development Process</h3>
-                </div>
+    <!-- 3. PRODUCTION ASSEMBLY -->
+    <section class="assembly-section">
+        <div class="container">
+            <div class="text-center" data-aos="fade-up">
+                <div class="tech-badge">Execution Protocol</div>
+                <h2 class="section-title">The Engineering <span class="gradient-tech-text">Assembly Line</span></h2>
             </div>
-        </div>
-        <div class="row mt-5">
-            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="100">
-                <div class="process-item">
-                    <div class="process-icon"><i class="fa-solid fa-clipboard-list"></i></div>
-                    <h4>Discovery & Planning</h4>
-                    <p>We work with you to understand your vision, target audience, and business objectives, translating them into a detailed project plan and technical specifications.</p>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
-                <div class="process-item">
-                    <div class="process-icon"><i class="fa-solid fa-object-ungroup"></i></div>
-                    <h4>Design (UI/UX) & Prototyping</h4>
-                    <p>Creating wireframes, mockups, and interactive prototypes that focus on intuitive user experience (UX) and captivating user interface (UI) design.</p>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="300">
-                <div class="process-item">
-                    <div class="process-icon"><i class="fa-solid fa-code"></i></div>
-                    <h4>Development & Testing</h4>
-                    <p>Bringing the design to life with clean, efficient code, followed by rigorous testing across devices and browsers to ensure flawless performance and security.</p>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="400">
-                <div class="process-item">
-                    <div class="process-icon"><i class="fa-solid fa-rocket"></i></div>
-                    <h4>Launch & Maintenance</h4>
-                    <p>Seamless deployment of your website, comprehensive training, and ongoing support, security, and performance optimization.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 
-<!-- WHAT WE DELIVER SECTION -->
-<section class="content-section bg-light">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 text-center">
-                <div class="ser-head" data-aos="fade-up">
-                    <div class="hed">
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowLeft.svg" width="6%" alt="">
-                        <span>Your Deliverables</span>
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowRight.svg" width="6%" alt="">
-                    </div>
-                    <h3>What Our Website Development Services Deliver</h3>
+            <div class="assembly-grid">
+                <div class="assembly-item" data-aos="fade-up" data-aos-delay="100">
+                    <div class="assembly-node"><i class="fas fa-microchip"></i></div>
+                    <h5>Logic Mapping</h5>
+                    <p>Translating business flow into complex technical architecture.</p>
+                </div>
+                <div class="assembly-item" data-aos="fade-up" data-aos-delay="200">
+                    <div class="assembly-node"><i class="fas fa-network-wired"></i></div>
+                    <h5>API Hardening</h5>
+                    <p>Building secure, redundant and high-speed data endpoints.</p>
+                </div>
+                <div class="assembly-item" data-aos="fade-up" data-aos-delay="300">
+                    <div class="assembly-node"><i class="fas fa-code"></i></div>
+                    <h5>UI/UX Sync</h5>
+                    <p>Synchronizing the logic with pixel-perfect interactive UIs.</p>
+                </div>
+                <div class="assembly-item" data-aos="fade-up" data-aos-delay="400">
+                    <div class="assembly-node"><i class="fas fa-shield-virus"></i></div>
+                    <h5>Stress Tests</h5>
+                    <p>Rigorous pen-testing and high-concurrency load simulations.</p>
+                </div>
+                <div class="assembly-item" data-aos="fade-up" data-aos-delay="500">
+                    <div class="assembly-node"><i class="fas fa-cloud-bolt"></i></div>
+                    <h5>Cloud Launch</h5>
+                    <p>Automated deployment to global serverless clusters.</p>
                 </div>
             </div>
         </div>
-        <div class="row mt-5">
-            <div class="col-lg-4 d-flex align-items-stretch mb-4" data-aos="fade-up" data-aos-delay="100">
-                <div class="icon-card w-100">
-                    <div class="icon"><i class="fa-solid fa-desktop"></i></div>
-                    <div class="text">
-                        <h5>High-Performance, Responsive Websites</h5>
-                        <p>Fast-loading, SEO-friendly, and mobile-responsive websites that provide an optimal experience on any device.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 d-flex align-items-stretch mb-4" data-aos="fade-up" data-aos-delay="200">
-                <div class="icon-card w-100">
-                    <div class="icon"><i class="fa-solid fa-lock"></i></div>
-                    <div class="text">
-                        <h5>Secure & Scalable Digital Platforms</h5>
-                        <p>Websites built with robust security measures and scalable architecture, ready to grow and adapt with your business.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 d-flex align-items-stretch mb-4" data-aos="fade-up" data-aos-delay="300">
-                <div class="icon-card w-100">
-                    <div class="icon"><i class="fa-solid fa-bullseye"></i></div>
-                    <div class="text">
-                        <h5>Conversion-Optimized User Experiences</h5>
-                        <p>Intuitive and engaging user interfaces (UI) and experiences (UX) designed to guide visitors toward your business goals.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+    </section>
 
-<!-- WHO IS THIS FOR SECTION -->
-<section class="content-section">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 text-center">
-                <div class="ser-head" data-aos="fade-up">
-                    <h3>Who Benefits from Our Website Development Services?</h3>
+    <!-- 4. MODULAR ARCHITECTURE -->
+    <section class="component-view">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6" data-aos="fade-right">
+                    <div class="tech-badge">Clean Code Standards</div>
+                    <h2 class="section-title">Component-Driven <br> <span class="gradient-tech-text">Architecture</span></h2>
+                    <p style="color: #94a3b8; font-size: 18px; line-height: 1.8;">Our code is built as a library of modular components. This makes your project faster to build, easier to scale, and incredibly secure against technical debt.</p>
                 </div>
-            </div>
-        </div>
-        <div class="row mt-4 text-center">
-            <div class="col-md-4 mb-4">
-                <h5>New Businesses & Startups</h5>
-                <p>Establishing their online presence with a professional, functional website that reflects their brand and values.</p>
-            </div>
-            <div class="col-md-4 mb-4">
-                <h5>E-commerce Ventures</h5>
-                <p>Requiring a secure, high-performance online store with seamless shopping experiences to drive sales.</p>
-            </div>
-            <div class="col-md-4 mb-4">
-                <h5>Growing Enterprises</h5>
-                <p>Seeking to upgrade their existing website, integrate new functionalities, or build complex web applications to scale operations.</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="content-section contact-cta">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-10 col-lg-8">
-                <div class="ser-head text-center" data-aos="fade-up">
-                    <div class="hed">
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowLeft.svg" width="6%" alt="">
-                        <span>Let's Talk</span>
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowRight.svg" width="6%" alt="">
+                <div class="col-lg-6 ps-lg-5" data-aos="zoom-in">
+                    <div class="exploded-viz">
+                        <div class="modular-block" style="top: 20%; left: 10%; animation-delay: 0s;">&lt;AuthHandler /&gt;</div>
+                        <div class="modular-block" style="top: 40%; right: 15%; animation-delay: 1s;">&lt;DataGrid /&gt;</div>
+                        <div class="modular-block" style="bottom: 25%; left: 20%; animation-delay: 2s;">&lt;SecureAPI /&gt;</div>
+                        <div class="modular-block" style="top: 10%; right: 30%; animation-delay: 0.5s;">&lt;ReduxStore /&gt;</div>
+                        <i class="fas fa-cube" style="font-size: 150px; color: rgba(114, 79, 255, 0.1);"></i>
                     </div>
-                    <h3>Ready to Build Your Custom Website?</h3>
-                    <p class="lead mt-3">Contact us today to discuss your development needs and get a free consultation. Let's work together to achieve your business goals.</p>
-                    <a href="<?php echo BASE_URL; ?>contact.php" class="btn btn-style-one mt-4">Get in Touch</a>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+
+    <!-- 5. TECH STRIP -->
+    <section class="tech-strip">
+        <div class="container">
+            <div class="stack-grid">
+                <div class="stack-item"><i class="fab fa-react"></i>
+                    <h6>React & Next.js</h6>
+                </div>
+                <div class="stack-item"><i class="fab fa-node-js"></i>
+                    <h6>Node & MERN</h6>
+                </div>
+                <div class="stack-item"><i class="fab fa-laravel"></i>
+                    <h6>PHP & Laravel</h6>
+                </div>
+                <div class="stack-item"><i class="fab fa-wordpress"></i>
+                    <h6>Headless WP</h6>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. CALL TO ACTION -->
+    <?php include_once __DIR__ . '/../contact-section-shared.php'; ?>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const bg = document.getElementById('web-data-bg');
+        for (let i = 0; i < 25; i++) {
+            const drop = document.createElement('div');
+            drop.className = 'data-drop';
+            drop.style.left = Math.random() * 100 + '%';
+            drop.style.animationDelay = Math.random() * 5 + 's';
+            drop.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            bg.appendChild(drop);
+        }
+    });
+</script>
 
 <?php include_once __DIR__ . '/../footer.php'; ?>

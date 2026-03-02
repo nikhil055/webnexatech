@@ -1,311 +1,150 @@
 <?php 
-$page_title = 'Search Ads';
- include_once __DIR__ . '/../config.php'; include_once __DIR__ . '/../header.php'; ?>
+$page_title = 'Google Search Ads (PPC) | WebNexa';
+include_once __DIR__ . '/../config.php'; 
+include_once __DIR__ . '/../header-new.php'; 
+?>
 
-    <style>
-        .page-banner {
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('<?php echo BASE_URL; ?>assets/images/services/paid-ads.png');
-            background-size: cover;
-            background-position: center;
-            padding-top: 220px;
-            padding-bottom: 100px;
-            text-align: center;
-            color: #fff;
-        }
-        .page-banner h2 {
-            font-size: 55px;
-            font-weight: 800;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-        .breadcrumb-custom {
-            justify-content: center;
-            background: rgba(255, 255, 255, 0.1);
-            display: inline-flex;
-            padding: 10px 20px;
-            border-radius: 30px;
-            backdrop-filter: blur(5px);
-        }
-        .breadcrumb-custom .breadcrumb-item a {
-            color: #fff;
-            text-decoration: none;
-            font-weight: 500;
-        }
-        .breadcrumb-custom .breadcrumb-item.active {
-            color: #3C72FC;
-            font-weight: 700;
-        }
-        .content-section {
-            padding-top: 80px;
-            padding-bottom: 80px;
-        }
-        .icon-card {
-            display: flex;
-            align-items: flex-start;
-            background: #fff;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 5px 25px rgba(0,0,0,0.07);
-            margin-bottom: 20px;
-            transition: all 0.3s ease;
-            height: calc(100% - 20px);
-        }
-        .icon-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 35px rgba(0,0,0,0.1);
-        }
-        .icon-card .icon {
-            font-size: 30px;
-            color: #3C72FC;
-            margin-right: 20px;
-            min-width: 40px;
-        }
-        .icon-card h5 {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 5px;
-        }
-        .icon-card p {
-            font-size: 15px;
-            color: #666;
-            margin-bottom: 0;
-            line-height: 1.6;
-        }
-        .process-item {
-            text-align: center;
-            position: relative;
-        }
-        .process-item .process-icon {
-            width: 90px;
-            height: 90px;
-            background: #f1f5ff;
-            color: #3C72FC;
-            border-radius: 50%;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 40px;
-            border: 5px solid #fff;
-            box-shadow: 0 0 15px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
-        }
-        .process-item h4 {
-            font-size: 20px;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-        .contact-cta {
-            background: #f8f9fa;
-        }
-    </style>
+<style>
+    .paid-main { background: #05070a; color: #fff; font-family: 'Inter', sans-serif; overflow-x: hidden; }
+    .web-fixed-bg { position: fixed; inset: 0; z-index: 1; pointer-events: none; opacity: 0.2; }
+    .data-drop { position: absolute; width: 1px; height: 100px; background: linear-gradient(to bottom, transparent, #3d5afe, transparent); animation: dropMove 5s infinite linear; }
+    @keyframes dropMove { 0% { transform: translateY(-100px); opacity: 0; } 50% { opacity: 0.5; } 100% { transform: translateY(100vh); opacity: 0; } }
 
-    <section class="page-banner">
+    .tech-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(61, 90, 254, 0.1); border: 1px solid rgba(61, 90, 254, 0.2); padding: 6px 18px; border-radius: 100px; font-size: 12px; font-weight: 800; color: #3d5afe; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 25px; }
+    .section-title { font-size: clamp(32px, 4.5vw, 54px); font-weight: 900; line-height: 1.1; letter-spacing: -2px; }
+    .gradient-paid-text { background: linear-gradient(90deg, #3d5afe, #00b0ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    
+    .content-block { padding: 120px 0; position: relative; z-index: 10; }
+    .container { position: relative; z-index: 10; max-width: 1350px; }
+    .glass-card { background: rgba(255, 255, 255, 0.015); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 40px; backdrop-filter: blur(40px); transition: 0.4s; padding: 45px; height: 100%; display: flex; flex-direction: column; }
+    .glass-card:hover { border-color: #3d5afe; transform: translateY(-10px); background: rgba(61, 90, 254, 0.03); }
+
+    .web-hero { position: relative; padding: 220px 0 120px; background: #080b12; overflow: hidden; text-align: center; }
+    .hero-grid { position: absolute; inset: 0; background-image: radial-gradient(rgba(61, 90, 254, 0.05) 1px, transparent 1px); background-size: 50px 50px; transform: perspective(500px) rotateX(60deg); }
+    .web-hero h1 { font-size: clamp(40px, 7vw, 85px); font-weight: 900; letter-spacing: -4px; line-height: 0.95; margin-bottom: 30px; }
+
+    .flow-timeline { position: relative; max-width: 900px; margin: 60px auto 0; padding-left: 80px; }
+    .flow-timeline::before { content: ""; position: absolute; left: 30px; top: 0; height: 100%; width: 2px; background: linear-gradient(to bottom, #3d5afe, transparent); }
+    .flow-step { position: relative; margin-bottom: 60px; }
+    .flow-step::after { content: ""; position: absolute; left: -58px; top: 0; width: 16px; height: 18px; background: #05070a; border: 4px solid #3d5afe; border-radius: 50%; box-shadow: 0 0 20px #3d5afe; z-index: 5; }
+    .flow-step h5 { font-size: 22px; font-weight: 800; color: #fff; margin-bottom: 10px; }
+    .flow-step p { font-size: 16px; color: #94a3b8; }
+
+    .cap-grid-massive { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-top: 60px; }
+    .cap-icon { width: 55px; height: 55px; background: rgba(61, 90, 254, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 22px; color: #3d5afe; margin-bottom: 25px; transition: 0.4s; }
+    .cap-feat-list { list-style: none; padding: 0; margin: auto 0 0; display: flex; flex-wrap: wrap; gap: 8px; }
+    .cap-feat-list li { background: rgba(255,255,255,0.03); padding: 5px 12px; border-radius: 6px; font-size: 10px; font-weight: 800; color: #3d5afe; border: 1px solid rgba(255,255,255,0.05); text-transform: uppercase; }
+
+    .comp-box { background: rgba(255, 255, 255, 0.015); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 40px; padding: 60px; margin-top: 60px; }
+    .comp-row { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 40px; padding: 25px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .comp-header { font-weight: 800; color: #fff; text-transform: uppercase; letter-spacing: 1px; font-size: 12px; }
+    .comp-val { font-size: 15px; color: #94a3b8; display: flex; align-items: center; gap: 10px; }
+    .comp-val.best { color: #fff; font-weight: 700; }
+    .comp-val.best i { color: #22c55e; }
+
+    @media (max-width: 991px) { .cap-grid-massive, .comp-row { grid-template-columns: 1fr; } }
+</style>
+
+<div class="paid-main">
+    <div class="web-fixed-bg" id="paid-fx-bg"></div>
+
+    <section class="web-hero">
+        <div class="hero-grid"></div>
         <div class="container">
-            <div class="row">
-                <div class="col-md-12" data-aos="zoom-in">
-                    <h2>Search Ads (PPC) Management</h2>
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb breadcrumb-custom">
-                            <li class="breadcrumb-item"><a href="<?php echo BASE_URL; ?>index.php">Home</a></li>
-                            <li class="breadcrumb-item"><a href="<?php echo BASE_URL; ?>services.php">Services</a></li>
-                            <li class="breadcrumb-item"><a href="<?php echo BASE_URL; ?>paid-media/paid-media-services.php">Paid Media</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Search Ads</li>
-                        </ol>
-                    </nav>
+            <div class="tech-badge" data-aos="fade-down">Performance Marketing</div>
+            <h1 data-aos="zoom-in">Search Advertising <br> <span class="gradient-paid-text">(PPC) Mastery</span></h1>
+            <p style="color: #94a3b8; max-width: 750px; margin: 0 auto; font-size: 19px; line-height: 1.8;" data-aos="fade-up">Driving high-intent traffic through data-driven Google and Bing Ads. We optimize for lowest CPA and maximum conversion value.</p>
+        </div>
+    </section>
+
+    <section class="content-block" style="background: #080b12; border-top: 1px solid rgba(255,255,255,0.05);">
+        <div class="container">
+            <div class="text-center" data-aos="fade-up">
+                <div class="tech-badge">Execution Protocol</div>
+                <h2 class="section-title">The PPC <br> <span class="gradient-paid-text">Optimization Flow</span></h2>
+            </div>
+            <div class="flow-timeline">
+                <div class="flow-step" data-aos="fade-right">
+                    <h5>Keyword Architecture</h5>
+                    <p>Deep-layer intent mapping to identify high-converting commercial search terms.</p>
+                </div>
+                <div class="flow-step" data-aos="fade-right" data-aos-delay="100">
+                    <h5>Creative Engineering</h5>
+                    <p>Crafting psychological ad copy and high-CTR assets tailored to specific search behavior.</p>
+                </div>
+                <div class="flow-step" data-aos="fade-right" data-aos-delay="200">
+                    <h5>Bid Logic Sharding</h5>
+                    <p>Utilizing AI bidding strategies to capture top positions at the lowest possible cost-per-click.</p>
+                </div>
+                <div class="flow-step" data-aos="fade-right" data-aos-delay="300">
+                    <h5>ROI Validation</h5>
+                    <p>Real-time conversion tracking and multi-touch attribution to verify absolute growth.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="content-section">
+    <section class="content-block">
         <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="ser-head text-center mb-5" data-aos="fade-up">
-                        <div class="hed text-center">
-                            <img src="<?php echo BASE_URL; ?>assets/images/about/arrowLeft.svg" width="6%" alt="">
-                            <span>Connect with Customers in the Moment</span>
-                            <img src="<?php echo BASE_URL; ?>assets/images/about/arrowRight.svg" width="6%" alt="">
-                        </div>
-                        <h3>Dominate Search Results with PPC</h3>
-                    </div>
-                </div>
+            <div class="text-center" data-aos="fade-up">
+                <div class="tech-badge">System Scope</div>
+                <h2 class="section-title">The PPC <br> <span class="gradient-paid-text">Growth Blueprint</span></h2>
             </div>
-            <div class="row">
-                <div class="col-lg-8 offset-lg-2 text-center lead">
-                    <p>Search advertising, or Pay-Per-Click (PPC), is the fastest way to get your brand in front of customers who are actively searching for your products or services. Our certified PPC specialists manage every aspect of your campaigns on platforms like Google and Microsoft Ads, from keyword research to ad copywriting and bid management, ensuring you get the most value from every click.</p>
+            <div class="cap-grid-massive">
+                <div class="glass-card" data-aos="fade-up">
+                    <div class="cap-icon"><i class="fas fa-magnifying-glass-dollar"></i></div>
+                    <h4>Search <br> Campaigns</h4>
+                    <p>Dominating high-intent search queries with aggressive bid management.</p>
+                    <ul class="cap-feat-list"><li>Keyword Stacks</li><li>Bid Logic</li><li>CTR Focus</li></ul>
+                </div>
+                <div class="glass-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="cap-icon"><i class="fas fa-cart-shopping"></i></div>
+                    <h4>Shopping <br> & PMAX</h4>
+                    <p>Leveraging Google Performance Max to scale retail revenue automatically.</p>
+                    <ul class="cap-feat-list"><li>Feed Sync</li><li>Asset Stacks</li><li>ROAS Logic</li></ul>
+                </div>
+                <div class="glass-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="cap-icon"><i class="fas fa-retweet"></i></div>
+                    <h4>Dynamic <br> Remarketing</h4>
+                    <p>Re-engaging visitors with hyper-personalized ads based on site behavior.</p>
+                    <ul class="cap-feat-list"><li>Audience Sync</li><li>Pixels</li><li>Flow Logic</li></ul>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- WHY IT MATTERS SECTION -->
-<section class="content-section bg-light">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-6 mb-4" data-aos="fade-right">
-                <img src="<?php echo BASE_URL; ?>assets/images/services/paid-ads.png" class="img-fluid rounded shadow-lg" alt="Search Ads Importance">
+    <section class="content-block" style="background: #080b12;">
+        <div class="container">
+            <div class="text-center" data-aos="fade-up">
+                <div class="tech-badge">Competitive Analysis</div>
+                <h2 class="section-title">Standard PPC vs <br> <span class="gradient-paid-text">WebNexa Performance</span></h2>
             </div>
-            <div class="col-lg-6 mb-4" data-aos="fade-left">
-                <div class="ser-head text-start">
-                    <div class="hed text-start">
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowLeft.svg" width="6%" alt="">
-                        <span>Why Search Ads?</span>
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowRight.svg" width="6%" alt="">
-                    </div>
-                    <h3>Immediate Visibility, Targeted Traffic</h3>
-                    <p class="mt-4">When potential customers are actively searching for solutions your business provides, search ads ensure your brand is prominently displayed at the top of their results. This captures high-intent traffic ready to convert. Search ads offer unparalleled control over who sees your message, allowing for precise targeting, budget management, and immediate feedback on campaign performance, making every advertising dollar count.</p>
-                    <ul class="list-unstyled mt-3">
-                        <li class="mb-2"><i class="fa fa-check text-success me-2"></i>Capture customers at their moment of highest intent.</li>
-                        <li class="mb-2"><i class="fa fa-check text-success me-2"></i>Achieve immediate visibility and drive targeted website traffic.</li>
-                        <li class="mb-2"><i class="fa fa-check text-success me-2"></i>Gain granular control over your ad spend and audience targeting.</li>
-                    </ul>
-                </div>
+            <div class="comp-box" data-aos="zoom-in">
+                <div class="comp-row comp-header"><span>Features</span><span>Standard Agency</span><span style="color:#3d5afe;">WebNexa Elite</span></div>
+                <div class="comp-row"><span>Lead Quality</span><span class="comp-val">Broad & Unfiltered</span><span class="comp-val best"><i class="fas fa-bolt"></i> High-Intent Commercial</span></div>
+                <div class="comp-row"><span>Bid Control</span><span class="comp-val">Manual / Set & Forget</span><span class="comp-val best"><i class="fas fa-microchip"></i> AI-Dynamic Real-time</span></div>
+                <div class="comp-row"><span>Tracking</span><span class="comp-val">Basic Goal Hits</span><span class="comp-val best"><i class="fas fa-chart-line"></i> End-to-End CRM Sync</span></div>
+                <div class="comp-row" style="border:none;"><span>Reporting</span><span class="comp-val">Monthly PDF</span><span class="comp-val best"><i class="fas fa-desktop"></i> Live Data Dashboard</span></div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- OUR SEARCH ADS MANAGEMENT PROCESS SECTION -->
-<section class="content-section">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 text-center">
-                <div class="ser-head" data-aos="fade-up">
-                    <div class="hed">
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowLeft.svg" width="6%" alt="">
-                        <span>Our Workflow</span>
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowRight.svg" width="6%" alt="">
-                    </div>
-                    <h3>Our Data-Driven Search Ads Management Process</h3>
-                </div>
-            </div>
+    <section class="py-5" style="background: #3d5afe; color:#fff;">
+        <div class="container d-flex justify-content-between align-items-center flex-wrap gap-3">
+            <h4 style="margin:0; font-weight:900;">24/7 BID GOVERNANCE ACTIVE</h4>
+            <div style="font-weight:700; letter-spacing:1px; background:rgba(0,0,0,0.2); padding:10px 25px; border-radius:50px;">STATUS: ROAS OPTIMIZED</div>
         </div>
-        <div class="row mt-5">
-            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="100">
-                <div class="process-item">
-                    <div class="process-icon"><i class="fa-solid fa-key"></i></div>
-                    <h4>Keyword Strategy</h4>
-                    <p>Comprehensive keyword research and negative keyword implementation to ensure your ads are shown to the most relevant audience.</p>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
-                <div class="process-item">
-                    <div class="process-icon"><i class="fa-solid fa-pen-nib"></i></div>
-                    <h4>Ad Copy & Extension Crafting</h4>
-                    <p>Developing compelling ad copy and utilizing ad extensions to maximize click-through rates and provide more user information.</p>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="300">
-                <div class="process-item">
-                    <div class="process-icon"><i class="fa-solid fa-chart-line"></i></div>
-                    <h4>Bid & Budget Optimization</h4>
-                    <p>Continuous monitoring and adjustment of bids and budgets to achieve the best possible return on ad spend (ROAS).</p>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="400">
-                <div class="process-item">
-                    <div class="process-icon"><i class="fa-solid fa-bullseye"></i></div>
-                    <h4>Performance Monitoring</h4>
-                    <p>Regular analysis of campaign performance, A/B testing of ad variations, and ongoing refinement to improve results.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+    </section>
 
-<!-- WHAT WE DELIVER SECTION -->
-<section class="content-section bg-light">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 text-center">
-                <div class="ser-head" data-aos="fade-up">
-                    <div class="hed">
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowLeft.svg" width="6%" alt="">
-                        <span>Your Deliverables</span>
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowRight.svg" width="6%" alt="">
-                    </div>
-                    <h3>What Our Search Ads Services Deliver</h3>
-                </div>
-            </div>
-        </div>
-        <div class="row mt-5">
-            <div class="col-lg-4 d-flex align-items-stretch mb-4" data-aos="fade-up" data-aos-delay="100">
-                <div class="icon-card w-100">
-                    <div class="icon"><i class="fa-brands fa-google"></i></div>
-                    <div class="text">
-                        <h5>High-Performing PPC Campaigns</h5>
-                        <p>Optimized Google and Bing Ads campaigns designed to generate leads, drive sales, and maximize your ROI.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 d-flex align-items-stretch mb-4" data-aos="fade-up" data-aos-delay="200">
-                <div class="icon-card w-100">
-                    <div class="icon"><i class="fa-solid fa-chart-line"></i></div>
-                    <div class="text">
-                        <h5>Improved Quality Score</h5>
-                        <p>Strategies that enhance your ad relevance and landing page experience, leading to lower costs and better ad positions.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 d-flex align-items-stretch mb-4" data-aos="fade-up" data-aos-delay="300">
-                <div class="icon-card w-100">
-                    <div class="icon"><i class="fa-solid fa-file-contract"></i></div>
-                    <div class="text">
-                        <h5>Transparent Performance Reports</h5>
-                        <p>Regular, easy-to-understand reports detailing campaign spend, conversions, cost-per-acquisition, and other key metrics.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+    <?php include_once __DIR__ . '/../contact-section-shared.php'; ?>
+</div>
 
-<!-- WHO IS THIS FOR SECTION -->
-<section class="content-section">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 text-center">
-                <div class="ser-head" data-aos="fade-up">
-                    <h3>Who Benefits from Search Ads (PPC)?</h3>
-                </div>
-            </div>
-        </div>
-        <div class="row mt-4 text-center">
-            <div class="col-md-4 mb-4">
-                <h5>Businesses Seeking Immediate Results</h5>
-                <p>Companies looking for quick visibility and traffic generation to boost sales or leads in a short timeframe.</p>
-            </div>
-            <div class="col-md-4 mb-4">
-                <h5>E-commerce Stores</h5>
-                <p>To directly promote products to potential buyers, drive immediate purchases, and achieve high ROI on ad spend.</p>
-            </div>
-            <div class="col-md-4 mb-4">
-                <h5>Service-Based Businesses</h5>
-                <p>To capture local and intent-driven leads, booking appointments, and increasing inquiries for their services.</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="content-section contact-cta">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-10 col-lg-8">
-                <div class="ser-head text-center" data-aos="fade-up">
-                    <div class="hed">
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowLeft.svg" width="6%" alt="">
-                        <span>Let's Talk</span>
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowRight.svg" width="6%" alt="">
-                    </div>
-                    <h3>Ready to Dominate Search Results?</h3>
-                    <p class="lead mt-3">Contact us today to discuss your Search Ads needs and get a free consultation. Let's work together to achieve your business goals.</p>
-                    <a href="<?php echo BASE_URL; ?>contact.php" class="btn btn-style-one mt-4">Get in Touch</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+...
+            bg.appendChild(drop);
+        }
+    });
+</script>
 
 <?php include_once __DIR__ . '/../footer.php'; ?>

@@ -1,312 +1,153 @@
 <?php 
-$page_title = 'Production';
- include_once __DIR__ . '/../config.php'; include_once __DIR__ . '/../header.php'; ?>
+$page_title = 'Cinematic Production | WebNexa';
+include_once __DIR__ . '/../config.php'; 
+include_once __DIR__ . '/../header-new.php'; 
+?>
 
-    <style>
-        .page-banner {
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('<?php echo BASE_URL; ?>assets/images/services/service-bg-3.jpg');
-            background-size: cover;
-            background-position: center;
-            padding-top: 220px;
-            padding-bottom: 100px;
-            text-align: center;
-            color: #fff;
-        }
-        .page-banner h2 {
-            font-size: 55px;
-            font-weight: 800;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-        .breadcrumb-custom {
-            justify-content: center;
-            background: rgba(255, 255, 255, 0.1);
-            display: inline-flex;
-            padding: 10px 20px;
-            border-radius: 30px;
-            backdrop-filter: blur(5px);
-        }
-        .breadcrumb-custom .breadcrumb-item a {
-            color: #fff;
-            text-decoration: none;
-            font-weight: 500;
-        }
-        .breadcrumb-custom .breadcrumb-item.active {
-            color: #3C72FC;
-            font-weight: 700;
-        }
-        .content-section {
-            padding-top: 80px;
-            padding-bottom: 80px;
-        }
-        .icon-card {
-            display: flex;
-            align-items: flex-start;
-            background: #fff;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 5px 25px rgba(0,0,0,0.07);
-            margin-bottom: 20px;
-            transition: all 0.3s ease;
-            height: calc(100% - 20px);
-        }
-        .icon-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 35px rgba(0,0,0,0.1);
-        }
-        .icon-card .icon {
-            font-size: 30px;
-            color: #3C72FC;
-            margin-right: 20px;
-            min-width: 40px;
-        }
-        .icon-card h5 {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 5px;
-        }
-        .icon-card p {
-            font-size: 15px;
-            color: #666;
-            margin-bottom: 0;
-            line-height: 1.6;
-        }
-        .process-item {
-            text-align: center;
-            position: relative;
-        }
-        .process-item .process-icon {
-            width: 90px;
-            height: 90px;
-            background: #f1f5ff;
-            color: #3C72FC;
-            border-radius: 50%;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 40px;
-            border: 5px solid #fff;
-            box-shadow: 0 0 15px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
-        }
-        .process-item h4 {
-            font-size: 20px;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-        .contact-cta {
-            background: #f8f9fa;
-        }
-    </style>
+<style>
+    .creative-main { background: #05070a; color: #fff; font-family: 'Inter', sans-serif; overflow-x: hidden; }
+    .web-fixed-bg { position: fixed; inset: 0; z-index: 1; pointer-events: none; opacity: 0.2; }
+    .data-drop { position: absolute; width: 1px; height: 100px; background: linear-gradient(to bottom, transparent, #795548, transparent); animation: dropMove 5s infinite linear; }
+    @keyframes dropMove { 0% { transform: translateY(-100px); opacity: 0; } 50% { opacity: 0.5; } 100% { transform: translateY(100vh); opacity: 0; } }
 
-    <section class="page-banner">
+    .tech-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(121, 85, 72, 0.1); border: 1px solid rgba(121, 85, 72, 0.2); padding: 6px 18px; border-radius: 100px; font-size: 12px; font-weight: 800; color: #795548; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 25px; }
+    .section-title { font-size: clamp(32px, 4.5vw, 54px); font-weight: 900; line-height: 1.1; letter-spacing: -2px; }
+    .gradient-prod-text { background: linear-gradient(90deg, #795548, #a1887f); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    
+    .content-block { padding: 120px 0; position: relative; z-index: 10; }
+    .container { position: relative; z-index: 10; max-width: 1350px; }
+    .glass-card { background: rgba(255, 255, 255, 0.015); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 40px; backdrop-filter: blur(40px); transition: 0.4s; padding: 45px; height: 100%; display: flex; flex-direction: column; }
+    .glass-card:hover { border-color: #795548; transform: translateY(-10px); background: rgba(121, 85, 72, 0.03); }
+
+    .web-hero { position: relative; padding: 220px 0 120px; background: #080b12; overflow: hidden; text-align: center; }
+    .hero-grid { position: absolute; inset: 0; background-image: radial-gradient(rgba(121, 85, 72, 0.05) 1px, transparent 1px); background-size: 50px 50px; transform: perspective(500px) rotateX(60deg); }
+    .web-hero h1 { font-size: clamp(40px, 7vw, 85px); font-weight: 900; letter-spacing: -4px; line-height: 0.95; margin-bottom: 30px; }
+
+    .flow-timeline { position: relative; max-width: 900px; margin: 60px auto 0; padding-left: 80px; }
+    .flow-timeline::before { content: ""; position: absolute; left: 30px; top: 0; height: 100%; width: 2px; background: linear-gradient(to bottom, #795548, transparent); }
+    .flow-step { position: relative; margin-bottom: 60px; }
+    .flow-step::after { content: ""; position: absolute; left: -58px; top: 0; width: 16px; height: 18px; background: #05070a; border: 4px solid #795548; border-radius: 50%; box-shadow: 0 0 20px #795548; z-index: 5; }
+    .flow-step h5 { font-size: 22px; font-weight: 800; color: #fff; margin-bottom: 10px; }
+    .flow-step p { font-size: 16px; color: #94a3b8; }
+
+    .cap-grid-massive { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-top: 60px; }
+    .cap-icon { width: 55px; height: 55px; background: rgba(121, 85, 72, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 22px; color: #795548; margin-bottom: 25px; transition: 0.4s; }
+    .cap-feat-list { list-style: none; padding: 0; margin: auto 0 0; display: flex; flex-wrap: wrap; gap: 8px; }
+    .cap-feat-list li { background: rgba(255,255,255,0.03); padding: 5px 12px; border-radius: 6px; font-size: 10px; font-weight: 800; color: #795548; border: 1px solid rgba(255,255,255,0.05); text-transform: uppercase; }
+
+    .comp-box { background: rgba(255, 255, 255, 0.015); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 40px; padding: 60px; margin-top: 60px; }
+    .comp-row { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 40px; padding: 25px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .comp-header { font-weight: 800; color: #fff; text-transform: uppercase; letter-spacing: 1px; font-size: 12px; }
+    .comp-val { font-size: 15px; color: #94a3b8; display: flex; align-items: center; gap: 10px; }
+    .comp-val.best { color: #fff; font-weight: 700; }
+    .comp-val.best i { color: #22c55e; }
+
+    @media (max-width: 1199px) { .cap-grid-massive { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 991px) { .cap-grid-massive, .comp-row { grid-template-columns: 1fr; } }
+</style>
+
+<div class="creative-main">
+    <div class="web-fixed-bg" id="prod-fx-bg"></div>
+
+    <section class="web-hero">
+        <div class="hero-grid"></div>
         <div class="container">
-            <div class="row">
-                <div class="col-md-12" data-aos="zoom-in">
-                    <h2>Video & Multimedia Production</h2>
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb breadcrumb-custom">
-                            <li class="breadcrumb-item"><a href="<?php echo BASE_URL; ?>index.php">Home</a></li>
-                            <li class="breadcrumb-item"><a href="<?php echo BASE_URL; ?>services.php">Services</a></li>
-                            <li class="breadcrumb-item"><a href="<?php echo BASE_URL; ?>creative/creative-services.php">Creative Services</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Production</li>
-                        </ol>
-                    </nav>
+            <div class="tech-badge" data-aos="fade-down">Story-Led Engineering</div>
+            <h1 data-aos="zoom-in">Full-Scale Cinematic <br> <span class="gradient-prod-text">Media Production</span></h1>
+            <p style="color: #94a3b8; max-width: 750px; margin: 0 auto; font-size: 19px; line-height: 1.8;" data-aos="fade-up">We merge cinematic artistry with technical precision to produce media that captures market attention and scales authority.</p>
+        </div>
+    </section>
+
+    <!-- ASSEMBLY LINE -->
+    <section class="content-block" style="background: #080b12; border-top: 1px solid rgba(255,255,255,0.05);">
+        <div class="container">
+            <div class="text-center" data-aos="fade-up">
+                <div class="tech-badge">Studio Protocol</div>
+                <h2 class="section-title">The Production <br> <span class="gradient-prod-text">Ecosystem Flow</span></h2>
+            </div>
+            <div class="flow-timeline">
+                <div class="flow-step" data-aos="fade-right">
+                    <h5>Creative Direction</h5>
+                    <p>Engineering the narrative arc and visual pacing to align with brand strategy.</p>
+                </div>
+                <div class="flow-step" data-aos="fade-right" data-aos-delay="100">
+                    <h5>Cinematic Capture</h5>
+                    <p>Executing high-end production with cinema-grade sensors and professional audio arrays.</p>
+                </div>
+                <div class="flow-step" data-aos="fade-right" data-aos-delay="200">
+                    <h5>Technical Post-Pro</h5>
+                    <p>Modular editing workflows, high-fidelity color grading, and sonic DNA mastering.</p>
+                </div>
+                <div class="flow-step" data-aos="fade-right" data-aos-delay="300">
+                    <h5>System Deployment</h5>
+                    <p>Optimizing assets for all digital platforms, from TV broadcast to social motion streams.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="content-section">
+    <section class="content-block">
         <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="ser-head text-center mb-5" data-aos="fade-up">
-                        <div class="hed text-center">
-                            <img src="<?php echo BASE_URL; ?>assets/images/about/arrowLeft.svg" width="6%" alt="">
-                            <span>From Concept to Creation</span>
-                            <img src="<?php echo BASE_URL; ?>assets/images/about/arrowRight.svg" width="6%" alt="">
-                        </div>
-                        <h3>Bringing Your Vision to Life</h3>
-                    </div>
-                </div>
+            <div class="text-center" data-aos="fade-up">
+                <div class="tech-badge">System Scope</div>
+                <h2 class="section-title">Production Engineering <span class="gradient-prod-text">Matrix</span></h2>
             </div>
-            <div class="row">
-                <div class="col-lg-8 offset-lg-2 text-center lead">
-                    <p>In a visual world, high-quality video and multimedia content are essential for capturing attention and telling your story. Our in-house production team manages the entire creative process, from initial concept and storyboarding to shooting, editing, and post-production. We create compelling visual content that engages your audience and elevates your brand.</p>
+            <div class="cap-grid-massive">
+                <div class="glass-card" data-aos="fade-up">
+                    <div class="cap-icon"><i class="fas fa-film"></i></div>
+                    <h4>Video Ad <br> Production</h4>
+                    <p>Broadcast-quality video ads for digital and television platforms with high-retention logic.</p>
+                    <ul class="cap-feat-list"><li>Cine Stacks</li><li>HD Sound</li><li>Trend Sync</li></ul>
+                </div>
+                <div class="glass-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="cap-icon"><i class="fas fa-microphone-lines"></i></div>
+                    <h4>Podcast & <br> Audio Systems</h4>
+                    <p>Engineering crystal-clear audio environments for enterprise podcasts and brand identities.</p>
+                    <ul class="cap-feat-list"><li>Audio Hub</li><li>Logic Pro</li><li>Sonic DNA</li></ul>
+                </div>
+                <div class="glass-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="cap-icon"><i class="fas fa-scissors"></i></div>
+                    <h4>High-Impact <br> Post-Production</h4>
+                    <p>Technical editing workflows focusing on visual effects and high-fidelity color.</p>
+                    <ul class="cap-feat-list"><li>DaVinci Stacks</li><li>VFX Logic</li><li>Mastering</li></ul>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- WHY IT MATTERS SECTION -->
-<section class="content-section bg-light">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-6 mb-4" data-aos="fade-right">
-                <img src="<?php echo BASE_URL; ?>assets/images/services/production.png" class="img-fluid rounded shadow-lg" alt="Production Importance">
+    <!-- COMPARISON -->
+    <section class="content-block" style="background: #080b12;">
+        <div class="container">
+            <div class="text-center" data-aos="fade-up">
+                <div class="tech-badge">Competitive Analysis</div>
+                <h2 class="section-title">Basic Video vs <br> <span class="gradient-prod-text">WebNexa Production</span></h2>
             </div>
-            <div class="col-lg-6 mb-4" data-aos="fade-left">
-                <div class="ser-head text-start">
-                    <div class="hed text-start">
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowLeft.svg" width="6%" alt="">
-                        <span>Why Professional Production?</span>
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowRight.svg" width="6%" alt="">
-                    </div>
-                    <h3>Capture Attention with Premium Content</h3>
-                    <p class="mt-4">In today's fast-paced digital landscape, engaging visual and audio content is paramount for effective communication. Professional production ensures your message is delivered with clarity, impact, and a polished aesthetic that captures and retains audience attention. From corporate videos to dynamic animations, high-quality production elevates your brand and leaves a lasting impression.</p>
-                    <ul class="list-unstyled mt-3">
-                        <li class="mb-2"><i class="fa fa-check text-success me-2"></i>Enhance brand perception with high-quality visual content.</li>
-                        <li class="mb-2"><i class="fa fa-check text-success me-2"></i>Increase audience engagement and retention across platforms.</li>
-                        <li class="mb-2"><i class="fa fa-check text-success me-2"></i>Communicate complex ideas effectively through compelling storytelling.</li>
-                    </ul>
-                </div>
+            <div class="comp-box" data-aos="zoom-in">
+                <div class="comp-row comp-header"><span>Features</span><span>Standard Video</span><span style="color:#a1887f;">WebNexa Elite</span></div>
+                <div class="comp-row"><span>Pacing</span><span class="comp-val">Standard Cuts</span><span class="comp-val best"><i class="fas fa-bolt"></i> Behavioral Retention Logic</span></div>
+                <div class="comp-row"><span>Audio</span><span class="comp-val">Stock Library</span><span class="comp-val best"><i class="fas fa-microchip"></i> Professional Sonic DNA</span></div>
+                <div class="comp-row"><span>Color</span><span class="comp-val">Auto-Levels</span><span class="comp-val best"><i class="fas fa-chart-line"></i> Technical LUT & Log Grading</span></div>
+                <div class="comp-row" style="border:none;"><span>Workflow</span><span class="comp-val">Fragmented</span><span class="comp-val best"><i class="fas fa-desktop"></i> Integrated End-to-End</span></div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- OUR PRODUCTION PROCESS SECTION -->
-<section class="content-section">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 text-center">
-                <div class="ser-head" data-aos="fade-up">
-                    <div class="hed">
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowLeft.svg" width="6%" alt="">
-                        <span>Our Workflow</span>
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowRight.svg" width="6%" alt="">
-                    </div>
-                    <h3>Our End-to-End Production Process</h3>
-                </div>
-            </div>
+    <section class="py-5" style="background: #795548; color:#fff;">
+        <div class="container d-flex justify-content-between align-items-center flex-wrap gap-3">
+            <h4 style="margin:0; font-weight:900;">24/7 PRODUCTION GOVERNANCE ACTIVE</h4>
+            <div style="font-weight:700; letter-spacing:1px; background:rgba(0,0,0,0.2); padding:10px 25px; border-radius:50px;">STATUS: CINEMATIC READY</div>
         </div>
-        <div class="row mt-5">
-            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="100">
-                <div class="process-item">
-                    <div class="process-icon"><i class="fa-solid fa-lightbulb"></i></div>
-                    <h4>Concept & Pre-Production</h4>
-                    <p>From initial idea to scriptwriting, storyboarding, and logistical planning, we ensure every detail is covered before shooting begins.</p>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
-                <div class="process-item">
-                    <div class="process-icon"><i class="fa-solid fa-video"></i></div>
-                    <h4>Production & Filming</h4>
-                    <p>Our skilled team handles all aspects of filming, including videography, lighting, sound recording, and direction, on location or in-studio.</p>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="300">
-                <div class="process-item">
-                    <div class="process-icon"><i class="fa-solid fa-cut"></i></div>
-                    <h4>Post-Production & Editing</h4>
-                    <p>This is where the magic happens! We meticulously edit footage, add graphics, sound design, color correction, and special effects to create a polished final product.</p>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="400">
-                <div class="process-item">
-                    <div class="process-icon"><i class="fa-solid fa-rocket"></i></div>
-                    <h4>Delivery & Distribution</h4>
-                    <p>Final content is delivered in optimal formats for your chosen platforms, with options for distribution and performance tracking.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+    </section>
 
-<!-- WHAT WE DELIVER SECTION -->
-<section class="content-section bg-light">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 text-center">
-                <div class="ser-head" data-aos="fade-up">
-                    <div class="hed">
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowLeft.svg" width="6%" alt="">
-                        <span>Your Deliverables</span>
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowRight.svg" width="6%" alt="">
-                    </div>
-                    <h3>What Our Production Services Deliver</h3>
-                </div>
-            </div>
-        </div>
-        <div class="row mt-5">
-            <div class="col-lg-4 d-flex align-items-stretch mb-4" data-aos="fade-up" data-aos-delay="100">
-                <div class="icon-card w-100">
-                    <div class="icon"><i class="fa-solid fa-film"></i></div>
-                    <div class="text">
-                        <h5>High-Definition Video Content</h5>
-                        <p>Professionally shot and edited videos for web, social media, marketing, and corporate presentations.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 d-flex align-items-stretch mb-4" data-aos="fade-up" data-aos-delay="200">
-                <div class="icon-card w-100">
-                    <div class="icon"><i class="fa-solid fa-magic"></i></div>
-                    <div class="text">
-                        <h5>Engaging Multimedia Assets</h5>
-                        <p>Animations, motion graphics, and interactive elements that captivate your audience and tell your story dynamically.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 d-flex align-items-stretch mb-4" data-aos="fade-up" data-aos-delay="300">
-                <div class="icon-card w-100">
-                    <div class="icon"><i class="fa-solid fa-volume-up"></i></div>
-                    <div class="text">
-                        <h5>Polished Audio Production</h5>
-                        <p>Crisp, clear sound design, voice-overs, and custom music to enhance the overall impact of your visual content.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+    <?php include_once __DIR__ . '/../contact-section-shared.php'; ?>
+</div>
 
-<!-- WHO IS THIS FOR SECTION -->
-<section class="content-section">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 text-center">
-                <div class="ser-head" data-aos="fade-up">
-                    <h3>Who Benefits from Our Production Services?</h3>
-                </div>
-            </div>
-        </div>
-        <div class="row mt-4 text-center">
-            <div class="col-md-4 mb-4">
-                <h5>Businesses of All Sizes</h5>
-                <p>From startups needing explainer videos to enterprises requiring corporate documentaries and promotional content.</p>
-            </div>
-            <div class="col-md-4 mb-4">
-                <h5>Marketing & Ad Agencies</h5>
-                <p>Seeking a reliable partner to produce high-quality video and multimedia assets for their client campaigns.</p>
-            </div>
-            <div class="col-md-4 mb-4">
-                <h5>E-commerce Brands</h5>
-                <p>Looking for compelling product videos, brand stories, and engaging social media content to drive sales.</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-
-<section class="content-section contact-cta">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-10 col-lg-8">
-                <div class="ser-head text-center" data-aos="fade-up">
-                    <div class="hed">
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowLeft.svg" width="6%" alt="">
-                        <span>Let's Talk</span>
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowRight.svg" width="6%" alt="">
-                    </div>
-                    <h3>Ready to Start Your Next Production?</h3>
-                    <p class="lead mt-3">Contact us today to discuss your production needs and get a free consultation. Let's work together to achieve your business goals.</p>
-                    <a href="<?php echo BASE_URL; ?>contact.php" class="btn btn-style-one mt-4">Get in Touch</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+...
+            bg.appendChild(drop);
+        }
+    });
+</script>
 
 <?php include_once __DIR__ . '/../footer.php'; ?>

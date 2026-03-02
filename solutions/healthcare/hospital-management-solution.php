@@ -1,319 +1,123 @@
 <?php 
-$page_title = 'Hospital Management Solution';
- include_once __DIR__ . '/../../config.php'; include_once __DIR__ . '/../../header.php'; ?>
-<?php 
-include_once __DIR__ . '/../../backend/db.php';
-$page_file = 'solutions/healthcare/hospital-management-solution.php';
-$banner_res = $conn->query("SELECT * FROM page_banners WHERE page_name = '$page_file'");
-$banner_data = ($banner_res && $banner_res->num_rows > 0) ? $banner_res->fetch_assoc() : null;
-
-$display_banner_img = ($banner_data && !empty($banner_data['banner_image'])) ? $banner_data['banner_image'] : BASE_URL . 'assets/images/header-icon/solution/Hospital Management.png';
-$display_banner_title = ($banner_data && !empty($banner_data['banner_title'])) ? $banner_data['banner_title'] : 'Hospital Management Solution';
+$page_title = 'Hospital Management Engineering | WebNexa';
+include_once __DIR__ . '/../../config.php'; 
+include_once __DIR__ . '/../../header-new.php'; 
 ?>
 
-    <style>
-        .page-banner {
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('<?php echo $display_banner_img; ?>');
-            background-size: cover;
-            background-position: center;
-            padding-top: 220px;
-            padding-bottom: 100px;
-            text-align: center;
-            color: #fff;
-        }
-        .page-banner h2 {
-            font-size: 55px;
-            font-weight: 800;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-        .breadcrumb-custom {
-            justify-content: center;
-            background: rgba(255, 255, 255, 0.1);
-            display: inline-flex;
-            padding: 10px 20px;
-            border-radius: 30px;
-            backdrop-filter: blur(5px);
-        }
-        .breadcrumb-custom .breadcrumb-item a {
-            color: #fff;
-            text-decoration: none;
-            font-weight: 500;
-        }
-        .breadcrumb-custom .breadcrumb-item.active {
-            color: #3C72FC;
-            font-weight: 700;
-        }
-        .content-section {
-            padding-top: 80px;
-            padding-bottom: 80px;
-        }
-        .icon-card {
-            display: flex;
-            align-items: flex-start;
-            background: #fff;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 5px 25px rgba(0,0,0,0.07);
-            margin-bottom: 20px;
-            transition: all 0.3s ease;
-            height: calc(100% - 20px);
-        }
-        .icon-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 35px rgba(0,0,0,0.1);
-        }
-        .icon-card .icon {
-            font-size: 30px;
-            color: #3C72FC;
-            margin-right: 20px;
-            min-width: 40px;
-        }
-        .icon-card h5 {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 5px;
-        }
-        .icon-card p {
-            font-size: 15px;
-            color: #666;
-            margin-bottom: 0;
-            line-height: 1.6;
-        }
-        .process-item {
-            text-align: center;
-            position: relative;
-        }
-        .process-item .process-icon {
-            width: 90px;
-            height: 90px;
-            background: #f1f5ff;
-            color: #3C72FC;
-            border-radius: 50%;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 40px;
-            border: 5px solid #fff;
-            box-shadow: 0 0 15px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
-        }
-        .process-item h4 {
-            font-size: 20px;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-        .contact-cta {
-            background: #f8f9fa;
-        }
-    </style>
+<style>
+    .solution-main { background: #05070a; color: #fff; font-family: 'Inter', sans-serif; overflow-x: hidden; }
+    .solution-hero { position: relative; padding: 220px 0 120px; background: #080b12; overflow: hidden; }
+    .hero-visual { position: absolute; top: 0; right: -10%; width: 60%; height: 100%; background: radial-gradient(circle, rgba(16, 185, 129, 0.1) 0%, transparent 70%); filter: blur(100px); }
+    
+    .tech-matrix { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; padding: 100px 0; }
+    .matrix-card { background: rgba(255, 255, 255, 0.015); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 40px; padding: 45px; backdrop-filter: blur(40px); transition: 0.4s; }
+    .matrix-card:hover { border-color: #10b981; transform: translateY(-12px); background: rgba(16, 185, 129, 0.03); }
+    .matrix-card i { font-size: 35px; color: #10b981; margin-bottom: 25px; display: block; }
+    
+    .advantage-table { background: rgba(255, 255, 255, 0.01); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 40px; overflow: hidden; margin-top: 60px; }
+    .advantage-table th { background: rgba(16, 185, 129, 0.1); padding: 25px; font-weight: 900; color: #fff; text-transform: uppercase; letter-spacing: 2px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .advantage-table td { padding: 20px 25px; border-bottom: 1px solid rgba(255,255,255,0.05); color: #94a3b8; font-size: 15px; }
+    .check-v { color: #10b981; margin-right: 10px; }
+</style>
 
-<section class="page-banner">
+<div class="solution-main">
+    <section class="solution-hero">
+        <div class="hero-visual"></div>
         <div class="container">
-            <div class="row">
-                <div class="col-md-12" data-aos="zoom-in">
-                    <h2><?php echo $display_banner_title; ?></h2>
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb breadcrumb-custom">
-                            <li class="breadcrumb-item"><a href="<?php echo BASE_URL; ?>index.php">Home</a></li>
-                            <li class="breadcrumb-item"><a href="<?php echo BASE_URL; ?>solutions.php">Solutions</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Hospital Management</li>
-                        </ol>
-                    </nav>
+            <div class="row align-items-center">
+                <div class="col-lg-7" data-aos="fade-right">
+                    <div class="tech-badge">Enterprise Health ERP</div>
+                    <h1 class="display-3 fw-900 mb-4">Hospital System <br> <span class="gradient-tech-text">Masterclass</span></h1>
+                    <p class="lead opacity-75 mb-5">Engineering high-capacity hospital ecosystems. We deploy real-time bed tracking, automated OT scheduling, and unified multi-department data governance.</p>
+                    <div class="d-flex gap-3">
+                        <a href="#matrix" class="btn btn-style-one">Technical Specs</a>
+                        <a href="<?php echo BASE_URL; ?>contact.php" class="btn btn-style-one outline">System Audit</a>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="content-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="ser-head text-center mb-5" data-aos="fade-up">
-                        <div class="hed text-center">
-                            <img src="<?php echo BASE_URL; ?>assets/images/about/arrowLeft.svg" width="6%" alt="">
-                            <span>Integrate and Innovate Patient Care</span>
-                            <img src="<?php echo BASE_URL; ?>assets/images/about/arrowRight.svg" width="6%" alt="">
-                        </div>
-                        <h3>A Complete ERP for Modern Hospitals</h3>
-                    </div>
-                </div>
+    <!-- STATUS STRIP -->
+    <div style="background: #000; border-y: 1px solid rgba(255,255,255,0.1); padding: 15px 0;">
+        <div class="container d-flex justify-content-between align-items-center font-monospace opacity-50 small">
+            <span>NETWORK: MULTI-FACILITY SYNC</span>
+            <span>CAPACITY: 10,000+ PATIENTS/DAY</span>
+            <span>Uptime: 99.999%</span>
+            <span>SECURITY: BIOMETRIC AUTH</span>
+        </div>
+    </div>
+
+    <section class="container py-5" id="matrix">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <div class="tech-badge">The Mastery Matrix</div>
+            <h2 class="display-5 fw-900">Hospital <span class="gradient-tech-text">Tech Modules</span></h2>
+        </div>
+
+        <div class="tech-matrix">
+            <div class="matrix-card" data-aos="fade-up">
+                <i class="fas fa-bed"></i>
+                <h4>Bed Inventory Hub</h4>
+                <p>Real-time visual map of all hospital beds across multiple specialties with automated discharge/admission workflows.</p>
             </div>
-            <div class="row">
-                <div class="col-lg-8 offset-lg-2 text-center lead">
-                    <p>Our Hospital Management Solution is a fully integrated system designed to manage the clinical, financial, and administrative aspects of a hospital. By automating workflows and providing real-time data across all departments, our solution helps healthcare facilities improve operational efficiency, reduce costs, and deliver superior patient outcomes.</p>
-                </div>
+            <div class="matrix-card" data-aos="fade-up" data-aos-delay="100">
+                <i class="fas fa-microscope"></i>
+                <h4>Lab Info System (LIS)</h4>
+                <p>Digital integration with lab hardware for automated test result syncing directly into the patient's EMR profile.</p>
             </div>
+            <div class="matrix-card" data-aos="fade-up" data-aos-delay="200">
+                <i class="fas fa-procedures"></i>
+                <h4>OT Resource Manager</h4>
+                <p>Intelligent scheduling module for Operation Theaters that manages surgeon time, staff shifts, and equipment availability.</p>
+            </div>
+            <div class="matrix-card" data-aos="fade-up" data-aos-delay="300">
+                <i class="fas fa-ambulance"></i>
+                <h4>Emergency Dispatch</h4>
+                <p>Integrated ambulance tracking and trauma-response protocol manager for rapid emergency admissions.</p>
+            </div>
+            <div class="matrix-card" data-aos="fade-up" data-aos-delay="400">
+                <i class="fas fa-boxes"></i>
+                <h4>Pharmacy Inventory</h4>
+                <p>Smart inventory engine for hospital pharmacies with automated low-stock alerts and expiration tracking.</p>
+            </div>
+            <div class="matrix-card" data-aos="fade-up" data-aos-delay="500">
+                <i class="fas fa-user-shield"></i>
+                <h4>Compliance Engine</h4>
+                <p>Automated auditing module that ensures all data entries meet NABH/JCI accreditation standards.</p>
+            </div>
+        </div>
+
+        <div class="advantage-table" data-aos="fade-up">
+            <table class="w-100">
+                <thead>
+                    <tr>
+                        <th style="width: 40%;">Technical Advantage</th>
+                        <th style="width: 30%;">Standard Solution</th>
+                        <th style="width: 30%;">WebNexa Elite</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>System Architecture</td>
+                        <td>Monolithic / On-Prem</td>
+                        <td><i class="fas fa-check-circle check-v"></i> Cloud-Native Microservices</td>
+                    </tr>
+                    <tr>
+                        <td>Inter-Dept Sync</td>
+                        <td>Manual / Delayed</td>
+                        <td><i class="fas fa-check-circle check-v"></i> Real-time (Event Driven)</td>
+                    </tr>
+                    <tr>
+                        <td>Disaster Recovery</td>
+                        <td>Basic Backups</td>
+                        <td><i class="fas fa-check-circle check-v"></i> Geo-Redundant Mirroring</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </section>
 
-    <!-- WHY IT MATTERS SECTION -->
-<section class="content-section bg-light">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-6 mb-4" data-aos="fade-right">
-                <img src="<?php echo BASE_URL; ?>assets/images/header-icon/solution/Hospital Management.png" class="img-fluid rounded shadow-lg" alt="Hospital Management Importance">
-            </div>
-            <div class="col-lg-6 mb-4" data-aos="fade-left">
-                <div class="ser-head text-start">
-                    <div class="hed text-start">
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowLeft.svg" width="6%" alt="">
-                        <span>Why an Integrated HMS?</span>
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowRight.svg" width="6%" alt="">
-                    </div>
-                    <h3>Seamless Operations, Superior Patient Outcomes</h3>
-                    <p class="mt-4">Managing a modern hospital involves immense complexity across clinical, administrative, and financial departments. An integrated Hospital Management Solution (HMS) is vital for centralizing data, automating workflows, and ensuring seamless communication between all stakeholders. It improves decision-making with real-time analytics, enhances patient safety through accurate records, and boosts operational efficiency, ultimately leading to better patient care and sustainable growth for the healthcare institution.</p>
-                    <ul class="list-unstyled mt-3">
-                        <li class="mb-2"><i class="fa fa-check text-success me-2"></i>Automate administrative and clinical workflows for efficiency.</li>
-                        <li class="mb-2"><i class="fa fa-check text-success me-2"></i>Improve patient safety and care quality through centralized data.</li>
-                        <li class="mb-2"><i class="fa fa-check text-success me-2"></i>Reduce operational costs and enhance revenue cycle management.</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- OUR HOSPITAL MANAGEMENT SOLUTION PROCESS SECTION -->
-<section class="content-section">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 text-center">
-                <div class="ser-head" data-aos="fade-up">
-                    <div class="hed">
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowLeft.svg" width="6%" alt="">
-                        <span>Our Workflow</span>
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowRight.svg" width="6%" alt="">
-                    </div>
-                    <h3>Our Comprehensive HMS Implementation Process</h3>
-                </div>
-            </div>
-        </div>
-        <div class="row mt-5">
-            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="100">
-                <div class="process-item">
-                    <div class="process-icon"><i class="fa-solid fa-hospital"></i></div>
-                    <h4>Needs Assessment & Planning</h4>
-                    <p>In-depth analysis of hospital operations, current systems, and strategic goals to design a tailored HMS solution.</p>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
-                <div class="process-item">
-                    <div class="process-icon"><i class="fa-solid fa-gears"></i></div>
-                    <h4>Customization & Integration</h4>
-                    <p>Tailoring HMS modules to fit hospital-specific workflows and integrating with existing medical equipment and systems.</p>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="300">
-                <div class="process-item">
-                    <div class="process-icon"><i class="fa-solid fa-users-medical"></i></div>
-                    <h4>Deployment & Training</h4>
-                    <p>Phased implementation of the HMS across departments, coupled with extensive training for all hospital staff.</p>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="400">
-                <div class="process-item">
-                    <div class="process-icon"><i class="fa-solid fa-heartbeat"></i></div>
-                    <h4>Support & Continuous Improvement</h4>
-                    <p>Dedicated post-implementation support, regular updates, and optimization to ensure long-term system performance and adaptation.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- WHAT YOU RECEIVE SECTION -->
-<section class="content-section bg-light">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 text-center">
-                <div class="ser-head" data-aos="fade-up">
-                    <div class="hed">
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowLeft.svg" width="6%" alt="">
-                        <span>Your Deliverables</span>
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowRight.svg" width="6%" alt="">
-                    </div>
-                    <h3>What Our Hospital Management Solution Delivers</h3>
-                </div>
-            </div>
-        </div>
-        <div class="row mt-5">
-            <div class="col-lg-4 d-flex align-items-stretch mb-4" data-aos="fade-up" data-aos-delay="100">
-                <div class="icon-card w-100">
-                    <div class="icon"><i class="fa-solid fa-hospital-user"></i></div>
-                    <div class="text">
-                        <h5>Integrated Patient Information System</h5>
-                        <p>A unified platform for comprehensive patient data, from admission to discharge, ensuring seamless care coordination and improved safety.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 d-flex align-items-stretch mb-4" data-aos="fade-up" data-aos-delay="200">
-                <div class="icon-card w-100">
-                    <div class="icon"><i class="fa-solid fa-chart-line"></i></div>
-                    <div class="text">
-                        <h5>Enhanced Operational Efficiency</h5>
-                        <p>Automated processes across all departments, leading to reduced administrative burden, optimized resource utilization, and cost savings.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 d-flex align-items-stretch mb-4" data-aos="fade-up" data-aos-delay="300">
-                <div class="icon-card w-100">
-                    <div class="icon"><i class="fa-solid fa-shield-alt"></i></div>
-                    <div class="text">
-                        <h5>Robust Security & Compliance</h5>
-                        <p>Ensuring the highest standards of data security, privacy (HIPAA/GDPR), and regulatory compliance for sensitive patient information.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- WHO IS THIS FOR SECTION -->
-<section class="content-section">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 text-center">
-                <div class="ser-head" data-aos="fade-up">
-                    <h3>Who Benefits from Our Hospital Management Solution?</h3>
-                </div>
-            </div>
-        </div>
-        <div class="row mt-4 text-center">
-            <div class="col-md-4 mb-4">
-                <h5>Large Multi-Specialty Hospitals</h5>
-                <p>Seeking to integrate diverse departments, streamline complex workflows, and enhance overall operational control and patient care quality.</p>
-            </div>
-            <div class="col-md-4 mb-4">
-                <h5>Mid-Sized Healthcare Facilities</h5>
-                <p>Looking for a scalable solution to manage growing patient volumes, improve administrative efficiency, and comply with evolving regulations.</p>
-            </div>
-            <div class="col-md-4 mb-4">
-                <h5>Government Hospitals & Public Health Systems</h5>
-                <p>Requiring robust, secure, and cost-effective solutions to manage large patient populations and optimize public healthcare service delivery.</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="content-section contact-cta">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-10 col-lg-8">
-                <div class="ser-head text-center" data-aos="fade-up">
-                    <div class="hed">
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowLeft.svg" width="6%" alt="">
-                        <span>Let's Talk</span>
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowRight.svg" width="6%" alt="">
-                    </div>
-                    <h3>Ready to Optimize Your Hospital Operations?</h3>
-                    <p class="lead mt-3">Contact us today to discuss your hospital management needs and get a free consultation. Let's work together to achieve your business goals.</p>
-                    <a href="<?php echo BASE_URL; ?>contact.php" class="btn btn-style-one mt-4">Get in Touch</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+    <?php include_once __DIR__ . '/../../contact-section-shared.php'; ?>
+</div>
 
 <?php include_once __DIR__ . '/../../footer.php'; ?>

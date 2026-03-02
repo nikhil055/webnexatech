@@ -1,305 +1,169 @@
 <?php 
-$page_title = 'Services';
- include_once 'config.php'; ?><?php include 'header.php'; ?>
+$page_title = 'Capability Command Center | WebNexa';
+include_once 'config.php'; 
+include_once 'header-new.php'; 
+?>
 
-    <style>
-        /* Styles from about.php, ensuring consistency */
-        .page-banner {
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));
-            background-size: cover;
-            background-position: center;
-            padding-top: 220px;
-            padding-bottom: 100px;
-            text-align: center;
-            color: #fff;
-            margin-bottom: 50px;
-        }
+<style>
+    .services-main-v3 { background: #05070a; color: #fff; font-family: 'Inter', sans-serif; overflow-x: hidden; }
+    
+    /* SERVICES HERO */
+    .services-hero-v3 { position: relative; padding: 220px 0 120px; background: #080b12; overflow: hidden; text-align: center; }
+    .services-hero-v3 h1 { font-size: clamp(40px, 7vw, 85px); font-weight: 900; letter-spacing: -4px; position: relative; z-index: 10; }
+    .hero-flux { position: absolute; inset: 0; background: radial-gradient(circle at 50% 50%, rgba(114, 79, 255, 0.1) 0%, transparent 70%); animation: fluxGlow 8s infinite alternate; }
+    @keyframes fluxGlow { 0% { opacity: 0.3; transform: scale(1); } 100% { opacity: 0.6; transform: scale(1.2); } }
 
-        .page-banner h2 {
-            font-size: 55px;
-            font-weight: 800;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
+    /* MASTER CAPABILITY GRID */
+    .capability-grid-v3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; padding: 100px 0; }
+    
+    .capability-card-v3 { background: rgba(255, 255, 255, 0.015); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 50px; padding: 60px 45px; backdrop-filter: blur(40px); transition: 0.5s; position: relative; overflow: hidden; display: flex; flex-direction: column; height: 100%; }
+    .capability-card-v3:hover { border-color: rgb(114, 79, 255); transform: translateY(-15px); background: rgba(114, 79, 255, 0.03); box-shadow: 0 40px 80px -20px rgba(0,0,0,0.6); }
 
-        .breadcrumb-custom {
-            justify-content: center;
-            background: rgba(255, 255, 255, 0.1);
-            display: inline-flex;
-            padding: 10px 20px;
-            border-radius: 30px;
-            backdrop-filter: blur(5px);
-        }
+    .cap-icon-v3 { width: 80px; height: 80px; background: rgba(114, 79, 255, 0.1); border-radius: 20px; display: flex; align-items: center; justify-content: center; color: rgb(114, 79, 255); font-size: 32px; margin-bottom: 35px; transition: 0.4s; }
+    .capability-card-v3:hover .cap-icon-v3 { background: rgb(114, 79, 255); color: #fff; box-shadow: 0 0 30px rgba(114, 79, 255, 0.4); }
 
-        .breadcrumb-custom .breadcrumb-item a {
-            color: #fff;
-            text-decoration: none;
-            font-weight: 500;
-        }
+    .capability-card-v3 h3 { font-size: 32px; font-weight: 900; margin-bottom: 20px; letter-spacing: -1px; line-height: 1.1; }
+    .capability-card-v3 p { color: #94a3b8; font-size: 16px; line-height: 1.7; margin-bottom: 35px; }
 
-        .breadcrumb-custom .breadcrumb-item.active {
-            color: #EB7700;
-            font-weight: 700;
-        }
-        .content-section {
-            padding-bottom: 80px;
-        }
-        /* Service Category Card */
-        .service-category-card {
-            background: #fff;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-            margin-bottom: 30px;
-            padding: 30px;
-            transition: all 0.3s ease-in-out;
-            border: 1px solid #e9ecef;
-            text-align: center;
-        }
-        .service-category-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(60, 114, 252, 0.2);
-            border-color: #EB7700;
-        }
-        .service-category-card .icon-header {
-            font-size: 45px;
-            color: #EB7700;
-            margin-bottom: 20px;
-        }
-        .service-category-card h4 {
-            font-weight: 700;
-            margin-bottom: 15px;
-        }
-        .service-category-card p {
-            color: #666;
-            font-size: 15px;
-            line-height: 1.7;
-            margin-bottom: 20px;
-        }
-        .service-category-card .btn-style-one {
-            text-decoration: none;
-            color: #fff;
-            background: #EB7700;
-            padding: 10px 25px;
-            border-radius: 25px;
-            font-weight: 600;
-            transition: background 0.3s;
-        }
-         .service-category-card .btn-style-one:hover {
-            background: #3361d1;
-         }
+    .sub-service-list-v3 { list-style: none; padding: 0; margin: 0 0 40px 0; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .sub-service-list-v3 li { font-size: 12px; font-weight: 700; color: #fff; display: flex; align-items: center; gap: 8px; opacity: 0.7; }
+    .sub-service-list-v3 li i { color: rgb(216, 115, 255); font-size: 10px; }
 
-    </style>
+    .cap-link-v3 { margin-top: auto; display: inline-flex; align-items: center; gap: 12px; font-weight: 800; font-size: 12px; text-transform: uppercase; letter-spacing: 2px; color: #fff; text-decoration: none; transition: 0.3s; }
+    .cap-link-v3:hover { color: rgb(216, 115, 255); }
+    .cap-link-v3 i { transition: 0.3s; }
+    .cap-link-v3:hover i { transform: translateX(8px); }
 
-    <div id="page-content-wrapper">
-        <section class="page-banner" id="dynamic-page-banner">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12" data-aos="zoom-in">
-                        <h2 id="banner-title">Loading...</h2>
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb breadcrumb-custom" id="breadcrumb-list">
-                            </ol>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-        </section>
+    /* STATUS STRIP */
+    .status-strip-v3 { background: #000; padding: 20px 0; border-y: 1px solid rgba(255,255,255,0.05); }
+    .status-item-v3 { font-family: 'Fira Code', monospace; font-size: 11px; color: rgb(216, 115, 255); opacity: 0.6; text-transform: uppercase; }
 
-        <div id="dynamic-page-sections">
-            <div class="text-center p-5">
-                <div class="spinner-border text-primary" role="status">
-                    <span class="visually-hidden">Loading...</span>
-                </div>
-                <p class="mt-2">Fetching page content...</p>
-            </div>
+    @media (max-width: 1200px) { .capability-grid-v3 { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 767px) { .capability-grid-v3 { grid-template-columns: 1fr; } .capability-card-v3 { padding: 40px 30px; } }
+</style>
+
+<div class="services-main-v3">
+    <section class="services-hero-v3">
+        <div class="hero-flux"></div>
+        <div class="container">
+            <div class="tech-badge" data-aos="fade-down">Capability Command Center</div>
+            <h1 data-aos="zoom-in">Architecting the <br> <span class="gradient-tech-text">Future of Digital</span></h1>
+            <p style="color: #94a3b8; max-width: 800px; margin: 30px auto 0; font-size: 19px; line-height: 1.8;" data-aos="fade-up">Deploying elite-tier engineering, performance marketing, and creative strategy to help enterprises dominate global markets.</p>
+        </div>
+    </section>
+
+    <div class="status-strip-v3">
+        <div class="container d-flex justify-content-between align-items-center">
+            <span class="status-item-v3"><i class="fas fa-circle-notch fa-spin me-2"></i> SYSTEM_ACTIVE: 24/7 MONITORING</span>
+            <span class="status-item-v3">GLOBAL_LATENCY: < 42ms</span>
+            <span class="status-item-v3">CORE_ENGINE: NEXT.JS 15</span>
+            <span class="status-item-v3">ENCRYPTION: AES-256</span>
         </div>
     </div>
 
-<?php include 'footer.php'; ?>
+    <div class="container">
+        <div class="capability-grid-v3">
+            
+            <!-- 01. TECHNOLOGY -->
+            <div class="capability-card-v3" data-aos="fade-up">
+                <div class="cap-icon-v3"><i class="fas fa-code"></i></div>
+                <h3>Technology & <br> Engineering</h3>
+                <p>Architecting high-performance scalable systems using the world's most advanced technology stacks.</p>
+                <ul class="sub-service-list-v3">
+                    <li><i class="fas fa-microchip"></i> Web Dev</li>
+                    <li><i class="fas fa-microchip"></i> Software</li>
+                    <li><i class="fas fa-microchip"></i> Shopify</li>
+                    <li><i class="fas fa-microchip"></i> Mobile Apps</li>
+                    <li><i class="fas fa-microchip"></i> WordPress</li>
+                    <li><i class="fas fa-microchip"></i> iOS Eng</li>
+                </ul>
+                <a href="<?php echo BASE_URL; ?>technology/website-development.php" class="cap-link-v3">Enter Technology Lab <i class="fas fa-arrow-right"></i></a>
+            </div>
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const dynamicPageBanner = document.getElementById('dynamic-page-banner');
-    const bannerTitle = document.getElementById('banner-title');
-    const breadcrumbList = document.getElementById('breadcrumb-list');
-    const dynamicPageSections = document.getElementById('dynamic-page-sections');
-    const pageSlug = 'services'; // IMPORTANT: Set the slug for the current page
+            <!-- 02. SEO -->
+            <div class="capability-card-v3" data-aos="fade-up" data-aos-delay="100">
+                <div class="cap-icon-v3"><i class="fas fa-magnifying-glass-chart"></i></div>
+                <h3>Search Engine <br> Dominance</h3>
+                <p>Scaling organic growth through algorithmic precision and high-authority topical relevance.</p>
+                <ul class="sub-service-list-v3">
+                    <li><i class="fas fa-spider"></i> Technical SEO</li>
+                    <li><i class="fas fa-location-dot"></i> Local SEO</li>
+                    <li><i class="fas fa-cart-shopping"></i> E-Comm SEO</li>
+                    <li><i class="fas fa-video"></i> YouTube SEO</li>
+                    <li><i class="fas fa-link"></i> Link Audit</li>
+                    <li><i class="fas fa-chart-line"></i> ROI Tracking</li>
+                </ul>
+                <a href="<?php echo BASE_URL; ?>seo/seo-services.php" class="cap-link-v3">Enter SEO Lab <i class="fas fa-arrow-right"></i></a>
+            </div>
 
-    fetch(`backend/api/pages.php?slug=${pageSlug}`)
-        .then(response => {
-            if (!response.ok) {
-                if (response.status === 404) {
-                    return createPageContent(pageSlug)
-                        .then(() => fetch(`backend/api/pages.php?slug=${pageSlug}`))
-                        .then(refetchResponse => {
-                            if (!refetchResponse.ok) throw new Error('Failed to refetch content after creation.');
-                            return refetchResponse.json();
-                        });
-                }
-                return response.text().then(text => { throw new Error(text) });
-            }
-            return response.json();
-        })
-        .then(data => {
-            renderPage(data);
-        })
-        .catch(error => {
-            console.error('Error handling page data:', error);
-            dynamicPageSections.innerHTML = `<div class="alert alert-danger text-center" role="alert">Failed to load page content: ${error.message}</div>`;
-        });
+            <!-- 03. PAID MEDIA -->
+            <div class="capability-card-v3" data-aos="fade-up" data-aos-delay="200">
+                <div class="cap-icon-v3"><i class="fas fa-bullseye"></i></div>
+                <h3>Performance <br> Paid Media</h3>
+                <p>Executing ROAS-driven campaigns across global ad exchanges with real-time bidding logic.</p>
+                <ul class="sub-service-list-v3">
+                    <li><i class="fas fa-search-dollar"></i> Search Ads</li>
+                    <li><i class="fas fa-share-nodes"></i> Social Ads</li>
+                    <li><i class="fas fa-tv"></i> OTT Ads</li>
+                    <li><i class="fas fa-robot"></i> Programmatic</li>
+                    <li><i class="fas fa-road"></i> OOH Media</li>
+                    <li><i class="fas fa-chart-pie"></i> Attribution</li>
+                </ul>
+                <a href="<?php echo BASE_URL; ?>paid-media/search-ads.php" class="cap-link-v3">Enter Media Lab <i class="fas fa-arrow-right"></i></a>
+            </div>
 
-    function renderPage(data) {
-        if (data.error || data.message) {
-            dynamicPageSections.innerHTML = `<div class="alert alert-danger text-center" role="alert">Error loading page: ${data.message || data.error}</div>`;
-            return;
-        }
+            <!-- 04. CREATIVE -->
+            <div class="capability-card-v3" data-aos="fade-up">
+                <div class="cap-icon-v3"><i class="fas fa-bezier-curve"></i></div>
+                <h3>Creative <br> Studio</h3>
+                <p>Architecting iconic brand visual systems and immersive user interfaces that capture market attention.</p>
+                <ul class="sub-service-list-v3">
+                    <li><i class="fas fa-pen-nib"></i> Branding</li>
+                    <li><i class="fas fa-laptop-code"></i> UI/UX Design</li>
+                    <li><i class="fas fa-clapperboard"></i> Motion</li>
+                    <li><i class="fas fa-camera"></i> Photoshoot</li>
+                    <li><i class="fas fa-film"></i> Production</li>
+                    <li><i class="fas fa-swatches"></i> Identity</li>
+                </ul>
+                <a href="<?php echo BASE_URL; ?>creative/branding.php" class="cap-link-v3">Enter Creative Lab <i class="fas fa-arrow-right"></i></a>
+            </div>
 
-        document.title = data.title || 'Page';
-        bannerTitle.innerText = data.banner_title || 'Welcome';
-        if (data.banner_image_url) {
-            dynamicPageBanner.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('${data.banner_image_url}')`;
-        }
+            <!-- 05. CONTENT -->
+            <div class="capability-card-v3" data-aos="fade-up" data-aos-delay="100">
+                <div class="cap-icon-v3"><i class="fas fa-feather-pointed"></i></div>
+                <h3>Content <br> Engineering</h3>
+                <p>Deploying high-conversion storytelling and semantic documentation architectures for global reach.</p>
+                <ul class="sub-service-list-v3">
+                    <li><i class="fas fa-file-lines"></i> Copywriting</li>
+                    <li><i class="fas fa-bullhorn"></i> Marketing</li>
+                    <li><i class="fas fa-book-medical"></i> Technical</li>
+                    <li><i class="fas fa-language"></i> Localization</li>
+                    <li><i class="fas fa-newspaper"></i> Press PR</li>
+                    <li><i class="fas fa-quote-left"></i> Storytelling</li>
+                </ul>
+                <a href="<?php echo BASE_URL; ?>content/content-writing.php" class="cap-link-v3">Enter Content Lab <i class="fas fa-arrow-right"></i></a>
+            </div>
 
-        breadcrumbList.innerHTML = '';
-        if (data.breadcrumb_items && Array.isArray(data.breadcrumb_items)) {
-            data.breadcrumb_items.forEach((item, index) => {
-                const li = document.createElement('li');
-                li.classList.add('breadcrumb-item');
-                if (index === data.breadcrumb_items.length - 1) {
-                    li.classList.add('active');
-                    li.setAttribute('aria-current', 'page');
-                    li.innerText = item.label;
-                } else {
-                    const a = document.createElement('a');
-                    a.href = item.url;
-                    a.innerText = item.label;
-                    li.appendChild(a);
-                }
-                breadcrumbList.appendChild(li);
-            });
-        }
+            <!-- 06. SOLUTIONS -->
+            <div class="capability-card-v3" data-aos="fade-up" data-aos-delay="200">
+                <div class="cap-icon-v3"><i class="fas fa-layer-group"></i></div>
+                <h3>Industry <br> Solutions</h3>
+                <p>End-to-end enterprise ecosystems specifically engineered for niche industry dominance.</p>
+                <ul class="sub-service-list-v3">
+                    <li><i class="fas fa-cart-flatbed"></i> E-Commerce</li>
+                    <li><i class="fas fa-hospital-user"></i> Healthcare</li>
+                    <li><i class="fas fa-car"></i> Car Rental</li>
+                    <li><i class="fas fa-users-viewfinder"></i> Job Portals</li>
+                    <li><i class="fas fa-building"></i> Real Estate</li>
+                    <li><i class="fas fa-graduation-cap"></i> Ed-Tech</li>
+                </ul>
+                <a href="<?php echo BASE_URL; ?>solutions.php" class="cap-link-v3">Enter Solutions Lab <i class="fas fa-arrow-right"></i></a>
+            </div>
 
-        dynamicPageSections.innerHTML = '';
-        if (data.sections && Array.isArray(data.sections)) {
-            data.sections.forEach(section => {
-                let sectionHtml = '';
-                sectionHtml = renderSection(section);
-                dynamicPageSections.innerHTML += sectionHtml;
-            });
-        }
+        </div>
+    </div>
 
-        if (typeof AOS !== 'undefined') {
-            AOS.refreshHard();
-        }
-    }
+    <?php include_once 'contact-section-shared.php'; ?>
+</div>
 
-    function renderSection(section){
-         let content = '';
-         switch(section.type) {
-            case 'hero':
-                 content = `
-                    <section class="content-section">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="ser-head text-center mb-5" data-aos="fade-up">
-                                        <div class="hed text-center">
-                                            <img src="<?php echo BASE_URL; ?>assets/images/about/arrowLeft.svg" width="6%" alt="">
-                                            <span>${section.subtitle || ''}</span>
-                                            <img src="<?php echo BASE_URL; ?>assets/images/about/arrowRight.svg" width="6%" alt="">
-                                        </div>
-                                        <h3>${section.title || ''}</h3>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-8 offset-lg-2 text-center lead">
-                                    ${section.content_json && section.content_json.text ? section.content_json.text : ''}
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-                `;
-                break;
-            case 'service_categories':
-                 if (section.content_json && Array.isArray(section.content_json)) {
-                    const cards = section.content_json.map(card => `
-                        <div class="col-lg-4 col-md-6">
-                            <div class="service-category-card">
-                                <div class="icon-header"><i class="${card.icon || 'fa-solid fa-star'}"></i></div>
-                                <h4>${card.title || ''}</h4>
-                                <p>${card.description || ''}</p>
-                                <a href="${card.url || '#'}" class="btn-style-one">Learn More</a>
-                            </div>
-                        </div>
-                    `).join('');
-                    content = `
-                        <section class="content-section bg-light">
-                            <div class="container">
-                                <div class="row mt-4">
-                                    ${cards}
-                                </div>
-                            </div>
-                        </section>
-                    `;
-                 }
-                 break;
-         }
-         return content;
-    }
-
-    function createPageContent(slug) {
-        const pageData = {
-            "slug": slug,
-            "title": "Our Services | Web Nexa Technologies",
-            "meta_description": "Explore our comprehensive digital services, including SEO, creative design, paid media, content creation, and technology development.",
-            "banner_image_url": "assets/images/services/service-bg-3.jpg",
-            "banner_title": "Our Services",
-            "breadcrumb_items": [
-                {"label": "Home", "url": "index.php"},
-                {"label": "Services", "url": "services.php"}
-            ],
-            "status": "published",
-            "sections": [
-                {
-                    "section_order": 0,
-                    "type": "hero",
-                    "subtitle": "What We Do",
-                    "title": "A Full Suite of Digital Services to Grow Your Business",
-                    "content_json": {
-                        "text": "<p>Web Nexa Technologies offers a complete range of digital services to help you succeed online. We combine strategy, creativity, and technology to deliver solutions that are not only effective but also aligned with your long-term goals. Explore our core service areas below.</p>"
-                    }
-                },
-                {
-                    "section_order": 1,
-                    "type": "service_categories",
-                    "content_json": [
-                        {"icon": "fa-solid fa-chart-line", "title": "SEO Services", "description": "Enhance your organic visibility, drive targeted traffic, and climb search engine rankings with our expert SEO strategies.", "url": "seo-services.php"},
-                        {"icon": "fa-solid fa-palette", "title": "Creative Services", "description": "From branding and web design to video production, our creative team brings your vision to life with stunning visuals.", "url": "creative-services.php"},
-                        {"icon": "fa-solid fa-bullhorn", "title": "Paid Media", "description": "Achieve instant impact and a high return on investment with targeted advertising campaigns across multiple platforms.", "url": "paid-media-services.php"},
-                        {"icon": "fa-solid fa-pen-nib", "title": "Content Services", "description": "Engage and inform your audience with compelling content that builds authority and drives conversions.", "url": "content-services.php"},
-                        {"icon": "fa-solid fa-code", "title": "Technology Services", "description": "Custom websites, mobile apps, and software solutions built with cutting-edge technology to power your business.", "url": "technology-services.php"},
-                         {"icon": "fa-solid fa-lightbulb", "title": "Our Solutions", "description": "Discover our industry-specific solutions tailored for E-commerce, Healthcare, and more to solve unique challenges.", "url": "solutions.php"}
-                    ]
-                }
-            ]
-        };
-
-        return fetch('backend/api/pages.php', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(pageData),
-        })
-        .then(response => {
-            if (!response.ok) {
-                return response.json().then(err => {
-                    throw new Error(`Page creation failed: ${err.message || 'Unknown error'}`);
-                });
-            }
-            return response.json();
-        });
-    }
-});
-</script>
-
+<?php include_once 'footer.php'; ?>

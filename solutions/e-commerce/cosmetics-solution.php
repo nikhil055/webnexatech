@@ -1,319 +1,123 @@
 <?php 
-$page_title = 'Cosmetics Solution';
- include_once __DIR__ . '/../../config.php'; include_once __DIR__ . '/../../header.php'; ?>
-<?php 
-include_once __DIR__ . '/../../backend/db.php';
-$page_file = 'solutions/e-commerce/cosmetics-solution.php';
-$banner_res = $conn->query("SELECT * FROM page_banners WHERE page_name = '$page_file'");
-$banner_data = ($banner_res && $banner_res->num_rows > 0) ? $banner_res->fetch_assoc() : null;
-
-$display_banner_img = ($banner_data && !empty($banner_data['banner_image'])) ? $banner_data['banner_image'] : BASE_URL . 'assets/images/header-icon/solution/Cosmetics.png';
-$display_banner_title = ($banner_data && !empty($banner_data['banner_title'])) ? $banner_data['banner_title'] : 'Cosmetics E-commerce Solution';
+$page_title = 'Cosmetics E-Commerce Engineering | WebNexa';
+include_once __DIR__ . '/../../config.php'; 
+include_once __DIR__ . '/../../header-new.php'; 
 ?>
 
-    <style>
-        .page-banner {
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('<?php echo $display_banner_img; ?>');
-            background-size: cover;
-            background-position: center;
-            padding-top: 220px;
-            padding-bottom: 100px;
-            text-align: center;
-            color: #fff;
-        }
-        .page-banner h2 {
-            font-size: 55px;
-            font-weight: 800;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-        .breadcrumb-custom {
-            justify-content: center;
-            background: rgba(255, 255, 255, 0.1);
-            display: inline-flex;
-            padding: 10px 20px;
-            border-radius: 30px;
-            backdrop-filter: blur(5px);
-        }
-        .breadcrumb-custom .breadcrumb-item a {
-            color: #fff;
-            text-decoration: none;
-            font-weight: 500;
-        }
-        .breadcrumb-custom .breadcrumb-item.active {
-            color: #3C72FC;
-            font-weight: 700;
-        }
-        .content-section {
-            padding-top: 80px;
-            padding-bottom: 80px;
-        }
-        .icon-card {
-            display: flex;
-            align-items: flex-start;
-            background: #fff;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 5px 25px rgba(0,0,0,0.07);
-            margin-bottom: 20px;
-            transition: all 0.3s ease;
-            height: calc(100% - 20px);
-        }
-        .icon-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 35px rgba(0,0,0,0.1);
-        }
-        .icon-card .icon {
-            font-size: 30px;
-            color: #3C72FC;
-            margin-right: 20px;
-            min-width: 40px;
-        }
-        .icon-card h5 {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 5px;
-        }
-        .icon-card p {
-            font-size: 15px;
-            color: #666;
-            margin-bottom: 0;
-            line-height: 1.6;
-        }
-        .process-item {
-            text-align: center;
-            position: relative;
-        }
-        .process-item .process-icon {
-            width: 90px;
-            height: 90px;
-            background: #f1f5ff;
-            color: #3C72FC;
-            border-radius: 50%;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 40px;
-            border: 5px solid #fff;
-            box-shadow: 0 0 15px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
-        }
-        .process-item h4 {
-            font-size: 20px;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-        .contact-cta {
-            background: #f8f9fa;
-        }
-    </style>
+<style>
+    .solution-main { background: #05070a; color: #fff; font-family: 'Inter', sans-serif; overflow-x: hidden; }
+    .solution-hero { position: relative; padding: 220px 0 120px; background: #080b12; overflow: hidden; }
+    .hero-visual { position: absolute; top: 0; right: -10%; width: 60%; height: 100%; background: radial-gradient(circle, rgba(221, 0, 184, 0.1) 0%, transparent 70%); filter: blur(100px); }
+    
+    .tech-matrix { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; padding: 100px 0; }
+    .matrix-card { background: rgba(255, 255, 255, 0.015); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 40px; padding: 45px; backdrop-filter: blur(40px); transition: 0.4s; }
+    .matrix-card:hover { border-color: rgb(221, 0, 184); transform: translateY(-12px); background: rgba(221, 0, 184, 0.03); }
+    .matrix-card i { font-size: 35px; color: rgb(216, 115, 255); margin-bottom: 25px; display: block; }
+    
+    .advantage-table { background: rgba(255, 255, 255, 0.01); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 40px; overflow: hidden; margin-top: 60px; }
+    .advantage-table th { background: rgba(221, 0, 184, 0.1); padding: 25px; font-weight: 900; color: #fff; text-transform: uppercase; letter-spacing: 2px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .advantage-table td { padding: 20px 25px; border-bottom: 1px solid rgba(255,255,255,0.05); color: #94a3b8; font-size: 15px; }
+    .check-v { color: #10b981; margin-right: 10px; }
+</style>
 
-<section class="page-banner">
+<div class="solution-main">
+    <section class="solution-hero">
+        <div class="hero-visual"></div>
         <div class="container">
-            <div class="row">
-                <div class="col-md-12" data-aos="zoom-in">
-                    <h2><?php echo $display_banner_title; ?></h2>
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb breadcrumb-custom">
-                            <li class="breadcrumb-item"><a href="<?php echo BASE_URL; ?>index.php">Home</a></li>
-                            <li class="breadcrumb-item"><a href="<?php echo BASE_URL; ?>solutions.php">Solutions</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Cosmetics Solution</li>
-                        </ol>
-                    </nav>
+            <div class="row align-items-center">
+                <div class="col-lg-7" data-aos="fade-right">
+                    <div class="tech-badge">Beauty-Tech Protocol</div>
+                    <h1 class="display-3 fw-900 mb-4">Cosmetics Shop <br> <span class="gradient-tech-text">Engineering</span></h1>
+                    <p class="lead opacity-75 mb-5">Engineering high-conversion beauty platforms. We integrate AI shade-match algorithms, virtual makeup studios, and automated replenishment subscriptions.</p>
+                    <div class="d-flex gap-3">
+                        <a href="#matrix" class="btn btn-style-one">Technical Specs</a>
+                        <a href="<?php echo BASE_URL; ?>contact.php" class="btn btn-style-one outline">System Audit</a>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="content-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="ser-head text-center mb-5" data-aos="fade-up">
-                        <div class="hed text-center">
-                            <img src="<?php echo BASE_URL; ?>assets/images/about/arrowLeft.svg" width="6%" alt="">
-                            <span>Beauty Meets Technology</span>
-                            <img src="<?php echo BASE_URL; ?>assets/images/about/arrowRight.svg" width="6%" alt="">
-                        </div>
-                        <h3>An Interactive Platform for Beauty Brands</h3>
-                    </div>
-                </div>
+    <!-- STATUS STRIP -->
+    <div style="background: #000; border-y: 1px solid rgba(255,255,255,0.1); padding: 15px 0;">
+        <div class="container d-flex justify-content-between align-items-center font-monospace opacity-50 small">
+            <span>AI ENGINE: SHADE-SCANNER v2</span>
+            <span>UPSELL: ML-DRIVEN BUNDLES</span>
+            <span>SUBS: AUTOPILOT ENABLED</span>
+            <span>UX: HYPER-FAST RENDER</span>
+        </div>
+    </div>
+
+    <section class="container py-5" id="matrix">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <div class="tech-badge">The Mastery Matrix</div>
+            <h2 class="display-5 fw-900">Cosmetics <span class="gradient-tech-text">Tech Modules</span></h2>
+        </div>
+
+        <div class="tech-matrix">
+            <div class="matrix-card" data-aos="fade-up">
+                <i class="fas fa-magic"></i>
+                <h4>AI Shade Matcher</h4>
+                <p>Neural network based skin-tone analyzer that recommends the perfect foundation shade using live camera input.</p>
             </div>
-            <div class="row">
-                <div class="col-lg-8 offset-lg-2 text-center lead">
-                    <p>The beauty industry is personal and experiential. Our Cosmetics E-commerce Solution is designed to replicate that in-store experience online. With interactive features, detailed product information, and a focus on community, we help beauty brands create a captivating digital presence that fosters loyalty and drives sales.</p>
-                </div>
+            <div class="matrix-card" data-aos="fade-up" data-aos-delay="100">
+                <i class="fas fa-sync"></i>
+                <h4>Smart Subscriptions</h4>
+                <p>Automated replenishment logic that predicts when a user will run out of a product based on usage data.</p>
             </div>
+            <div class="matrix-card" data-aos="fade-up" data-aos-delay="200">
+                <i class="fas fa-microscope"></i>
+                <h4>Ingredient Transparency</h4>
+                <p>Interactive module allowing users to scan ingredients and see detailed safety and benefit data for every chemical.</p>
+            </div>
+            <div class="matrix-card" data-aos="fade-up" data-aos-delay="300">
+                <i class="fas fa-video"></i>
+                <h4>Virtual Makeup AR</h4>
+                <p>Real-time lip, eye, and face makeup simulation using low-latency AR filters for "Try Before You Buy."</p>
+            </div>
+            <div class="matrix-card" data-aos="fade-up" data-aos-delay="400">
+                <i class="fas fa-shopping-basket"></i>
+                <h4>Bundle Upsell Engine</h4>
+                <p>Machine learning module that suggests complementary skincare routines based on cart contents and skin profile.</p>
+            </div>
+            <div class="matrix-card" data-aos="fade-up" data-aos-delay="500">
+                <i class="fas fa-comment-dots"></i>
+                <h4>Beauty Consultation</h4>
+                <p>Integrated live video-shopping and chat module for personalized consultations with brand experts.</p>
+            </div>
+        </div>
+
+        <div class="advantage-table" data-aos="fade-up">
+            <table class="w-100">
+                <thead>
+                    <tr>
+                        <th style="width: 40%;">Technical Advantage</th>
+                        <th style="width: 30%;">Standard Solution</th>
+                        <th style="width: 30%;">WebNexa Elite</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Subscription Control</td>
+                        <td>Manual / Fragmented</td>
+                        <td><i class="fas fa-check-circle check-v"></i> Unified Autopilot</td>
+                    </tr>
+                    <tr>
+                        <td>Recommendation</td>
+                        <td>Generic Bestsellers</td>
+                        <td><i class="fas fa-check-circle check-v"></i> AI Skin-Profile Driven</td>
+                    </tr>
+                    <tr>
+                        <td>Mobile Performance</td>
+                        <td>Slow / Clunky</td>
+                        <td><i class="fas fa-check-circle check-v"></i> Ultra-Lightweight PWA</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </section>
 
-    <!-- WHY IT MATTERS SECTION -->
-<section class="content-section bg-light">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-6 mb-4" data-aos="fade-right">
-                <img src="<?php echo BASE_URL; ?>assets/images/header-icon/solution/Cosmetics.png" class="img-fluid rounded shadow-lg" alt="Cosmetics E-commerce Importance">
-            </div>
-            <div class="col-lg-6 mb-4" data-aos="fade-left">
-                <div class="ser-head text-start">
-                    <div class="hed text-start">
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowLeft.svg" width="6%" alt="">
-                        <span>Why Cosmetics E-commerce?</span>
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowRight.svg" width="6%" alt="">
-                    </div>
-                    <h3>Create an Immersive Beauty Experience Online</h3>
-                    <p class="mt-4">The cosmetics industry thrives on personal connection, visual appeal, and trust. An e-commerce solution tailored for beauty brands allows you to showcase your products with rich media, offer interactive tools like virtual try-ons, and build a vibrant community around your brand. It's essential for expanding your customer base, providing personalized shopping experiences, and fostering loyalty in a highly competitive market. A well-designed online presence transforms how customers discover, engage with, and purchase beauty products.</p>
-                    <ul class="list-unstyled mt-3">
-                        <li class="mb-2"><i class="fa fa-check text-success me-2"></i>Offer interactive tools like virtual try-ons to enhance the shopping experience.</li>
-                        <li class="mb-2"><i class="fa fa-check text-success me-2"></i>Build brand loyalty and community through user-generated content and personalized recommendations.</li>
-                        <li class="mb-2"><i class="fa fa-check text-success me-2"></i>Expand your market reach and efficiently manage a diverse product catalog.</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- OUR COSMETICS E-COMMERCE SOLUTION PROCESS SECTION -->
-<section class="content-section">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 text-center">
-                <div class="ser-head" data-aos="fade-up">
-                    <div class="hed">
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowLeft.svg" width="6%" alt="">
-                        <span>Our Workflow</span>
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowRight.svg" width="6%" alt="">
-                    </div>
-                    <h3>How We Develop Your Beauty E-commerce Platform</h3>
-                </div>
-            </div>
-        </div>
-        <div class="row mt-5">
-            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="100">
-                <div class="process-item">
-                    <div class="process-icon"><i class="fa-solid fa-magic"></i></div>
-                    <h4>Brand & Experience Design</h4>
-                    <p>Aligning the platform's aesthetics and user experience with your beauty brand's identity, focusing on visual appeal and ease of discovery.</p>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
-                <div class="process-item">
-                    <div class="process-icon"><i class="fa-solid fa-palette"></i></div>
-                    <h4>Interactive Feature Integration</h4>
-                    <p>Implementing virtual try-on tools, shade finders, and personalized recommendation engines to replicate an in-store experience online.</p>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="300">
-                <div class="process-item">
-                    <div class="process-icon"><i class="fa-solid fa-users"></i></div>
-                    <h4>Community & Content Hub</h4>
-                    <p>Integrating features for customer reviews, user-generated content, video tutorials, and loyalty programs to foster engagement.</p>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="400">
-                <div class="process-item">
-                    <div class="process-icon"><i class="fa-solid fa-chart-line"></i></div>
-                    <h4>Launch & Growth Strategies</h4>
-                    <p>Launching the platform with integrated marketing tools and ongoing optimization strategies to drive sales and customer loyalty.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- WHAT YOU RECEIVE SECTION -->
-<section class="content-section bg-light">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 text-center">
-                <div class="ser-head" data-aos="fade-up">
-                    <div class="hed">
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowLeft.svg" width="6%" alt="">
-                        <span>Your Deliverables</span>
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowRight.svg" width="6%" alt="">
-                    </div>
-                    <h3>What Our Cosmetics E-commerce Solution Delivers</h3>
-                </div>
-            </div>
-        </div>
-        <div class="row mt-5">
-            <div class="col-lg-4 d-flex align-items-stretch mb-4" data-aos="fade-up" data-aos-delay="100">
-                <div class="icon-card w-100">
-                    <div class="icon"><i class="fa-solid fa-store-alt"></i></div>
-                    <div class="text">
-                        <h5>Captivating Digital Boutique</h5>
-                        <p>A beautifully designed, interactive e-commerce store that provides an immersive and engaging shopping experience for beauty products.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 d-flex align-items-stretch mb-4" data-aos="fade-up" data-aos-delay="200">
-                <div class="icon-card w-100">
-                    <div class="icon"><i class="fa-solid fa-hand-sparkles"></i></div>
-                    <div class="text">
-                        <h5>Personalized Customer Journeys</h5>
-                        <p>Tools like virtual try-ons and shade finders that offer personalized recommendations and enhance customer satisfaction.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 d-flex align-items-stretch mb-4" data-aos="fade-up" data-aos-delay="300">
-                <div class="icon-card w-100">
-                    <div class="icon"><i class="fa-solid fa-heart"></i></div>
-                    <div class="text">
-                        <h5>Stronger Brand Loyalty & Community</h5>
-                        <p>Features that foster engagement, encourage user-generated content, and build a loyal community around your beauty brand.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- WHO IS THIS FOR SECTION -->
-<section class="content-section">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 text-center">
-                <div class="ser-head" data-aos="fade-up">
-                    <h3>Who Benefits from Our Cosmetics E-commerce Solution?</h3>
-                </div>
-            </div>
-        </div>
-        <div class="row mt-4 text-center">
-            <div class="col-md-4 mb-4">
-                <h5>Beauty Brands & Retailers</h5>
-                <p>Establishing or expanding their online presence with an interactive platform for makeup, skincare, haircare, and fragrances.</p>
-            </div>
-            <div class="col-md-4 mb-4">
-                <h5>Indie Beauty Startups</h5>
-                <p>New brands looking for a scalable and customizable e-commerce platform to launch their unique product lines.</p>
-            </div>
-            <div class="col-md-4 mb-4">
-                <h5>Subscription Box Services</h5>
-                <p>Managing recurring product deliveries, personalized beauty boxes, and loyalty programs with integrated e-commerce features.</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="content-section contact-cta">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-10 col-lg-8">
-                <div class="ser-head text-center" data-aos="fade-up">
-                    <div class="hed">
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowLeft.svg" width="6%" alt="">
-                        <span>Let's Talk</span>
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowRight.svg" width="6%" alt="">
-                    </div>
-                    <h3>Ready to Beautify Your Brand's E-commerce?</h3>
-                    <p class="lead mt-3">Contact us today to discuss your e-commerce needs and get a free consultation. Let's work together to achieve your business goals.</p>
-                    <a href="<?php echo BASE_URL; ?>contact.php" class="btn btn-style-one mt-4">Get in Touch</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+    <?php include_once __DIR__ . '/../../contact-section-shared.php'; ?>
+</div>
 
 <?php include_once __DIR__ . '/../../footer.php'; ?>

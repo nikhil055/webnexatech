@@ -1,281 +1,107 @@
 <?php 
-$page_title = 'Media';
- include_once __DIR__ . '/../config.php'; include_once __DIR__ . '/../header.php'; ?>
+$page_title = 'Media Engine | WebNexa';
+include_once __DIR__ . '/../config.php'; 
+include_once __DIR__ . '/../header-new.php'; 
+?>
 
-    <style>
-        :root {
-            --primary-blue: #3C72FC;
-            --dark-bg: #1a1a1a;
-        }
+<style>
+    .media-main { background: #05070a; color: #fff; font-family: 'Inter', sans-serif; overflow-x: hidden; }
+    
+    .media-hero { position: relative; padding: 220px 0 100px; background: #080b12; overflow: hidden; text-align: center; }
+    .media-hero h1 { font-size: clamp(40px, 7vw, 85px); font-weight: 900; letter-spacing: -4px; position: relative; z-index: 10; }
 
-        /* Standard Page Banner - Matching about.php */
-        .page-banner {
-            background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(60, 114, 252, 0.3)), url('<?php echo BASE_URL; ?>assets/images/banner/banner-03.jpg');
-            background-size: cover;
-            background-position: center;
-            padding-top: 220px;
-            padding-bottom: 100px;
-            text-align: center;
-            color: #fff;
-        }
+    .media-content { padding: 100px 0; position: relative; z-index: 10; }
 
-        .page-banner h2 {
-            font-size: 55px;
-            font-weight: 800;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
+    /* SPOTLIGHT */
+    .spotlight-v2 { background: rgba(255,255,255,0.015); border: 1px solid rgba(255,255,255,0.08); border-radius: 50px; overflow: hidden; display: flex; align-items: center; margin-bottom: 100px; backdrop-filter: blur(40px); }
+    .spotlight-img { flex: 1; height: 500px; }
+    .spotlight-img img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.7); }
+    .spotlight-text { flex: 1; padding: 60px; }
+    .spotlight-text h3 { font-size: 38px; font-weight: 900; margin-bottom: 25px; line-height: 1.1; }
+    .spotlight-text p { color: #94a3b8; font-size: 18px; line-height: 1.7; margin-bottom: 30px; }
 
-        .breadcrumb-custom {
-            justify-content: center;
-            background: rgba(255, 255, 255, 0.1);
-            display: inline-flex;
-            padding: 10px 20px;
-            border-radius: 30px;
-            backdrop-filter: blur(5px);
-        }
+    /* NEWS FEED */
+    .news-feed-v2 { position: relative; padding-left: 60px; border-left: 1px solid rgba(114, 79, 255, 0.2); }
+    .news-item-v2 { position: relative; margin-bottom: 70px; }
+    .news-item-v2::before { content: ""; position: absolute; left: -66px; top: 10px; width: 12px; height: 12px; background: rgb(114, 79, 255); border-radius: 50%; box-shadow: 0 0 15px rgb(114, 79, 255); }
+    .news-date { font-size: 12px; font-weight: 800; color: rgb(216, 115, 255); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px; display: block; }
+    .news-item-v2 h4 { font-size: 24px; font-weight: 800; margin-bottom: 15px; }
+    .news-item-v2 p { color: #94a3b8; line-height: 1.6; font-size: 15px; }
 
-        .breadcrumb-custom .breadcrumb-item a {
-            color: #fff;
-            text-decoration: none;
-            font-weight: 500;
-        }
+    /* ASSETS */
+    .asset-card-v2 { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.08); border-radius: 30px; padding: 40px; text-align: center; transition: 0.4s; }
+    .asset-card-v2:hover { border-color: rgb(114, 79, 255); transform: translateY(-10px); }
+    .asset-card-v2 i { font-size: 40px; color: rgb(114, 79, 255); margin-bottom: 20px; display: block; }
+    .asset-btn { display: inline-flex; align-items: center; gap: 10px; background: #fff; color: #000; padding: 12px 25px; border-radius: 12px; text-decoration: none; font-weight: 800; font-size: 13px; margin-top: 20px; transition: 0.3s; }
+    .asset-btn:hover { background: rgb(114, 79, 255); color: #fff; }
 
-        .breadcrumb-custom .breadcrumb-item.active {
-            color: #3C72FC;
-            font-weight: 700;
-        }
+    @media (max-width: 991px) { .spotlight-v2 { flex-direction: column; } .spotlight-img { height: 300px; width: 100%; } }
+</style>
 
-        .content-section { padding: 100px 0; }
-
-        /* FEATURED SPOTLIGHT */
-        .featured-news {
-            display: flex;
-            align-items: center;
-            gap: 50px;
-            margin-bottom: 100px;
-            background: #fff;
-            padding: 40px;
-            border-radius: 30px;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.05);
-        }
-
-        .featured-img {
-            flex: 1;
-            border-radius: 20px;
-            overflow: hidden;
-            height: 450px;
-        }
-        .featured-img img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
-        .featured-news:hover .featured-img img { transform: scale(1.05); }
-
-        .featured-content { flex: 1; }
-        .featured-content .badge-top {
-            background: var(--primary-blue);
-            color: #fff;
-            padding: 6px 15px;
-            border-radius: 5px;
-            font-size: 12px;
-            font-weight: 800;
-            margin-bottom: 20px;
-            display: inline-block;
-        }
-        .featured-content h3 { font-size: 42px; font-weight: 800; margin-bottom: 20px; line-height: 1.1; color: var(--dark-bg); }
-        .featured-content p { font-size: 18px; color: #636e72; line-height: 1.8; margin-bottom: 30px; }
-
-        /* TIMELINE NEWS */
-        .news-timeline { position: relative; padding-left: 50px; }
-        .news-timeline::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: linear-gradient(to bottom, var(--primary-blue), #eee);
-        }
-
-        .timeline-item { position: relative; margin-bottom: 80px; }
-        .timeline-item::after {
-            content: '';
-            position: absolute;
-            left: -56px;
-            top: 5px;
-            width: 14px;
-            height: 14px;
-            background: var(--primary-blue);
-            border: 3px solid #fff;
-            border-radius: 50%;
-            box-shadow: 0 0 0 5px rgba(60, 114, 252, 0.2);
-        }
-
-        .timeline-date {
-            font-size: 14px;
-            font-weight: 800;
-            color: var(--primary-blue);
-            text-transform: uppercase;
-            margin-bottom: 10px;
-            display: block;
-        }
-        .timeline-content h4 { font-size: 28px; font-weight: 800; margin-bottom: 15px; color: var(--dark-bg); }
-        .timeline-content p { font-size: 16px; color: #555; line-height: 1.7; max-width: 800px; }
-
-        /* ASSET HUB */
-        .glass-asset {
-            background: #fff;
-            padding: 40px 30px;
-            border-radius: 20px;
-            border: 1px solid #f0f0f0;
-            text-align: center;
-            transition: 0.4s;
-            margin-bottom: 25px;
-        }
-
-        .glass-asset:hover {
-            transform: translateY(-10px);
-            border-color: var(--primary-blue);
-            box-shadow: 0 20px 40px rgba(60, 114, 252, 0.1);
-        }
-
-        .glass-asset i { font-size: 40px; color: var(--primary-blue); margin-bottom: 20px; display: block; }
-        .glass-asset h5 { font-weight: 800; margin-bottom: 10px; }
-        
-        .btn-download-hub {
-            background: var(--dark-bg);
-            color: #fff;
-            padding: 8px 20px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 700;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 14px;
-        }
-        .glass-asset:hover .btn-download-hub { background: var(--primary-blue); }
-
-        /* MODERN CONTACT */
-        .press-contact {
-            background: var(--dark-bg);
-            border-radius: 30px;
-            padding: 60px;
-            color: #fff;
-            margin-top: 50px;
-        }
-
-        .press-contact h3 { font-size: 40px; font-weight: 800; margin-bottom: 20px; }
-        .press-contact p { font-size: 18px; opacity: 0.7; margin-bottom: 40px; }
-
-        .contact-pill-wrap { display: flex; gap: 20px; flex-wrap: wrap; }
-        .contact-pill {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 12px 25px;
-            border-radius: 50px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            text-decoration: none;
-            color: #fff;
-            font-weight: 600;
-        }
-        .contact-pill:hover { background: var(--primary-blue); border-color: transparent; }
-    </style>
-
-    <section class="page-banner">
+<div class="media-main">
+    <section class="media-hero">
+        <div class="hero-glow"></div>
         <div class="container">
-            <div class="row">
-                <div class="col-md-12" data-aos="zoom-in">
-                    <h2>Media & Press Center</h2>
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb breadcrumb-custom">
-                            <li class="breadcrumb-item"><a href="<?php echo BASE_URL; ?>index.php">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Media</li>
-                        </ol>
-                    </nav>
-                </div>
-            </div>
+            <div class="tech-badge" data-aos="fade-down">Press & Media Hub</div>
+            <h1 data-aos="zoom-in">The Global <br> <span class="gradient-tech-text">Press Engine</span></h1>
         </div>
     </section>
 
-    <section class="content-section">
+    <section class="media-content">
         <div class="container">
-            
-            <!-- FEATURED SPOTLIGHT -->
-            <div class="featured-news" data-aos="fade-up">
-                <div class="featured-img">
-                    <img src="<?php echo BASE_URL; ?>assets/images/banner/banner-02.jpg" alt="Featured News">
+            <!-- FEATURED -->
+            <div class="spotlight-v2" data-aos="fade-up">
+                <div class="spotlight-img">
+                    <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop" alt="Press">
                 </div>
-                <div class="featured-content">
-                    <span class="badge-top">Breaking News</span>
-                    <h3>Pioneering the Future of Enterprise AI in Global Markets</h3>
-                    <p>Web Nexa Technologies has unveiled its revolutionary AI integration framework, designed to transform how Fortune 500 companies handle data processing and customer engagement at scale. This milestone marks a new era in our journey toward global digital leadership.</p>
-                    <a href="#" class="btn btn-style-one">Read Full Story <i class="fa-solid fa-arrow-right-long ms-2"></i></a>
+                <div class="spotlight-text">
+                    <div class="tech-badge">Top Story</div>
+                    <h3>WebNexa Unveils Autonomous Commerce Engine for 2026</h3>
+                    <p>The next generation of hyper-scalable retail is here. Our new AI-driven protocol allows enterprises to manage global inventories with zero manual intervention.</p>
+                    <a href="#" class="btn btn-style-one">Full Press Release</a>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-lg-8">
-                    <div class="section-title-wrap mb-5" data-aos="fade-right">
-                        <h3 class="display-6 fw-bold">Recent Updates</h3>
-                    </div>
-
-                    <div class="news-timeline">
-                        <div class="timeline-item" data-aos="fade-up">
-                            <span class="timeline-date">October 15, 2025</span>
-                            <div class="timeline-content">
-                                <h4>London Hub: Our New European Strategic Gateway</h4>
-                                <p>We are excited to announce the opening of our new regional headquarters in the heart of London. This office will serve as the central hub for our European operations.</p>
-                            </div>
+                    <div class="news-feed-v2">
+                        <div class="news-item-v2" data-aos="fade-up">
+                            <span class="news-date">Dec 12, 2025</span>
+                            <h4>Expansion into the MENA Region</h4>
+                            <p>WebNexa officially opens its Dubai HQ, targeting the rapid digital transformation across the Middle East and North Africa.</p>
                         </div>
-
-                        <div class="timeline-item" data-aos="fade-up">
-                            <span class="timeline-date">September 10, 2025</span>
-                            <div class="timeline-content">
-                                <h4>Recognized for Digital Excellence: Agency of the Year</h4>
-                                <p>Web Nexa has been named the 'Digital Agency of the Year' at the 2025 Global Tech Summit, recognizing our commitment to innovation.</p>
-                            </div>
+                        <div class="news-item-v2" data-aos="fade-up" data-aos-delay="100">
+                            <span class="news-date">Oct 05, 2025</span>
+                            <h4>Agency of the Year: Global Tech Awards</h4>
+                            <p>Recognized for architectural excellence and sub-second latency engineering in high-frequency trading platforms.</p>
+                        </div>
+                        <div class="news-item-v2" data-aos="fade-up" data-aos-delay="200">
+                            <span class="news-date">Aug 22, 2025</span>
+                            <h4>Partnership with CloudVanguard</h4>
+                            <p>Strategic alliance to provide 100% fortified serverless infrastructures for our enterprise tier clients.</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-lg-4">
-                    <div class="section-title-wrap mb-4" data-aos="fade-left">
-                        <h3 class="fs-4 fw-bold">Media Assets</h3>
+                    <div class="asset-card-v2 mb-4" data-aos="fade-left">
+                        <i class="fas fa-file-pdf"></i>
+                        <h4>Media Kit 2025</h4>
+                        <p style="color:#94a3b8; font-size:14px;">Logos, brand guidelines, and executive headshots for press use.</p>
+                        <a href="#" class="asset-btn"><i class="fas fa-download"></i> Download Kit</a>
                     </div>
-                    
-                    <div class="glass-asset" data-aos="fade-up">
-                        <i class="fa-solid fa-swatches"></i>
-                        <h5>Visual Identity</h5>
-                        <a href="#" class="btn-download-hub">Get Brand Kit</a>
-                    </div>
-
-                    <div class="glass-asset" data-aos="fade-up" data-aos-delay="100">
-                        <i class="fa-solid fa-file-invoice"></i>
-                        <h5>Press Kit 2025</h5>
-                        <a href="#" class="btn-download-hub">Download PDF</a>
+                    <div class="asset-card-v2" data-aos="fade-left" data-aos-delay="100">
+                        <i class="fas fa-camera"></i>
+                        <h4>Image Gallery</h4>
+                        <p style="color:#94a3b8; font-size:14px;">High-resolution office and team action shots for editorial.</p>
+                        <a href="#" class="asset-btn"><i class="fas fa-download"></i> Browse Library</a>
                     </div>
                 </div>
             </div>
-
-            <!-- MODERN CONTACT -->
-            <div class="press-contact" data-aos="zoom-in">
-                <h3>Media Inquiries</h3>
-                <p>Reach out to our global communications team for press requests or expert commentary.</p>
-                <div class="contact-pill-wrap">
-                    <a href="mailto:info@webnexatechnologies.com" class="contact-pill">
-                        <i class="fa-solid fa-envelope"></i>
-                        info@webnexatechnologies.com
-                    </a>
-                    <a href="tel:+919910893885" class="contact-pill">
-                        <i class="fa-solid fa-phone"></i>
-                        +91 9910893885
-                    </a>
-                </div>
-            </div>
-
         </div>
     </section>
+
+    <?php include_once __DIR__ . '/../contact-section-shared.php'; ?>
+</div>
 
 <?php include_once __DIR__ . '/../footer.php'; ?>

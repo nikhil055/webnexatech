@@ -1,321 +1,148 @@
 <?php 
-$page_title = 'Technical Seo Audit';
- include_once __DIR__ . '/../config.php'; include_once __DIR__ . '/../header.php'; ?>
-<?php 
-include_once __DIR__ . '/../backend/db.php';
-$page_file = 'seo/technical-seo-audit.php';
-$banner_res = $conn->query("SELECT * FROM page_banners WHERE page_name = '$page_file'");
-$banner_data = ($banner_res && $banner_res->num_rows > 0) ? $banner_res->fetch_assoc() : null;
-
-$display_banner_img = ($banner_data && !empty($banner_data['banner_image'])) ? $banner_data['banner_image'] : BASE_URL . 'assets/images/blog/technical_seo.svg';
-$display_banner_title = ($banner_data && !empty($banner_data['banner_title'])) ? $banner_data['banner_title'] : 'Technical SEO Audit';
+$page_title = 'Technical SEO Audit | WebNexa';
+include_once __DIR__ . '/../config.php'; 
+include_once __DIR__ . '/../header-new.php'; 
 ?>
 
-    <style>
-        .page-banner {
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('<?php echo $display_banner_img; ?>');
-            background-size: cover;
-            background-position: center;
-            padding-top: 220px;
-            padding-bottom: 100px;
-            text-align: center;
-            color: #fff;
-        }
-        .page-banner h2 {
-            font-size: 55px;
-            font-weight: 800;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-        .breadcrumb-custom {
-            justify-content: center;
-            background: rgba(255, 255, 255, 0.1);
-            display: inline-flex;
-            padding: 10px 20px;
-            border-radius: 30px;
-            backdrop-filter: blur(5px);
-        }
-        .breadcrumb-custom .breadcrumb-item a {
-            color: #fff;
-            text-decoration: none;
-            font-weight: 500;
-        }
-        .breadcrumb-custom .breadcrumb-item.active {
-            color: #3C72FC;
-            font-weight: 700;
-        }
-        .content-section {
-            padding-top: 80px;
-            padding-bottom: 80px;
-        }
-        .icon-card {
-            display: flex;
-            align-items: flex-start;
-            background: #fff;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 5px 25px rgba(0,0,0,0.07);
-            margin-bottom: 20px;
-            transition: all 0.3s ease;
-            height: calc(100% - 20px);
-        }
-        .icon-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 35px rgba(0,0,0,0.1);
-        }
-        .icon-card .icon {
-            font-size: 30px;
-            color: #3C72FC;
-            margin-right: 20px;
-            min-width: 40px;
-        }
-        .icon-card h5 {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 5px;
-        }
-        .icon-card p {
-            font-size: 15px;
-            color: #666;
-            margin-bottom: 0;
-            line-height: 1.6;
-        }
-        .process-item {
-            text-align: center;
-            position: relative;
-        }
-        .process-item .process-icon {
-            width: 90px;
-            height: 90px;
-            background: #f1f5ff;
-            color: #3C72FC;
-            border-radius: 50%;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 40px;
-            border: 5px solid #fff;
-            box-shadow: 0 0 15px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
-        }
-        .process-item h4 {
-            font-size: 20px;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-        .contact-cta {
-            background: #f8f9fa;
-        }
-    </style>
+<style>
+    .seo-main { background: #05070a; color: #fff; font-family: 'Inter', sans-serif; overflow-x: hidden; }
+    .web-fixed-bg { position: fixed; inset: 0; z-index: 1; pointer-events: none; opacity: 0.2; }
+    .data-drop { position: absolute; width: 1px; height: 100px; background: linear-gradient(to bottom, transparent, #00e676, transparent); animation: dropMove 5s infinite linear; }
+    @keyframes dropMove { 0% { transform: translateY(-100px); opacity: 0; } 50% { opacity: 0.5; } 100% { transform: translateY(100vh); opacity: 0; } }
 
-<section class="page-banner">
+    .tech-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(0, 230, 118, 0.1); border: 1px solid rgba(0, 230, 118, 0.2); padding: 6px 18px; border-radius: 100px; font-size: 12px; font-weight: 800; color: #00e676; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 25px; }
+    .section-title { font-size: clamp(32px, 4.5vw, 54px); font-weight: 900; line-height: 1.1; letter-spacing: -2px; }
+    .gradient-audit-text { background: linear-gradient(90deg, #00e676, #1de9b6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    
+    .content-block { padding: 120px 0; position: relative; z-index: 10; }
+    .container { position: relative; z-index: 10; max-width: 1350px; }
+    .glass-card { background: rgba(255, 255, 255, 0.015); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 40px; backdrop-filter: blur(40px); transition: 0.4s; padding: 45px; height: 100%; display: flex; flex-direction: column; }
+    .glass-card:hover { border-color: #00e676; transform: translateY(-10px); background: rgba(0, 230, 118, 0.03); }
+
+    .web-hero { position: relative; padding: 220px 0 120px; background: #080b12; overflow: hidden; text-align: center; }
+    .hero-grid { position: absolute; inset: 0; background-image: radial-gradient(rgba(0, 230, 118, 0.05) 1px, transparent 1px); background-size: 50px 50px; transform: perspective(500px) rotateX(60deg); }
+    .web-hero h1 { font-size: clamp(40px, 7vw, 85px); font-weight: 900; letter-spacing: -4px; line-height: 0.95; margin-bottom: 30px; }
+
+    .flow-timeline { position: relative; max-width: 900px; margin: 60px auto 0; padding-left: 80px; }
+    .flow-timeline::before { content: ""; position: absolute; left: 30px; top: 0; height: 100%; width: 2px; background: linear-gradient(to bottom, #00e676, transparent); }
+    .flow-step { position: relative; margin-bottom: 60px; }
+    .flow-step::after { content: ""; position: absolute; left: -58px; top: 0; width: 16px; height: 18px; background: #05070a; border: 4px solid #00e676; border-radius: 50%; box-shadow: 0 0 20px #00e676; z-index: 5; }
+    .flow-step h5 { font-size: 22px; font-weight: 800; color: #fff; margin-bottom: 10px; }
+    .flow-step p { font-size: 16px; color: #94a3b8; }
+
+    .comp-box { background: rgba(255, 255, 255, 0.015); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 40px; padding: 60px; margin-top: 60px; }
+    .comp-row { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 40px; padding: 25px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .comp-header { font-weight: 800; color: #fff; text-transform: uppercase; letter-spacing: 1px; font-size: 12px; }
+    .comp-val { font-size: 15px; color: #94a3b8; display: flex; align-items: center; gap: 10px; }
+    .comp-val.best { color: #fff; font-weight: 700; }
+    .comp-val.best i { color: #22c55e; }
+
+    @media (max-width: 1199px) { .cap-grid-massive { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 991px) { .cap-grid-massive, .comp-row { grid-template-columns: 1fr; } }
+</style>
+
+<div class="seo-main">
+    <div class="web-fixed-bg" id="audit-fx-bg"></div>
+
+    <section class="web-hero">
+        <div class="hero-grid"></div>
         <div class="container">
-            <div class="row">
-                <div class="col-md-12" data-aos="zoom-in">
-                    <h2><?php echo $display_banner_title; ?></h2>
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb breadcrumb-custom">
-                            <li class="breadcrumb-item"><a href="<?php echo BASE_URL; ?>index.php">Home</a></li>
-                            <li class="breadcrumb-item"><a href="<?php echo BASE_URL; ?>services.php">Services</a></li>
-                            <li class="breadcrumb-item"><a href="<?php echo BASE_URL; ?>seo/seo-services.php">SEO Services</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Technical SEO Audit</li>
-                        </ol>
-                    </nav>
+            <div class="tech-badge" data-aos="fade-down">Infrastructure Integrity</div>
+            <h1 data-aos="zoom-in">Deep Technical <br> <span class="gradient-audit-text">SEO Audit Core</span></h1>
+            <p style="color: #94a3b8; max-width: 750px; margin: 0 auto; font-size: 19px; line-height: 1.8;" data-aos="fade-up">Identifying and repairing architectural bottlenecks, crawl errors, and performance drags hindering your search rankings.</p>
+        </div>
+    </section>
+
+    <!-- ASSEMBLY LINE -->
+    <section class="content-block" style="background: #080b12; border-top: 1px solid rgba(255,255,255,0.05);">
+        <div class="container">
+            <div class="text-center" data-aos="fade-up">
+                <div class="tech-badge">Audit Protocol</div>
+                <h2 class="section-title">The Technical <br> <span class="gradient-audit-text">Scanning Flow</span></h2>
+            </div>
+            <div class="flow-timeline">
+                <div class="flow-step" data-aos="fade-right">
+                    <h5>Full System Crawl</h5>
+                    <p>High-fidelity technical scan of every endpoint to map 4xx errors, redirect loops, and crawl logic.</p>
+                </div>
+                <div class="flow-step" data-aos="fade-right" data-aos-delay="100">
+                    <h5>Infrastructure Audit</h5>
+                    <p>Analyzing server response TTFB, Core Web Vitals, and SSL/HTTPS encryption integrity.</p>
+                </div>
+                <div class="flow-step" data-aos="fade-right" data-aos-delay="200">
+                    <h5>On-Page Hardening</h5>
+                    <p>Injecting advanced JSON-LD Schema v3 and repairing metadata architectural gaps.</p>
+                </div>
+                <div class="flow-step" data-aos="fade-right" data-aos-delay="300">
+                    <h5>Crawl Budget Lock</h5>
+                    <p>Optimizing robots.txt and sitemap hierarchy to prioritize high-value ROI pages for Googlebot.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="content-section">
+    <section class="content-block">
         <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="ser-head text-center mb-5" data-aos="fade-up">
-                        <div class="hed text-center">
-                            <img src="<?php echo BASE_URL; ?>assets/images/about/arrowLeft.svg" width="6%" alt="">
-                            <span>Build a Strong Foundation</span>
-                            <img src="<?php echo BASE_URL; ?>assets/images/about/arrowRight.svg" width="6%" alt="">
-                        </div>
-                        <h3>Uncover Your Website's True Potential</h3>
-                    </div>
-                </div>
+            <div class="text-center" data-aos="fade-up">
+                <div class="tech-badge">System Scope</div>
+                <h2 class="section-title">Technical Mastery <span class="gradient-audit-text">Matrix</span></h2>
             </div>
-            <div class="row">
-                <div class="col-lg-8 offset-lg-2 text-center lead">
-                    <p>A technically sound website is the bedrock of any successful SEO strategy. Our comprehensive technical SEO audit dives deep into your site's architecture, identifying critical issues that prevent search engines from crawling, indexing, and ranking your pages effectively. We provide a detailed, actionable report to guide your development team and unlock your site's ranking potential.</p>
+            <div class="cap-grid-massive">
+                <div class="glass-card" data-aos="fade-up">
+                    <div class="cap-icon"><i class="fas fa-spider"></i></div>
+                    <h4>Crawl Budget <br> Optimization</h4>
+                    <p>Ensuring search engines find your most valuable pages without wasting resources.</p>
+                    <ul class="cap-feat-list"><li>Robots Logic</li><li>Redirect Fix</li><li>404 Cleanup</li></ul>
+                </div>
+                <div class="glass-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="cap-icon"><i class="fas fa-bolt"></i></div>
+                    <h4>Core Web Vitals <br> Engineering</h4>
+                    <p>Benchmarking LCP, FID, and CLS scores for sub-second mobile performance.</p>
+                    <ul class="cap-feat-list"><li>TTFB Sync</li><li>Image Logic</li><li>JS Deferral</li></ul>
+                </div>
+                <div class="glass-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="cap-icon"><i class="fas fa-code"></i></div>
+                    <h4>Advanced <br> Schema Stacks</h4>
+                    <p>Implementing organization and product schemas to dominate SERP real estate.</p>
+                    <ul class="cap-feat-list"><li>JSON-LD</li><li>FAQ Mark</li><li>Review Logic</li></ul>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- WHY IT MATTERS SECTION -->
-<section class="content-section bg-light">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-6 mb-4" data-aos="fade-right">
-                <img src="<?php echo BASE_URL; ?>assets/images/why/side.jpg" class="img-fluid rounded shadow-lg" alt="Technical SEO Analysis">
+    <!-- COMPARISON -->
+    <section class="content-block" style="background: #080b12;">
+        <div class="container">
+            <div class="text-center" data-aos="fade-up">
+                <div class="tech-badge">Competitive Analysis</div>
+                <h2 class="section-title">Automatic Audit vs <br> <span class="gradient-audit-text">WebNexa Manual Deep-Dive</span></h2>
             </div>
-            <div class="col-lg-6 mb-4" data-aos="fade-left">
-                <div class="ser-head text-start">
-                    <div class="hed text-start">
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowLeft.svg" width="6%" alt="">
-                        <span>Why It Matters</span>
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowRight.svg" width="6%" alt="">
-                    </div>
-                    <h3>Your Website's Health is Non-Negotiable</h3>
-                    <p class="mt-4">Think of technical SEO as the foundation of a house. Without a solid foundation, everything you build on top—beautiful design, great content—can come crumbling down. If search engines can't efficiently crawl, render, and understand your site, your chances of ranking are slim to none, no matter how great your content is.</p>
-                    <ul class="list-unstyled mt-3">
-                        <li class="mb-2"><i class="fa fa-check text-success me-2"></i>A technical audit removes roadblocks for search engines.</li>
-                        <li class="mb-2"><i class="fa fa-check text-success me-2"></i>It directly impacts user experience through site speed and mobile-friendliness.</li>
-                        <li class="mb-2"><i class="fa fa-check text-success me-2"></i>It ensures your content marketing efforts aren't wasted.</li>
-                    </ul>
-                </div>
+            <div class="comp-box" data-aos="zoom-in">
+                <div class="comp-row comp-header"><span>Features</span><span>Standard Tool</span><span style="color:#00e676;">WebNexa Elite</span></div>
+                <div class="comp-row"><span>Accuracy</span><span class="comp-val">High False Positives</span><span class="comp-val best"><i class="fas fa-bolt"></i> Engineering-Verified</span></div>
+                <div class="comp-row"><span>Logic</span><span class="comp-val">Surface Scans</span><span class="comp-val best"><i class="fas fa-microchip"></i> Architectural Root-Cause</span></div>
+                <div class="comp-row"><span>Speed</span><span class="comp-val">Basic CSS/JS scan</span><span class="comp-val best"><i class="fas fa-chart-line"></i> Full Rendering Path Audit</span></div>
+                <div class="comp-row" style="border:none;"><span>Action</span><span class="comp-val">Generic Suggestions</span><span class="comp-val best"><i class="fas fa-desktop"></i> Direct Code Implementations</span></div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- HOW WE CONDUCT OUR AUDIT SECTION -->
-<section class="content-section">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 text-center">
-                <div class="ser-head" data-aos="fade-up">
-                    <div class="hed">
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowLeft.svg" width="6%" alt="">
-                        <span>Our Process</span>
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowRight.svg" width="6%" alt="">
-                    </div>
-                    <h3>How We Conduct Your Technical SEO Audit</h3>
-                </div>
-            </div>
+    <section class="py-5" style="background: #00e676; color:#000;">
+        <div class="container d-flex justify-content-between align-items-center flex-wrap gap-3">
+            <h4 style="margin:0; font-weight:900;">24/7 TECHNICAL PERFORMANCE GOVERNANCE ACTIVE</h4>
+            <div style="font-weight:700; letter-spacing:1px; background:rgba(0,0,0,0.1); padding:10px 25px; border-radius:50px;">STATUS: INFRASTRUCTURE SECURED</div>
         </div>
-        <div class="row mt-5">
-            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="100">
-                <div class="process-item">
-                    <div class="process-icon"><i class="fa-solid fa-spider"></i></div>
-                    <h4>Site Crawl & Analysis</h4>
-                    <p>We use advanced tools to simulate search engine crawling, identifying broken links, redirect issues, and crawl budget inefficiencies.</p>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
-                <div class="process-item">
-                    <div class="process-icon"><i class="fa-solid fa-tachometer-alt"></i></div>
-                    <h4>Performance Metrics</h4>
-                    <p>In-depth analysis of Core Web Vitals (LCP, FID, CLS), page load speed, and server response times across all devices.</p>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="300">
-                <div class="process-item">
-                    <div class="process-icon"><i class="fa-solid fa-code"></i></div>
-                    <h4>Code & Structure Review</h4>
-                    <p>Examining HTML, CSS, JavaScript, structured data implementation, and site architecture for SEO best practices.</p>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="400">
-                <div class="process-item">
-                    <div class="process-icon"><i class="fa-solid fa-file-contract"></i></div>
-                    <h4>Actionable Report</h4>
-                    <p>You receive a comprehensive report with prioritized recommendations, explanations, and step-by-step guidance for implementation.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+    </section>
 
-<!-- WHAT YOU RECEIVE SECTION -->
-<section class="content-section bg-light">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 text-center">
-                <div class="ser-head" data-aos="fade-up">
-                    <div class="hed">
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowLeft.svg" width="6%" alt="">
-                        <span>Your Deliverables</span>
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowRight.svg" width="6%" alt="">
-                    </div>
-                    <h3>What You Get from Our Technical SEO Audit</h3>
-                </div>
-            </div>
-        </div>
-        <div class="row mt-5">
-            <div class="col-lg-4 d-flex align-items-stretch mb-4" data-aos="fade-up" data-aos-delay="100">
-                <div class="icon-card w-100">
-                    <div class="icon"><i class="fa-solid fa-chart-line"></i></div>
-                    <div class="text">
-                        <h5>Prioritized Recommendations</h5>
-                        <p>A clear roadmap of the most impactful technical fixes, ordered by urgency and potential SEO gain.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 d-flex align-items-stretch mb-4" data-aos="fade-up" data-aos-delay="200">
-                <div class="icon-card w-100">
-                    <div class="icon"><i class="fa-solid fa-file-excel"></i></div>
-                    <div class="text">
-                        <h5>Detailed Audit Report</h5>
-                        <p>A comprehensive document outlining all findings, their impact on SEO, and step-by-step instructions for your team.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 d-flex align-items-stretch mb-4" data-aos="fade-up" data-aos-delay="300">
-                <div class="icon-card w-100">
-                    <div class="icon"><i class="fa-solid fa-handshake"></i></div>
-                    <div class="text">
-                        <h5>Consultation & Support</h5>
-                        <p>A dedicated call with our experts to walk you through the report and answer any questions your team may have.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+    <?php include_once __DIR__ . '/../contact-section-shared.php'; ?>
+</div>
 
-<!-- WHO IS THIS FOR SECTION -->
-<section class="content-section">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 text-center">
-                <div class="ser-head" data-aos="fade-up">
-                    <h3>Who Needs a Technical SEO Audit?</h3>
-                </div>
-            </div>
-        </div>
-        <div class="row mt-4 text-center">
-            <div class="col-md-4 mb-4">
-                <h5>New Websites</h5>
-                <p>Start your new website on the right foot by ensuring it's perfectly optimized from day one.</p>
-            </div>
-            <div class="col-md-4 mb-4">
-                <h5>Redesigned Sites</h5>
-                <p>Before, during, and after a redesign to ensure you don't lose valuable SEO equity during the transition.</p>
-            </div>
-            <div class="col-md-4 mb-4">
-                <h5>Stagnant Rankings</h5>
-                <p>If your rankings have hit a plateau, a technical audit can often uncover the hidden issues holding you back.</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-
-<section class="content-section contact-cta">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-10 col-lg-8">
-                <div class="ser-head text-center" data-aos="fade-up">
-                    <div class="hed">
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowLeft.svg" width="6%" alt="">
-                        <span>Let's Talk</span>
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowRight.svg" width="6%" alt="">
-                    </div>
-                    <h3>Ready to Optimize Your Technical Foundation?</h3>
-                    <p class="lead mt-3">Contact us today to discuss your SEO audit needs and get a free consultation. Let's work together to achieve your business goals.</p>
-                    <a href="<?php echo BASE_URL; ?>contact.php" class="btn btn-style-one mt-4">Get in Touch</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+...
+            bg.appendChild(drop);
+        }
+    });
+</script>
 
 <?php include_once __DIR__ . '/../footer.php'; ?>

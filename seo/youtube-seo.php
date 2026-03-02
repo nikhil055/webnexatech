@@ -1,322 +1,153 @@
 <?php 
-$page_title = 'Youtube Seo';
- include_once __DIR__ . '/../config.php'; include_once __DIR__ . '/../header.php'; ?>
-<?php 
-include_once __DIR__ . '/../backend/db.php';
-$page_file = 'seo/youtube-seo.php';
-$banner_res = $conn->query("SELECT * FROM page_banners WHERE page_name = '$page_file'");
-$banner_data = ($banner_res && $banner_res->num_rows > 0) ? $banner_res->fetch_assoc() : null;
-
-$display_banner_img = ($banner_data && !empty($banner_data['banner_image'])) ? $banner_data['banner_image'] : BASE_URL . 'assets/images/banner/banner-04.jpg';
-$display_banner_title = ($banner_data && !empty($banner_data['banner_title'])) ? $banner_data['banner_title'] : 'YouTube SEO';
+$page_title = 'YouTube VSEO Domination | WebNexa';
+include_once __DIR__ . '/../config.php'; 
+include_once __DIR__ . '/../header-new.php'; 
 ?>
 
-    <style>
-        .page-banner {
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('<?php echo $display_banner_img; ?>');
-            background-size: cover;
-            background-position: center;
-            padding-top: 220px;
-            padding-bottom: 100px;
-            text-align: center;
-            color: #fff;
-        }
-        .page-banner h2 {
-            font-size: 55px;
-            font-weight: 800;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-        .breadcrumb-custom {
-            justify-content: center;
-            background: rgba(255, 255, 255, 0.1);
-            display: inline-flex;
-            padding: 10px 20px;
-            border-radius: 30px;
-            backdrop-filter: blur(5px);
-        }
-        .breadcrumb-custom .breadcrumb-item a {
-            color: #fff;
-            text-decoration: none;
-            font-weight: 500;
-        }
-        .breadcrumb-custom .breadcrumb-item.active {
-            color: #3C72FC;
-            font-weight: 700;
-        }
-        .content-section {
-            padding-top: 80px;
-            padding-bottom: 80px;
-        }
-        .icon-card {
-            display: flex;
-            align-items: flex-start;
-            background: #fff;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 5px 25px rgba(0,0,0,0.07);
-            margin-bottom: 20px;
-            transition: all 0.3s ease;
-            height: calc(100% - 20px);
-        }
-        .icon-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 35px rgba(0,0,0,0.1);
-        }
-        .icon-card .icon {
-            font-size: 30px;
-            color: #3C72FC;
-            margin-right: 20px;
-            min-width: 40px;
-        }
-        .icon-card h5 {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 5px;
-        }
-        .icon-card p {
-            font-size: 15px;
-            color: #666;
-            margin-bottom: 0;
-            line-height: 1.6;
-        }
-        .process-item {
-            text-align: center;
-            position: relative;
-        }
-        .process-item .process-icon {
-            width: 90px;
-            height: 90px;
-            background: #f1f5ff;
-            color: #3C72FC;
-            border-radius: 50%;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 40px;
-            border: 5px solid #fff;
-            box-shadow: 0 0 15px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
-        }
-        .process-item h4 {
-            font-size: 20px;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-        .contact-cta {
-            background: #f8f9fa;
-        }
-    </style>
+<style>
+    .seo-main { background: #05070a; color: #fff; font-family: 'Inter', sans-serif; overflow-x: hidden; }
+    .web-fixed-bg { position: fixed; inset: 0; z-index: 1; pointer-events: none; opacity: 0.2; }
+    .data-drop { position: absolute; width: 1px; height: 100px; background: linear-gradient(to bottom, transparent, #ff0000, transparent); animation: dropMove 5s infinite linear; }
+    @keyframes dropMove { 0% { transform: translateY(-100px); opacity: 0; } 50% { opacity: 0.5; } 100% { transform: translateY(100vh); opacity: 0; } }
 
-    <section class="page-banner">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12" data-aos="zoom-in">
-                        <h2><?php echo $display_banner_title; ?></h2>
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb breadcrumb-custom">
-                            <li class="breadcrumb-item"><a href="<?php echo BASE_URL; ?>index.php">Home</a></li>
-                            <li class="breadcrumb-item"><a href="<?php echo BASE_URL; ?>services.php">Services</a></li>
-                            <li class="breadcrumb-item"><a href="<?php echo BASE_URL; ?>seo/seo-services.php">SEO Services</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">YouTube SEO</li>
-                        </ol>
-                    </nav>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="content-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="ser-head text-center mb-5" data-aos="fade-up">
-                        <div class="hed text-center">
-                            <img src="<?php echo BASE_URL; ?>assets/images/about/arrowLeft.svg" width="6%" alt="">
-                            <span>Get Seen on the World's #2 Search Engine</span>
-                            <img src="<?php echo BASE_URL; ?>assets/images/about/arrowRight.svg" width="6%" alt="">
-                        </div>
-                        <h3>Amplify Your Video Reach with YouTube SEO</h3>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-8 offset-lg-2 text-center lead">
-                    <p>YouTube is more than just a video platform—it's a powerful search engine. Our YouTube SEO services are designed to optimize your video content to capture your target audience, increase watch time, and grow your subscriber base. We help your videos get discovered by the right people at the right time, turning your channel into a valuable marketing asset.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- WHY IT MATTERS SECTION -->
-<section class="content-section bg-light">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-6 mb-4" data-aos="fade-right">
-                <img src="<?php echo BASE_URL; ?>assets/images/why/side.jpg" class="img-fluid rounded shadow-lg" alt="YouTube SEO Importance">
-            </div>
-            <div class="col-lg-6 mb-4" data-aos="fade-left">
-                <div class="ser-head text-start">
-                    <div class="hed text-start">
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowLeft.svg" width="6%" alt="">
-                        <span>Why It Matters</span>
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowRight.svg" width="6%" alt="">
-                    </div>
-                    <h3>Your Videos Deserve to Be Seen</h3>
-                    <p class="mt-4">YouTube is the world's second-largest search engine, and a powerful platform for reaching your audience through video. However, simply uploading videos isn't enough. YouTube SEO is about optimizing your video content and channel to rank higher in YouTube's search results and recommendations, driving more views, subscribers, and engagement. Without proper optimization, your valuable video content might get lost in the noise.</p>
-                    <ul class="list-unstyled mt-3">
-                        <li class="mb-2"><i class="fa fa-check text-success me-2"></i>Increase organic reach and discovery of your video content.</li>
-                        <li class="mb-2"><i class="fa fa-check text-success me-2"></i>Attract more relevant viewers and potential subscribers.</li>
-                        <li class="mb-2"><i class="fa fa-check text-success me-2"></i>Amplify brand messaging and drive traffic to your website.</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- HOW WE DO YOUTUBE SEO SECTION -->
-<section class="content-section">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 text-center">
-                <div class="ser-head" data-aos="fade-up">
-                    <div class="hed">
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowLeft.svg" width="6%" alt="">
-                        <span>Our Process</span>
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowRight.svg" width="6%" alt="">
-                    </div>
-                    <h3>Our Proven YouTube SEO Process</h3>
-                </div>
-            </div>
-        </div>
-        <div class="row mt-5">
-            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="100">
-                <div class="process-item">
-                    <div class="process-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
-                    <h4>Keyword Research</h4>
-                    <p>In-depth analysis to discover high-volume, relevant keywords and topics your target audience is searching for on YouTube.</p>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
-                <div class="process-item">
-                    <div class="process-icon"><i class="fa-solid fa-pen-to-square"></i></div>
-                    <h4>On-Page Optimization</h4>
-                    <p>Optimizing video titles, descriptions, tags, and thumbnails to maximize visibility and click-through rates.</p>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="300">
-                <div class="process-item">
-                    <div class="process-icon"><i class="fa-solid fa-users"></i></div>
-                    <h4>Audience Engagement</h4>
-                    <p>Strategies to encourage likes, comments, shares, and watch time, which are critical YouTube ranking factors.</p>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="400">
-                <div class="process-item">
-                    <div class="process-icon"><i class="fa-solid fa-chart-bar"></i></div>
-                    <h4>Performance Tracking</h4>
-                    <p>Monitoring video analytics, audience retention, traffic sources, and subscriber growth to refine and improve strategy.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- WHAT YOU RECEIVE SECTION -->
-<section class="content-section bg-light">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 text-center">
-                <div class="ser-head" data-aos="fade-up">
-                    <div class="hed">
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowLeft.svg" width="6%" alt="">
-                        <span>Your Deliverables</span>
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowRight.svg" width="6%" alt="">
-                    </div>
-                    <h3>What You Get from Our YouTube SEO Services</h3>
-                </div>
-            </div>
-        </div>
-        <div class="row mt-5">
-            <div class="col-lg-4 d-flex align-items-stretch mb-4" data-aos="fade-up" data-aos-delay="100">
-                <div class="icon-card w-100">
-                    <div class="icon"><i class="fa-solid fa-eye"></i></div>
-                    <div class="text">
-                        <h5>Increased Video Views</h5>
-                        <p>Your videos will be discovered by a wider, more relevant audience, leading to a significant increase in views.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 d-flex align-items-stretch mb-4" data-aos="fade-up" data-aos-delay="200">
-                <div class="icon-card w-100">
-                    <div class="icon"><i class="fa-solid fa-users"></i></div>
-                    <div class="text">
-                        <h5>Subscriber Growth</h5>
-                        <p>Attract and retain a loyal subscriber base, turning casual viewers into dedicated followers of your channel.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 d-flex align-items-stretch mb-4" data-aos="fade-up" data-aos-delay="300">
-                <div class="icon-card w-100">
-                    <div class="icon"><i class="fa-solid fa-share-nodes"></i></div>
-                    <div class="text">
-                        <h5>Higher Engagement Rates</h5>
-                        <p>Improved video optimization encourages more likes, comments, and shares, boosting your videos' performance.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- WHO IS THIS FOR SECTION -->
-<section class="content-section">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 text-center">
-                <div class="ser-head" data-aos="fade-up">
-                    <h3>Who Benefits from YouTube SEO?</h3>
-                </div>
-            </div>
-        </div>
-        <div class="row mt-4 text-center">
-            <div class="col-md-4 mb-4">
-                <h5>Content Creators</h5>
-                <p>YouTubers, vloggers, and independent creators looking to expand their audience and monetization opportunities.</p>
-            </div>
-            <div class="col-md-4 mb-4">
-                <h5>Businesses & Brands</h5>
-                <p>Companies using video marketing to engage customers, demonstrate products, or build brand awareness.</p>
-            </div>
-            <div class="col-md-4 mb-4">
-                <h5>Educators & Trainers</h5>
-                <p>Individuals or organizations offering online courses, tutorials, or educational content via YouTube.</p>
-            </div>
-        </div>
-    </div>
-</section>
-
+    .tech-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(255, 0, 0, 0.1); border: 1px solid rgba(255, 0, 0, 0.2); padding: 6px 18px; border-radius: 100px; font-size: 12px; font-weight: 800; color: #ff0000; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 25px; }
+    .section-title { font-size: clamp(32px, 4.5vw, 54px); font-weight: 900; line-height: 1.1; letter-spacing: -2px; }
+    .gradient-yt-text { background: linear-gradient(90deg, #ff0000, #ff4d4d); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
     
+    .content-block { padding: 120px 0; position: relative; z-index: 10; }
+    .container { position: relative; z-index: 10; max-width: 1350px; }
+    .glass-card { background: rgba(255, 255, 255, 0.015); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 40px; backdrop-filter: blur(40px); transition: 0.4s; padding: 45px; height: 100%; display: flex; flex-direction: column; }
+    .glass-card:hover { border-color: #ff0000; transform: translateY(-10px); background: rgba(255, 0, 0, 0.03); }
 
-<section class="content-section contact-cta">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-10 col-lg-8">
-                <div class="ser-head text-center" data-aos="fade-up">
-                    <div class="hed">
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowLeft.svg" width="6%" alt="">
-                        <span>Let's Talk</span>
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowRight.svg" width="6%" alt="">
-                    </div>
-                    <h3>Ready to Grow Your YouTube Presence?</h3>
-                    <p class="lead mt-3">Contact us today to discuss your video SEO needs and get a free consultation. Let's work together to achieve your business goals.</p>
-                    <a href="<?php echo BASE_URL; ?>contact.php" class="btn btn-style-one mt-4">Get in Touch</a>
+    .web-hero { position: relative; padding: 220px 0 120px; background: #080b12; overflow: hidden; text-align: center; }
+    .hero-grid { position: absolute; inset: 0; background-image: radial-gradient(rgba(255, 0, 0, 0.05) 1px, transparent 1px); background-size: 50px 50px; transform: perspective(500px) rotateX(60deg); }
+    .web-hero h1 { font-size: clamp(40px, 7vw, 85px); font-weight: 900; letter-spacing: -4px; line-height: 0.95; margin-bottom: 30px; }
+
+    .flow-timeline { position: relative; max-width: 900px; margin: 60px auto 0; padding-left: 80px; }
+    .flow-timeline::before { content: ""; position: absolute; left: 30px; top: 0; height: 100%; width: 2px; background: linear-gradient(to bottom, #ff0000, transparent); }
+    .flow-step { position: relative; margin-bottom: 60px; }
+    .flow-step::after { content: ""; position: absolute; left: -58px; top: 0; width: 16px; height: 18px; background: #05070a; border: 4px solid #ff0000; border-radius: 50%; box-shadow: 0 0 20px #ff0000; z-index: 5; }
+    .flow-step h5 { font-size: 22px; font-weight: 800; color: #fff; margin-bottom: 10px; }
+    .flow-step p { font-size: 16px; color: #94a3b8; }
+
+    .cap-grid-massive { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-top: 60px; }
+    .cap-icon { width: 55px; height: 55px; background: rgba(255, 0, 0, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 22px; color: #ff0000; margin-bottom: 25px; transition: 0.4s; }
+    .cap-feat-list { list-style: none; padding: 0; margin: auto 0 0; display: flex; flex-wrap: wrap; gap: 8px; }
+    .cap-feat-list li { background: rgba(255,255,255,0.03); padding: 5px 12px; border-radius: 6px; font-size: 10px; font-weight: 800; color: #ff0000; border: 1px solid rgba(255,255,255,0.05); text-transform: uppercase; }
+
+    .comp-box { background: rgba(255, 255, 255, 0.015); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 40px; padding: 60px; margin-top: 60px; }
+    .comp-row { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 40px; padding: 25px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .comp-header { font-weight: 800; color: #fff; text-transform: uppercase; letter-spacing: 1px; font-size: 12px; }
+    .comp-val { font-size: 15px; color: #94a3b8; display: flex; align-items: center; gap: 10px; }
+    .comp-val.best { color: #fff; font-weight: 700; }
+    .comp-val.best i { color: #22c55e; }
+
+    @media (max-width: 1199px) { .cap-grid-massive { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 991px) { .cap-grid-massive, .comp-row { grid-template-columns: 1fr; } }
+</style>
+
+<div class="seo-main">
+    <div class="web-fixed-bg" id="yt-fx-bg"></div>
+
+    <section class="web-hero">
+        <div class="hero-grid"></div>
+        <div class="container">
+            <div class="tech-badge" data-aos="fade-down">Visual Search Growth</div>
+            <h1 data-aos="zoom-in">YouTube VSEO <br> <span class="gradient-yt-text">Algorithm Mastery</span></h1>
+            <p style="color: #94a3b8; max-width: 750px; margin: 0 auto; font-size: 19px; line-height: 1.8;" data-aos="fade-up">Dominating the world's second-largest search engine. We optimize for retention, click-through, and algorithmic dominance.</p>
+        </div>
+    </section>
+
+    <!-- ASSEMBLY LINE -->
+    <section class="content-block" style="background: #080b12; border-top: 1px solid rgba(255,255,255,0.05);">
+        <div class="container">
+            <div class="text-center" data-aos="fade-up">
+                <div class="tech-badge">VSEO Protocol</div>
+                <h2 class="section-title">The Video <br> <span class="gradient-yt-text">Scaling Matrix</span></h2>
+            </div>
+            <div class="flow-timeline">
+                <div class="flow-step" data-aos="fade-right">
+                    <h5>Retention Mapping</h5>
+                    <p>Analyzing audience retention graphs to engineer high-retention intros and visual hooks.</p>
+                </div>
+                <div class="flow-step" data-aos="fade-right" data-aos-delay="100">
+                    <h5>Metadata Hardening</h5>
+                    <p>Engineering AI-optimized titles, NLP-driven tags, and high-authority descriptions for SEO.</p>
+                </div>
+                <div class="flow-step" data-aos="fade-right" data-aos-delay="200">
+                    <h5>Suggested Sync</h5>
+                    <p>Leveraging video category signals to trigger "Suggested Video" and "Browse Feature" traffic.</p>
+                </div>
+                <div class="flow-step" data-aos="fade-right" data-aos-delay="300">
+                    <h5>Cross-Channel Seed</h5>
+                    <p>Embedding optimized videos across high-authority blogs to build external relevancy signals.</p>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+
+    <section class="content-block">
+        <div class="container">
+            <div class="text-center" data-aos="fade-up">
+                <div class="tech-badge">System Scope</div>
+                <h2 class="section-title">VSEO Mastery <span class="gradient-yt-text">Matrix</span></h2>
+            </div>
+            <div class="cap-grid-massive">
+                <div class="glass-card" data-aos="fade-up">
+                    <div class="cap-icon"><i class="fas fa-clapperboard"></i></div>
+                    <h4>Hook <br> Optimization</h4>
+                    <p>Engineering cinematic intros that stop the scroll and maximize audience retention.</p>
+                    <ul class="cap-feat-list"><li>Intro Stacks</li><li>Drop Logic</li><li>A/B Thumbnails</li></ul>
+                </div>
+                <div class="glass-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="cap-icon"><i class="fas fa-tags"></i></div>
+                    <h4>Metadata <br> Engineering</h4>
+                    <p>AI-driven description and tag protocols to satisfy the YouTube search algorithm.</p>
+                    <ul class="cap-feat-list"><li>NLP Tags</li><li>AI Titles</li><li>Auto-Subtitles</li></ul>
+                </div>
+                <div class="glass-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="cap-icon"><i class="fas fa-share-nodes"></i></div>
+                    <h4>Authority <br> Seeding</h4>
+                    <p>Building high-authority external embeds to boost internal search ranking signals.</p>
+                    <ul class="cap-feat-list"><li>Blog Embeds</li><li>Social Sync</li><li>Wiki Links</li></ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- COMPARISON -->
+    <section class="content-block" style="background: #080b12;">
+        <div class="container">
+            <div class="text-center" data-aos="fade-up">
+                <div class="tech-badge">Competitive Analysis</div>
+                <h2 class="section-title">Standard Channel vs <br> <span class="gradient-yt-text">WebNexa VSEO Hub</span></h2>
+            </div>
+            <div class="comp-box" data-aos="zoom-in">
+                <div class="comp-row comp-header"><span>Features</span><span>Standard Upload</span><span style="color:#ff0000;">WebNexa Elite</span></div>
+                <div class="comp-row"><span>Discovery</span><span class="comp-val">Search Only</span><span class="comp-val best"><i class="fas fa-bolt"></i> Suggessted & Browse Logic</span></div>
+                <div class="comp-row"><span>Optimization</span><span class="comp-val">Basic Tags</span><span class="comp-val best"><i class="fas fa-microchip"></i> Full NLP Semantic Stacks</span></div>
+                <div class="comp-row"><span>Retention</span><span class="comp-val">Random Pacing</span><span class="comp-val best"><i class="fas fa-chart-line"></i> Behavioral Hook Engine</span></div>
+                <div class="comp-row" style="border:none;"><span>Reporting</span><span class="comp-val">View Count Only</span><span class="comp-val best"><i class="fas fa-desktop"></i> Deep Retention Analytics</span></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-5" style="background: #ff0000; color:#fff;">
+        <div class="container d-flex justify-content-between align-items-center flex-wrap gap-3">
+            <h4 style="margin:0; font-weight:900;">24/7 VIDEO PERFORMANCE GOVERNANCE ACTIVE</h4>
+            <div style="font-weight:700; letter-spacing:1px; background:rgba(0,0,0,0.2); padding:10px 25px; border-radius:50px;">STATUS: VIRAL READY</div>
+        </div>
+    </section>
+
+    <?php include_once __DIR__ . '/../contact-section-shared.php'; ?>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+...
+            bg.appendChild(drop);
+        }
+    });
+</script>
 
 <?php include_once __DIR__ . '/../footer.php'; ?>

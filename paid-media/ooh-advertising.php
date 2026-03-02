@@ -1,311 +1,152 @@
 <?php 
-$page_title = 'Ooh Advertising';
- include_once __DIR__ . '/../config.php'; include_once __DIR__ . '/../header.php'; ?>
+$page_title = 'Digital Outdoor (DOOH) | WebNexa';
+include_once __DIR__ . '/../config.php'; 
+include_once __DIR__ . '/../header-new.php'; 
+?>
 
-    <style>
-        .page-banner {
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('<?php echo BASE_URL; ?>assets/images/services/paid-media.jpg');
-            background-size: cover;
-            background-position: center;
-            padding-top: 220px;
-            padding-bottom: 100px;
-            text-align: center;
-            color: #fff;
-        }
-        .page-banner h2 {
-            font-size: 55px;
-            font-weight: 800;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-        .breadcrumb-custom {
-            justify-content: center;
-            background: rgba(255, 255, 255, 0.1);
-            display: inline-flex;
-            padding: 10px 20px;
-            border-radius: 30px;
-            backdrop-filter: blur(5px);
-        }
-        .breadcrumb-custom .breadcrumb-item a {
-            color: #fff;
-            text-decoration: none;
-            font-weight: 500;
-        }
-        .breadcrumb-custom .breadcrumb-item.active {
-            color: #3C72FC;
-            font-weight: 700;
-        }
-        .content-section {
-            padding-top: 80px;
-            padding-bottom: 80px;
-        }
-        .icon-card {
-            display: flex;
-            align-items: flex-start;
-            background: #fff;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 5px 25px rgba(0,0,0,0.07);
-            margin-bottom: 20px;
-            transition: all 0.3s ease;
-            height: calc(100% - 20px);
-        }
-        .icon-card:hover {
-            transform: translateY(-5-px);
-            box-shadow: 0 12px 35px rgba(0,0,0,0.1);
-        }
-        .icon-card .icon {
-            font-size: 30px;
-            color: #3C72FC;
-            margin-right: 20px;
-            min-width: 40px;
-        }
-        .icon-card h5 {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 5px;
-        }
-        .icon-card p {
-            font-size: 15px;
-            color: #666;
-            margin-bottom: 0;
-            line-height: 1.6;
-        }
-        .process-item {
-            text-align: center;
-            position: relative;
-        }
-        .process-item .process-icon {
-            width: 90px;
-            height: 90px;
-            background: #f1f5ff;
-            color: #3C72FC;
-            border-radius: 50%;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 40px;
-            border: 5px solid #fff;
-            box-shadow: 0 0 15px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
-        }
-        .process-item h4 {
-            font-size: 20px;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-        .contact-cta {
-            background: #f8f9fa;
-        }
-    </style>
+<style>
+    .paid-main { background: #05070a; color: #fff; font-family: 'Inter', sans-serif; overflow-x: hidden; }
+    .web-fixed-bg { position: fixed; inset: 0; z-index: 1; pointer-events: none; opacity: 0.2; }
+    .data-drop { position: absolute; width: 1px; height: 100px; background: linear-gradient(to bottom, transparent, #ff9800, transparent); animation: dropMove 5s infinite linear; }
+    @keyframes dropMove { 0% { transform: translateY(-100px); opacity: 0; } 50% { opacity: 0.5; } 100% { transform: translateY(100vh); opacity: 0; } }
 
-    <section class="page-banner">
+    .tech-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(255, 152, 0, 0.1); border: 1px solid rgba(255, 152, 0, 0.2); padding: 6px 18px; border-radius: 100px; font-size: 12px; font-weight: 800; color: #ff9800; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 25px; }
+    .section-title { font-size: clamp(32px, 4.5vw, 54px); font-weight: 900; line-height: 1.1; letter-spacing: -2px; }
+    .gradient-ooh-text { background: linear-gradient(90deg, #ff9800, #f44336); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    
+    .content-block { padding: 120px 0; position: relative; z-index: 10; }
+    .container { position: relative; z-index: 10; max-width: 1350px; }
+    .glass-card { background: rgba(255, 255, 255, 0.015); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 40px; backdrop-filter: blur(40px); transition: 0.4s; padding: 45px; height: 100%; display: flex; flex-direction: column; }
+    .glass-card:hover { border-color: #ff9800; transform: translateY(-10px); background: rgba(255, 152, 0, 0.03); }
+
+    .web-hero { position: relative; padding: 220px 0 120px; background: #080b12; overflow: hidden; text-align: center; }
+    .hero-grid { position: absolute; inset: 0; background-image: radial-gradient(rgba(255, 152, 0, 0.05) 1px, transparent 1px); background-size: 50px 50px; transform: perspective(500px) rotateX(60deg); }
+    .web-hero h1 { font-size: clamp(40px, 7vw, 85px); font-weight: 900; letter-spacing: -4px; line-height: 0.95; margin-bottom: 30px; }
+
+    .flow-timeline { position: relative; max-width: 900px; margin: 60px auto 0; padding-left: 80px; }
+    .flow-timeline::before { content: ""; position: absolute; left: 30px; top: 0; height: 100%; width: 2px; background: linear-gradient(to bottom, #ff9800, transparent); }
+    .flow-step { position: relative; margin-bottom: 60px; }
+    .flow-step::after { content: ""; position: absolute; left: -58px; top: 0; width: 16px; height: 18px; background: #05070a; border: 4px solid #ff9800; border-radius: 50%; box-shadow: 0 0 20px #ff9800; z-index: 5; }
+    .flow-step h5 { font-size: 22px; font-weight: 800; color: #fff; margin-bottom: 10px; }
+    .flow-step p { font-size: 16px; color: #94a3b8; }
+
+    .cap-grid-massive { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-top: 60px; }
+    .cap-icon { width: 55px; height: 55px; background: rgba(255, 152, 0, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 22px; color: #ff9800; margin-bottom: 25px; transition: 0.4s; }
+    .cap-feat-list { list-style: none; padding: 0; margin: auto 0 0; display: flex; flex-wrap: wrap; gap: 8px; }
+    .cap-feat-list li { background: rgba(255,255,255,0.03); padding: 5px 12px; border-radius: 6px; font-size: 10px; font-weight: 800; color: #ff9800; border: 1px solid rgba(255,255,255,0.05); text-transform: uppercase; }
+
+    .comp-box { background: rgba(255, 255, 255, 0.015); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 40px; padding: 60px; margin-top: 60px; }
+    .comp-row { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 40px; padding: 25px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .comp-header { font-weight: 800; color: #fff; text-transform: uppercase; letter-spacing: 1px; font-size: 12px; }
+    .comp-val { font-size: 15px; color: #94a3b8; display: flex; align-items: center; gap: 10px; }
+    .comp-val.best { color: #fff; font-weight: 700; }
+    .comp-val.best i { color: #22c55e; }
+
+    @media (max-width: 1199px) { .cap-grid-massive { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 991px) { .cap-grid-massive, .comp-row { grid-template-columns: 1fr; } }
+</style>
+
+<div class="paid-main">
+    <div class="web-fixed-bg" id="ooh-fx-bg"></div>
+
+    <section class="web-hero">
+        <div class="hero-grid"></div>
         <div class="container">
-            <div class="row">
-                <div class="col-md-12" data-aos="zoom-in">
-                    <h2>OOH Advertising</h2>
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb breadcrumb-custom">
-                            <li class="breadcrumb-item"><a href="<?php echo BASE_URL; ?>index.php">Home</a></li>
-                            <li class="breadcrumb-item"><a href="<?php echo BASE_URL; ?>services.php">Services</a></li>
-                            <li class="breadcrumb-item"><a href="<?php echo BASE_URL; ?>paid-media/paid-media-services.php">Paid Media</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">OOH Advertising</li>
-                        </ol>
-                    </nav>
+            <div class="tech-badge" data-aos="fade-down">Physical & Digital Hybrid</div>
+            <h1 data-aos="zoom-in">OOH & Digital <br> <span class="gradient-ooh-text">Outdoor Excellence</span></h1>
+            <p style="color: #94a3b8; max-width: 750px; margin: 0 auto; font-size: 19px; line-height: 1.8;" data-aos="fade-up">Strategic placement in high-traffic real-world zones. We combine traditional OOH authority with programmatic DOOH data precision.</p>
+        </div>
+    </section>
+
+    <!-- ASSEMBLY LINE -->
+    <section class="content-block" style="background: #080b12; border-top: 1px solid rgba(255,255,255,0.05);">
+        <div class="container">
+            <div class="text-center" data-aos="fade-up">
+                <div class="tech-badge">Execution Protocol</div>
+                <h2 class="section-title">The Outdoor <br> <span class="gradient-ooh-text">Deployment Flow</span></h2>
+            </div>
+            <div class="flow-timeline">
+                <div class="flow-step" data-aos="fade-right">
+                    <h5>GEO-Fencing Analysis</h5>
+                    <p>Mapping high-traffic landmarks and audience movement patterns across targeted city zones.</p>
+                </div>
+                <div class="flow-step" data-aos="fade-right" data-aos-delay="100">
+                    <h5>Dynamic Asset Design</h5>
+                    <p>Engineering high-readability digital billboard assets optimized for 3-second exposure windows.</p>
+                </div>
+                <div class="flow-step" data-aos="fade-right" data-aos-delay="200">
+                    <h5>Programmatic Launch</h5>
+                    <p>Automated deployment based on real-time triggers like weather, time, or local event data.</p>
+                </div>
+                <div class="flow-step" data-aos="fade-right" data-aos-delay="300">
+                    <h5>Device Retargeting</h5>
+                    <p>Capturing billboard-exposed IDs and retargeting them on mobile apps to drive digital action.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="content-section">
+    <section class="content-block">
         <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="ser-head text-center mb-5" data-aos="fade-up">
-                        <div class="hed text-center">
-                            <img src="<?php echo BASE_URL; ?>assets/images/about/arrowLeft.svg" width="6%" alt="">
-                            <span>Beyond the Screen</span>
-                            <img src="<?php echo BASE_URL; ?>assets/images/about/arrowRight.svg" width="6%" alt="">
-                        </div>
-                        <h3>Making an Impact in the Real World</h3>
-                    </div>
-                </div>
+            <div class="text-center" data-aos="fade-up">
+                <div class="tech-badge">System Scope</div>
+                <h2 class="section-title">The OOH <br> <span class="gradient-ooh-text">Placement Matrix</span></h2>
             </div>
-            <div class="row">
-                <div class="col-lg-8 offset-lg-2 text-center lead">
-                    <p>Out-of-Home (OOH) advertising takes your brand beyond the digital screen and into the physical world. From traditional billboards to modern digital displays in high-traffic areas, we help you create memorable, real-world brand experiences. Our approach integrates OOH with your digital campaigns to create a cohesive and powerful marketing ecosystem.</p>
+            <div class="cap-grid-massive">
+                <div class="glass-card" data-aos="fade-up">
+                    <div class="cap-icon"><i class="fas fa-mountain-city"></i></div>
+                    <h4>Programmatic <br> DOOH</h4>
+                    <p>Automated digital billboard buying with real-time environment-based triggers.</p>
+                    <ul class="cap-feat-list"><li>Live Triggers</li><li>City Stacks</li><li>Data Core</li></ul>
+                </div>
+                <div class="glass-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="cap-icon"><i class="fas fa-location-arrow"></i></div>
+                    <h4>Strategic <br> Landmarks</h4>
+                    <p>High-impact placements at airports and transit hubs for maximum brand authority.</p>
+                    <ul class="cap-feat-list"><li>Airport Hubs</li><li>Transit Wrap</li><li>Iconic Sites</li></ul>
+                </div>
+                <div class="glass-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="cap-icon"><i class="fas fa-mobile-screen"></i></div>
+                    <h4>Mobile <br> Sync Retargeting</h4>
+                    <p>Retargeting users on their mobile devices after exposure to outdoor billboard ads.</p>
+                    <ul class="cap-feat-list"><li>GEO-Fencing</li><li>Sync Logic</li><li>Device ID</li></ul>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- WHY IT MATTERS SECTION -->
-<section class="content-section bg-light">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-6 mb-4" data-aos="fade-right">
-                <img src="<?php echo BASE_URL; ?>assets/images/services/paid-media.jpg" class="img-fluid rounded shadow-lg" alt="OOH Advertising Importance">
+    <section class="content-block" style="background: #080b12;">
+        <div class="container">
+            <div class="text-center" data-aos="fade-up">
+                <div class="tech-badge">Competitive Analysis</div>
+                <h2 class="section-title">Generic Billboard vs <br> <span class="gradient-ooh-text">WebNexa DOOH</span></h2>
             </div>
-            <div class="col-lg-6 mb-4" data-aos="fade-left">
-                <div class="ser-head text-start">
-                    <div class="hed text-start">
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowLeft.svg" width="6%" alt="">
-                        <span>Why OOH Advertising?</span>
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowRight.svg" width="6%" alt="">
-                    </div>
-                    <h3>Break Through the Digital Clutter, Create Real-World Impact</h3>
-                    <p class="mt-4">In an increasingly digital world, Out-of-Home (OOH) advertising offers a powerful way to capture attention in the physical environment. It delivers broad reach, builds brand trust, and can drive consumers online for more information or directly to your physical locations. OOH creates unavoidable brand presence, cuts through ad fatigue, and provides a tangible connection with your audience that digital channels often can't replicate, making it an essential part of a holistic media strategy.</p>
-                    <ul class="list-unstyled mt-3">
-                        <li class="mb-2"><i class="fa fa-check text-success me-2"></i>Achieve massive brand awareness and broad audience reach.</li>
-                        <li class="mb-2"><i class="fa fa-check text-success me-2"></i>Build brand trust and credibility through unavoidable, tangible presence.</li>
-                        <li class="mb-2"><i class="fa fa-check text-success me-2"></i>Drive online engagement and foot traffic to physical locations.</li>
-                    </ul>
-                </div>
+            <div class="comp-box" data-aos="zoom-in">
+                <div class="comp-row comp-header"><span>Features</span><span>Generic OOH</span><span style="color:#ff9800;">WebNexa Elite</span></div>
+                <div class="comp-row"><span>Content</span><span class="comp-val">Static Static Image</span><span class="comp-val best"><i class="fas fa-bolt"></i> Dynamic Real-time Video</span></div>
+                <div class="comp-row"><span>Targeting</span><span class="comp-val">Broad (Anyone passing)</span><span class="comp-val best"><i class="fas fa-microchip"></i> Time/Event Triggered</span></div>
+                <div class="comp-row"><span>Retargeting</span><span class="comp-val">None (One-way)</span><span class="comp-val best"><i class="fas fa-chart-line"></i> Mobile Retargeting Sync</span></div>
+                <div class="comp-row" style="border:none;"><span>Reporting</span><span class="comp-val">Estimated Traffic</span><span class="comp-val best"><i class="fas fa-desktop"></i> Precise Impression Data</span></div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- OUR OOH ADVERTISING PROCESS SECTION -->
-<section class="content-section">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 text-center">
-                <div class="ser-head" data-aos="fade-up">
-                    <div class="hed">
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowLeft.svg" width="6%" alt="">
-                        <span>Our Workflow</span>
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowRight.svg" width="6%" alt="">
-                    </div>
-                    <h3>Our Strategic Out-of-Home Advertising Process</h3>
-                </div>
-            </div>
+    <section class="py-5" style="background: #ff9800; color:#000;">
+        <div class="container d-flex justify-content-between align-items-center flex-wrap gap-3">
+            <h4 style="margin:0; font-weight:900;">24/7 DOOH SYSTEM GOVERNANCE ACTIVE</h4>
+            <div style="font-weight:700; letter-spacing:1px; background:rgba(0,0,0,0.1); padding:10px 25px; border-radius:50px;">STATUS: PHYSICAL SCALE ACTIVE</div>
         </div>
-        <div class="row mt-5">
-            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="100">
-                <div class="process-item">
-                    <div class="process-icon"><i class="fa-solid fa-map-location-dot"></i></div>
-                    <h4>Location & Audience Analysis</h4>
-                    <p>Identifying optimal OOH placements based on target audience demographics, traffic patterns, and campaign objectives.</p>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
-                <div class="process-item">
-                    <div class="process-icon"><i class="fa-solid fa-bullhorn"></i></div>
-                    <h4>Creative Development</h4>
-                    <p>Designing high-impact, memorable visuals and concise messaging optimized for various OOH formats (billboards, transit, digital screens).</p>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="300">
-                <div class="process-item">
-                    <div class="process-icon"><i class="fa-solid fa-handshake"></i></div>
-                    <h4>Placement & Negotiation</h4>
-                    <p>Leveraging our industry relationships to secure prime OOH inventory at competitive rates, ensuring maximum exposure.</p>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="400">
-                <div class="process-item">
-                    <div class="process-icon"><i class="fa-solid fa-chart-line"></i></div>
-                    <h4>Performance Monitoring & Integration</h4>
-                    <p>Tracking OOH campaign effectiveness and integrating insights with digital campaigns for a holistic marketing approach.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+    </section>
 
-<!-- WHAT WE DELIVER SECTION -->
-<section class="content-section bg-light">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 text-center">
-                <div class="ser-head" data-aos="fade-up">
-                    <div class="hed">
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowLeft.svg" width="6%" alt="">
-                        <span>Your Deliverables</span>
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowRight.svg" width="6%" alt="">
-                    </div>
-                    <h3>What Our OOH Advertising Services Deliver</h3>
-                </div>
-            </div>
-        </div>
-        <div class="row mt-5">
-            <div class="col-lg-4 d-flex align-items-stretch mb-4" data-aos="fade-up" data-aos-delay="100">
-                <div class="icon-card w-100">
-                    <div class="icon"><i class="fa-solid fa-map-marked-alt"></i></div>
-                    <div class="text">
-                        <h5>Strategic OOH Placement</h5>
-                        <p>High-visibility ad placements in locations where your target audience is most likely to see and engage with your message.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 d-flex align-items-stretch mb-4" data-aos="fade-up" data-aos-delay="200">
-                <div class="icon-card w-100">
-                    <div class="icon"><i class="fa-solid fa-palette"></i></div>
-                    <div class="text">
-                        <h5>Impactful Creative Designs</h5>
-                        <p>Visually stunning and concise ad creatives specifically designed to capture attention in busy outdoor environments.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 d-flex align-items-stretch mb-4" data-aos="fade-up" data-aos-delay="300">
-                <div class="icon-card w-100">
-                    <div class="icon"><i class="fa-solid fa-chart-area"></i></div>
-                    <div class="text">
-                        <h5>Enhanced Brand Presence</h5>
-                        <p>A strengthened brand image and increased recognition through constant, unavoidable exposure in key public spaces.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+    <?php include_once __DIR__ . '/../contact-section-shared.php'; ?>
+</div>
 
-<!-- WHO IS THIS FOR SECTION -->
-<section class="content-section">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 text-center">
-                <div class="ser-head" data-aos="fade-up">
-                    <h3>Who Benefits from OOH Advertising?</h3>
-                </div>
-            </div>
-        </div>
-        <div class="row mt-4 text-center">
-            <div class="col-md-4 mb-4">
-                <h5>Brands Seeking Mass Awareness</h5>
-                <p>Companies looking to build broad brand recognition and reach a large, diverse audience in specific geographical areas.</p>
-            </div>
-            <div class="col-md-4 mb-4">
-                <h5>Businesses with Physical Locations</h5>
-                <p>Retail stores, restaurants, and local services aiming to drive foot traffic and local customer engagement.</p>
-            </div>
-            <div class="col-md-4 mb-4">
-                <h5>Campaigns Supporting Digital Efforts</h5>
-                <p>Advertisers using OOH to amplify online campaigns and create a seamless brand experience across multiple touchpoints.</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="content-section contact-cta">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-10 col-lg-8">
-                <div class="ser-head text-center" data-aos="fade-up">
-                    <div class="hed">
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowLeft.svg" width="6%" alt="">
-                        <span>Let's Talk</span>
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowRight.svg" width="6%" alt="">
-                    </div>
-                    <h3>Ready to Take Your Brand to the Streets?</h3>
-                    <p class="lead mt-3">Contact us today to discuss your OOH Advertising needs and get a free consultation. Let's work together to achieve your business goals.</p>
-                    <a href="<?php echo BASE_URL; ?>contact.php" class="btn btn-style-one mt-4">Get in Touch</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+...
+            bg.appendChild(drop);
+        }
+    });
+</script>
 
 <?php include_once __DIR__ . '/../footer.php'; ?>

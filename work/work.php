@@ -1,227 +1,87 @@
 <?php 
-$page_title = 'Work';
- include_once __DIR__ . '/../config.php'; include_once __DIR__ . '/../header.php'; ?>
-<?php include_once __DIR__ . '/../backend/db.php'; ?>
+$page_title = 'Engineering Portfolio | WebNexa';
+include_once __DIR__ . '/../config.php'; 
+include_once __DIR__ . '/../header-new.php'; 
+include_once __DIR__ . '/../backend/db.php';
+?>
 
-    <style>
-        .page-banner {
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('<?php echo BASE_URL; ?>assets/images/banner/banner-03.jpg');
-            background-size: cover;
-            background-position: center;
-            padding-top: 220px;
-            padding-bottom: 100px;
-            text-align: center;
-            color: #fff;
-        }
+<style>
+    .work-main-v2 { background: #05070a; color: #fff; font-family: 'Inter', sans-serif; overflow-x: hidden; }
+    
+    /* WORK HERO */
+    .work-hero-v2 { position: relative; padding: 220px 0 100px; background: #080b12; overflow: hidden; text-align: center; }
+    .work-hero-v2 h1 { font-size: clamp(40px, 7vw, 85px); font-weight: 900; letter-spacing: -4px; line-height: 0.95; position: relative; z-index: 10; }
+    .hero-scanner { position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: linear-gradient(90deg, transparent, rgb(114, 79, 255), transparent); animation: scanLine 4s infinite linear; opacity: 0.3; }
+    @keyframes scanLine { 0% { top: 0; } 100% { top: 100%; } }
 
-        .page-banner h2 {
-            font-size: 55px;
-            font-weight: 800;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
+    /* PORTFOLIO GRID */
+    .portfolio-grid-v2 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; padding: 100px 0; }
+    
+    .project-card-v2 { background: rgba(255, 255, 255, 0.015); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 40px; overflow: hidden; backdrop-filter: blur(40px); transition: 0.5s; position: relative; height: 100%; display: flex; flex-direction: column; }
+    .project-card-v2:hover { border-color: rgb(114, 79, 255); transform: translateY(-12px); box-shadow: 0 30px 60px -12px rgba(0,0,0,0.5); }
 
-        .breadcrumb-custom {
-            justify-content: center;
-            background: rgba(255, 255, 255, 0.1);
-            display: inline-flex;
-            padding: 10px 20px;
-            border-radius: 30px;
-            backdrop-filter: blur(5px);
-        }
+    .p-img-v2 { height: 280px; position: relative; overflow: hidden; }
+    .p-img-v2 img { width: 100%; height: 100%; object-fit: cover; transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1); filter: contrast(1.1) brightness(0.8); }
+    .project-card-v2:hover .p-img-v2 img { transform: scale(1.1); filter: contrast(1) brightness(1); }
 
-        .breadcrumb-custom .breadcrumb-item a {
-            color: #fff;
-            text-decoration: none;
-            font-weight: 500;
-        }
+    .p-status-strip { position: absolute; bottom: 0; left: 0; width: 100%; background: rgba(0,0,0,0.8); padding: 8px 20px; display: flex; justify-content: space-between; font-family: 'Fira Code', monospace; font-size: 10px; color: rgb(216, 115, 255); border-top: 1px solid rgba(255,255,255,0.1); }
 
-        .breadcrumb-custom .breadcrumb-item.active {
-            color: #EB7700;
-            font-weight: 700;
-        }
+    .p-content-v2 { padding: 40px; flex-grow: 1; display: flex; flex-direction: column; }
+    .p-cat-v2 { font-size: 10px; font-weight: 800; color: #94a3b8; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 15px; display: block; }
+    .p-content-v2 h4 { font-size: 26px; font-weight: 900; margin-bottom: 15px; letter-spacing: -1px; }
+    .p-content-v2 p { color: #94a3b8; font-size: 15px; line-height: 1.7; margin-bottom: 30px; }
 
-        .content-section {
-            padding-top: 80px;
-            padding-bottom: 80px;
-        }
-        .icon-card {
-            display: flex;
-            align-items: flex-start;
-            background: #fff;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 5px 25px rgba(0,0,0,0.07);
-            margin-bottom: 20px;
-            transition: all 0.3s ease;
-            height: calc(100% - 20px);
-        }
-        .icon-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 35px rgba(0,0,0,0.1);
-        }
-        .icon-card .icon {
-            font-size: 30px;
-            color: #EB7700;
-            margin-right: 20px;
-            min-width: 40px;
-        }
-        .icon-card h5 {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 5px;
-        }
-        .icon-card p {
-            font-size: 15px;
-            color: #666;
-            margin-bottom: 0;
-            line-height: 1.6;
-        }
-        .work-card {
-            background: #fff;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            overflow: hidden;
-            margin-bottom: 30px;
-            transition: all 0.3s ease;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-        }
-        .work-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
-        }
-        .work-card img {
-            width: 100%;
-            height: 220px;
-            object-fit: cover;
-            transition: transform 0.3s ease;
-        }
-        .work-card:hover img {
-            transform: scale(1.05);
-        }
-        .work-card .card-body {
-            padding: 25px;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-        }
-        .work-card .project-title {
-            font-size: 22px;
-            font-weight: 700;
-            margin-bottom: 10px;
-            line-height: 1.4;
-            transition: color 0.3s ease;
-        }
-        .work-card .project-title a {
-            color: inherit;
-            text-decoration: none;
-        }
-        .work-card:hover .project-title a {
-            color: #EB7700;
-        }
-        .work-card .project-description {
-            font-size: 15px;
-            color: #666;
-            margin-bottom: 20px;
-            flex-grow: 1;
-        }
-        .work-card .view-project {
-            color: #EB7700;
-            font-weight: 600;
-            text-decoration: none;
-            transition: transform 0.3s ease;
-            margin-top: auto; /* Push to bottom */
-        }
-        .work-card .view-project i {
-            margin-left: 5px;
-            transition: transform 0.3s ease;
-        }
-        .work-card:hover .view-project i {
-            transform: translateX(5px);
-        }
-        .work-card .project-date {
-            font-size: 13px;
-            color: #999;
-            margin-top: 15px;
-            border-top: 1px solid #eee;
-            padding-top: 10px;
-        }
-    </style>
+    .p-link-v2 { margin-top: auto; display: inline-flex; align-items: center; gap: 12px; color: #fff; text-decoration: none; font-weight: 800; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; }
+    .p-link-v2 i { font-size: 14px; transition: 0.3s; }
+    .project-card-v2:hover .p-link-v2 { color: rgb(216, 115, 255); }
+    .project-card-v2:hover .p-link-v2 i { transform: translateX(5px); }
 
-    <section class="page-banner">
+    @media (max-width: 1200px) { .portfolio-grid-v2 { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 767px) { .portfolio-grid-v2 { grid-template-columns: 1fr; } }
+</style>
+
+<div class="work-main-v2">
+    <section class="work-hero-v2">
+        <div class="hero-scanner"></div>
+        <div class="hero-glow"></div>
         <div class="container">
-            <div class="row">
-                <div class="col-md-12" data-aos="zoom-in">
-                    <h2>Our Work</h2>
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb breadcrumb-custom">
-                            <li class="breadcrumb-item"><a href="<?php echo BASE_URL; ?>index.php">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Work</li>
-                        </ol>
-                    </nav>
-                </div>
-            </div>
+            <div class="tech-badge" data-aos="fade-down">The Masterpiece Bento-Deck</div>
+            <h1 data-aos="zoom-in">Architecting <br> <span class="gradient-tech-text">Digital Excellence</span></h1>
         </div>
     </section>
 
-    <section class="content-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                   <div class="ser-head text-center mb-5" data-aos="fade-up">
-                      <div class="hed text-center">
-                         <img src="<?php echo BASE_URL; ?>assets/images/about/arrowLeft.svg" width="6%" alt="">
-                         <span>Our Creative Projects</span>
-                         <img src="<?php echo BASE_URL; ?>assets/images/about/arrowRight.svg" width="6%" alt="">
-                      </div>
-                      <h3>Explore Our Latest Creations</h3>
-                   </div>
-                </div>
-           </div>
-            <div class="row justify-content-center">
-                <?php
-                $work_sql = "SELECT * FROM work_items ORDER BY reg_date DESC";
-                $work_result = $conn->query($work_sql);
-                if ($work_result && $work_result->num_rows > 0):
-                    while($row = $work_result->fetch_assoc()):
-                ?>
-                <!-- Dynamic Work Item -->
-                <div class="col-lg-4 col-md-6" data-aos="fade-up">
-                    <div class="work-card">
-                        <?php if(!empty($row['image_url'])): ?>
-                            <img src="<?php echo $row['image_url']; ?>" class="img-fluid" alt="<?php echo htmlspecialchars($row['title']); ?>">
-                        <?php else: ?>
-                            <img src="<?php echo BASE_URL; ?>assets/images/work/project-placeholder.jpg" class="img-fluid" alt="Placeholder">
-                        <?php endif; ?>
-                        <div class="card-body">
-                            <h4 class="project-title">
-                                <?php if(!empty($row['project_link'])): ?>
-                                    <a href="<?php echo $row['project_link']; ?>" target="_blank"><?php echo htmlspecialchars($row['title']); ?></a>
-                                <?php else: ?>
-                                    <?php echo htmlspecialchars($row['title']); ?>
-                                <?php endif; ?>
-                            </h4>
-                            <p class="project-description"><?php echo htmlspecialchars($row['description'] ?? ''); ?></p>
-                            <?php if(!empty($row['project_link'])): ?>
-                                <a href="<?php echo $row['project_link']; ?>" target="_blank" class="view-project">View Project <i class="fa-solid fa-arrow-right"></i></a>
-                            <?php endif; ?>
-                            <div class="project-date"><?php echo date('F d, Y', strtotime($row['reg_date'])); ?></div>
-                        </div>
+    <div class="container">
+        <div class="portfolio-grid-v2">
+            <?php
+            $work_sql = "SELECT * FROM work_items ORDER BY reg_date DESC";
+            $work_result = $conn->query($work_sql);
+            if ($work_result && $work_result->num_rows > 0):
+                while($row = $work_result->fetch_assoc()):
+            ?>
+            <div class="project-card-v2" data-aos="fade-up">
+                <div class="p-img-v2">
+                    <img src="<?php echo $row['image_url'] ?: BASE_URL . 'assets/images/work/project-placeholder.jpg'; ?>" alt="<?php echo htmlspecialchars($row['title']); ?>">
+                    <div class="p-status-strip">
+                        <span><i class="fas fa-microchip"></i> SYSTEM_ACTIVE</span>
+                        <span>LATENCY: 42ms</span>
                     </div>
                 </div>
-                <?php 
-                    endwhile;
-                else:
-                ?>
-                    <div class="col-12 text-center">
-                        <p>No projects found in our portfolio yet.</p>
-                    </div>
-                <?php endif; ?>
+                <div class="p-content-v2">
+                    <span class="p-cat-v2">Deployed: <?php echo date('Y', strtotime($row['reg_date'])); ?></span>
+                    <h4><?php echo htmlspecialchars($row['title']); ?></h4>
+                    <p><?php echo htmlspecialchars($row['description']); ?></p>
+                    <a href="<?php echo $row['project_link'] ?: '#'; ?>" class="p-link-v2">Access System <i class="fas fa-arrow-right"></i></a>
+                </div>
             </div>
+            <?php endwhile; else: ?>
+                <div class="col-12 text-center py-5">
+                    <h3 class="opacity-30">No active deployments found.</h3>
+                </div>
+            <?php endif; ?>
         </div>
-    </section>
+    </div>
+
+    <?php include_once __DIR__ . '/../contact-section-shared.php'; ?>
+</div>
 
 <?php include_once __DIR__ . '/../footer.php'; ?>

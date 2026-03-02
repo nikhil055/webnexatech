@@ -1,320 +1,184 @@
 <?php 
-$page_title = 'Software Development';
- include_once __DIR__ . '/../config.php'; include_once __DIR__ . '/../header.php'; ?>
-<?php 
-include_once __DIR__ . '/../backend/db.php';
-$page_file = 'technology/software-development.php';
-$banner_res = $conn->query("SELECT * FROM page_banners WHERE page_name = '$page_file'");
-$banner_data = ($banner_res && $banner_res->num_rows > 0) ? $banner_res->fetch_assoc() : null;
-
-$display_banner_img = ($banner_data && !empty($banner_data['banner_image'])) ? $banner_data['banner_image'] : BASE_URL . 'assets/images/services/software.jpg';
-$display_banner_title = ($banner_data && !empty($banner_data['banner_title'])) ? $banner_data['banner_title'] : 'Software Development';
+$page_title = 'Enterprise Software Engineering | WebNexa';
+include_once __DIR__ . '/../config.php'; 
+include_once __DIR__ . '/../header-new.php'; 
 ?>
 
-    <style>
-        .page-banner {
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('<?php echo $display_banner_img; ?>');
-            background-size: cover;
-            background-position: center;
-            padding-top: 220px;
-            padding-bottom: 100px;
-            text-align: center;
-            color: #fff;
-        }
-        .page-banner h2 {
-            font-size: 55px;
-            font-weight: 800;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-        .breadcrumb-custom {
-            justify-content: center;
-            background: rgba(255, 255, 255, 0.1);
-            display: inline-flex;
-            padding: 10px 20px;
-            border-radius: 30px;
-            backdrop-filter: blur(5px);
-        }
-        .breadcrumb-custom .breadcrumb-item a {
-            color: #fff;
-            text-decoration: none;
-            font-weight: 500;
-        }
-        .breadcrumb-custom .breadcrumb-item.active {
-            color: #3C72FC;
-            font-weight: 700;
-        }
-        .content-section {
-            padding-top: 80px;
-            padding-bottom: 80px;
-        }
-        .icon-card {
-            display: flex;
-            align-items: flex-start;
-            background: #fff;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 5px 25px rgba(0,0,0,0.07);
-            margin-bottom: 20px;
-            transition: all 0.3s ease;
-            height: calc(100% - 20px);
-        }
-        .icon-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 35px rgba(0,0,0,0.1);
-        }
-        .icon-card .icon {
-            font-size: 30px;
-            color: #3C72FC;
-            margin-right: 20px;
-            min-width: 40px;
-        }
-        .icon-card h5 {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 5px;
-        }
-        .icon-card p {
-            font-size: 15px;
-            color: #666;
-            margin-bottom: 0;
-            line-height: 1.6;
-        }
-        .process-item {
-            text-align: center;
-            position: relative;
-        }
-        .process-item .process-icon {
-            width: 90px;
-            height: 90px;
-            background: #f1f5ff;
-            color: #3C72FC;
-            border-radius: 50%;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 40px;
-            border: 5px solid #fff;
-            box-shadow: 0 0 15px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
-        }
-        .process-item h4 {
-            font-size: 20px;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-        .contact-cta {
-            background: #f8f9fa;
-        }
-    </style>
+<style>
+    .web-dev-main { background: #05070a; color: #fff; font-family: 'Inter', sans-serif; overflow-x: hidden; }
+    .web-fixed-bg { position: fixed; inset: 0; z-index: 1; pointer-events: none; opacity: 0.2; }
+    .data-drop { position: absolute; width: 1px; height: 100px; background: linear-gradient(to bottom, transparent, rgb(114, 79, 255), transparent); animation: dropMove 5s infinite linear; }
+    @keyframes dropMove { 0% { transform: translateY(-100px); opacity: 0; } 50% { opacity: 0.5; } 100% { transform: translateY(100vh); opacity: 0; } }
 
-    <section class="page-banner">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12" data-aos="zoom-in">
-                        <h2><?php echo $display_banner_title; ?></h2>
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb breadcrumb-custom">
-                            <li class="breadcrumb-item"><a href="<?php echo BASE_URL; ?>index.php">Home</a></li>
-                            <li class="breadcrumb-item"><a href="<?php echo BASE_URL; ?>services.php">Services</a></li>
-                            <li class="breadcrumb-item"><a href="<?php echo BASE_URL; ?>technology/technology-services.php">Technology Services</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Software Development</li>
-                        </ol>
-                    </nav>
-                </div>
-            </div>
-        </div>
-    </section>
+    .tech-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(114, 79, 255, 0.1); border: 1px solid rgba(114, 79, 255, 0.2); padding: 6px 18px; border-radius: 100px; font-size: 12px; font-weight: 800; color: rgb(216, 115, 255); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 25px; }
+    .section-title { font-size: clamp(32px, 4.5vw, 54px); font-weight: 900; line-height: 1.1; letter-spacing: -2px; }
+    .content-block { padding: 140px 0; position: relative; z-index: 10; }
+    .container { position: relative; z-index: 10; max-width: 1350px; }
+    .glass-card { background: rgba(255, 255, 255, 0.015); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 40px; backdrop-filter: blur(40px); transition: 0.4s; padding: 50px; height: 100%; display: flex; flex-direction: column; }
+    .glass-card:hover { border-color: rgba(114, 79, 255, 0.4); transform: translateY(-10px); background: rgba(114, 79, 255, 0.03); }
 
-    <section class="content-section">
+    /* 1. HERO */
+    .web-hero { position: relative; padding: 220px 0 120px; background: #080b12; overflow: hidden; text-align: center; }
+    .hero-grid { position: absolute; inset: 0; background-image: radial-gradient(rgba(114, 79, 255, 0.05) 1px, transparent 1px); background-size: 50px 50px; transform: perspective(500px) rotateX(60deg); }
+    .web-hero h1 { font-size: clamp(40px, 7vw, 85px); font-weight: 900; letter-spacing: -4px; line-height: 0.95; margin-bottom: 30px; }
+
+    /* 2. ASSEMBLY LINE */
+    .flow-timeline { position: relative; max-width: 900px; margin: 60px auto 0; padding-left: 80px; }
+    .flow-timeline::before { content: ""; position: absolute; left: 30px; top: 0; height: 100%; width: 2px; background: linear-gradient(to bottom, rgb(114, 79, 255), transparent); }
+    .flow-step { position: relative; margin-bottom: 60px; }
+    .flow-step::after { content: ""; position: absolute; left: -58px; top: 0; width: 16px; height: 18px; background: #05070a; border: 4px solid rgb(114, 79, 255); border-radius: 50%; box-shadow: 0 0 20px rgb(114, 79, 255); z-index: 5; }
+    .flow-step h5 { font-size: 22px; font-weight: 800; color: #fff; margin-bottom: 10px; }
+    .flow-step p { font-size: 16px; color: #94a3b8; }
+
+    /* 3. CAPABILITIES */
+    .cap-grid-massive { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-top: 60px; }
+    .cap-icon { width: 55px; height: 55px; background: rgba(114, 79, 255, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 22px; color: rgb(114, 79, 255); margin-bottom: 25px; transition: 0.4s; }
+    .glass-card h4 { font-size: 22px; font-weight: 800; margin-bottom: 15px; color: #fff; }
+    .cap-feat-list { list-style: none; padding: 0; margin: auto 0 0; display: flex; flex-wrap: wrap; gap: 8px; }
+    .cap-feat-list li { background: rgba(255,255,255,0.03); padding: 5px 12px; border-radius: 6px; font-size: 10px; font-weight: 800; color: rgb(216, 115, 255); border: 1px solid rgba(255,255,255,0.05); text-transform: uppercase; }
+
+    /* 4. COMPARISON */
+    .comp-box { background: rgba(255, 255, 255, 0.015); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 40px; padding: 60px; margin-top: 60px; }
+    .comp-row { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 40px; padding: 25px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .comp-header { font-weight: 800; color: #fff; text-transform: uppercase; letter-spacing: 1px; font-size: 12px; }
+    .comp-val { font-size: 15px; color: #94a3b8; display: flex; align-items: center; gap: 10px; }
+    .comp-val.best { color: #fff; font-weight: 700; }
+    .comp-val.best i { color: #22c55e; }
+
+    /* 5. PERF BOX */
+    .perf-box { background: rgba(114, 79, 255, 0.05); border: 1px solid rgba(114, 79, 255, 0.1); border-radius: 40px; padding: 60px; display: flex; align-items: center; gap: 60px; }
+    .perf-circle { width: 180px; height: 180px; border: 8px solid rgba(34, 197, 94, 0.1); border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(0,0,0,0.3); }
+    .perf-circle h2 { font-size: 64px; font-weight: 900; color: #22c55e; margin: 0; }
+
+    @media (max-width: 1199px) { .cap-grid-massive { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 991px) { .cap-grid-massive, .comp-row { grid-template-columns: 1fr; } .perf-box { flex-direction: column; text-align: center; } }
+</style>
+
+<div class="web-dev-main">
+    <div class="web-fixed-bg" id="web-data-bg"></div>
+
+    <!-- 1. HERO -->
+    <section class="web-hero">
+        <div class="hero-grid"></div>
         <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="ser-head text-center mb-5" data-aos="fade-up">
-                        <div class="hed text-center">
-                            <img src="<?php echo BASE_URL; ?>assets/images/about/arrowLeft.svg" width="6%" alt="">
-                            <span>Solutions Built for You</span>
-                            <img src="<?php echo BASE_URL; ?>assets/images/about/arrowRight.svg" width="6%" alt="">
-                        </div>
-                        <h3>Tailored Software to Meet Your Needs</h3>
-                    </div>
-                </div>
+            <div class="tech-badge" data-aos="fade-down">Enterprise Systems</div>
+            <h1 data-aos="zoom-in">Custom Software <br> <span class="gradient-tech-text">Engineering</span></h1>
+            <p style="color: #94a3b8; max-width: 750px; margin: 0 auto; font-size: 19px; line-height: 1.8;" data-aos="fade-up">We architect bespoke software systems, automating complex workflows and scaling enterprise operations through rigorous logic mapping.</p>
+        </div>
+    </section>
+
+    <!-- 2. ASSEMBLY LINE -->
+    <section class="content-block" style="background: #080b12; border-top: 1px solid rgba(255,255,255,0.05);">
+        <div class="container">
+            <div class="text-center" data-aos="fade-up">
+                <div class="tech-badge">Execution Protocol</div>
+                <h2 class="section-title">The Engineering <br> <span class="gradient-tech-text">Production Line</span></h2>
             </div>
-            <div class="row">
-                <div class="col-lg-8 offset-lg-2 text-center lead">
-                    <p>Off-the-shelf software doesn't always fit. We specialize in developing custom software applications that are tailored to your specific business processes and goals. From internal tools that boost efficiency to complex enterprise platforms, our team follows a rigorous development lifecycle to deliver high-quality, reliable, and scalable software solutions.</p>
+            <div class="flow-timeline">
+                <div class="flow-step" data-aos="fade-right">
+                    <h5>Architectural Discovery</h5>
+                    <p>Mapping legacy system gaps and defining the future microservices blueprint.</p>
+                </div>
+                <div class="flow-step" data-aos="fade-right" data-aos-delay="100">
+                    <h5>Core Logic Development</h5>
+                    <p>Engineering robust backends with Python, Node, or Java focusing on data integrity.</p>
+                </div>
+                <div class="flow-step" data-aos="fade-right" data-aos-delay="200">
+                    <h5>API & Security Layer</h5>
+                    <p>Building secure REST/GraphQL endpoints with AES-256 encrypted data tunnels.</p>
+                </div>
+                <div class="flow-step" data-aos="fade-right" data-aos-delay="300">
+                    <h5>DevOps Orchestration</h5>
+                    <p>Containerized deployment using Docker and Kubernetes for zero-downtime scaling.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- WHY IT MATTERS SECTION -->
-<section class="content-section bg-light">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-6 mb-4" data-aos="fade-right">
-                <img src="<?php echo BASE_URL; ?>assets/images/blog/custom_software.svg" class="img-fluid rounded shadow-lg" alt="Software Development Importance">
+    <!-- 3. CAPABILITIES -->
+    <section class="content-block">
+        <div class="container">
+            <div class="text-center" data-aos="fade-up">
+                <div class="tech-badge">System Scope</div>
+                <h2 class="section-title">Software Engineering <span class="gradient-tech-text">Matrix</span></h2>
             </div>
-            <div class="col-lg-6 mb-4" data-aos="fade-left">
-                <div class="ser-head text-start">
-                    <div class="hed text-start">
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowLeft.svg" width="6%" alt="">
-                        <span>Why Custom Software?</span>
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowRight.svg" width="6%" alt="">
-                    </div>
-                    <h3>Unlock Efficiency, Drive Innovation</h3>
-                    <p class="mt-4">Generic software often forces your business to adapt to its limitations. Custom software development, however, empowers you with solutions precisely engineered to your unique workflows, challenges, and competitive advantages. It optimizes operational efficiency, reduces manual errors, provides better data insights, and scales seamlessly with your growth. Investing in bespoke software is investing in a strategic asset that streamlines operations, innovates processes, and provides a distinct competitive edge.</p>
-                    <ul class="list-unstyled mt-3">
-                        <li class="mb-2"><i class="fa fa-check text-success me-2"></i>Tailor solutions to your exact business processes and requirements.</li>
-                        <li class="mb-2"><i class="fa fa-check text-success me-2"></i>Achieve unparalleled operational efficiency and automation.</li>
-                        <li class="mb-2"><i class="fa fa-check text-success me-2"></i>Gain a significant competitive advantage with unique, innovative tools.</li>
-                    </ul>
+            <div class="cap-grid-massive">
+                <div class="glass-card" data-aos="fade-up">
+                    <div class="cap-icon"><i class="fas fa-sitemap"></i></div>
+                    <h4>Enterprise ERP <br> Ecosystems</h4>
+                    <p>Centralized resource planning platforms linking inventory, HR, and finance.</p>
+                    <ul class="cap-feat-list"><li>API First</li><li>RBAC Auth</li><li>Live Sync</li></ul>
+                </div>
+                <div class="glass-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="cap-icon"><i class="fas fa-users-gear"></i></div>
+                    <h4>Custom CRM <br> Portals</h4>
+                    <p>Intelligent customer relationship managers built to automate sales pipelines.</p>
+                    <ul class="cap-feat-list"><li>Auto-Assign</li><li>Email Sync</li><li>Sales Viz</li></ul>
+                </div>
+                <div class="glass-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="cap-icon"><i class="fas fa-database"></i></div>
+                    <h4>Big Data <br> Architecture</h4>
+                    <p>Engineering robust data pipelines for real-time processing and BI reporting.</p>
+                    <ul class="cap-feat-list"><li>ElasticSearch</li><li>Redis</li><li>Data Lakes</li></ul>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- OUR CUSTOM SOFTWARE DEVELOPMENT PROCESS SECTION -->
-<section class="content-section">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 text-center">
-                <div class="ser-head" data-aos="fade-up">
-                    <div class="hed">
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowLeft.svg" width="6%" alt="">
-                        <span>Our Workflow</span>
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowRight.svg" width="6%" alt="">
-                    </div>
-                    <h3>Our Agile Custom Software Development Process</h3>
-                </div>
+    <!-- 4. COMPARISON -->
+    <section class="content-block" style="background: #080b12;">
+        <div class="container">
+            <div class="text-center" data-aos="fade-up">
+                <div class="tech-badge">Competitive Analysis</div>
+                <h2 class="section-title">Standard Dev vs <br> <span class="gradient-tech-text">WebNexa Engineering</span></h2>
+            </div>
+            <div class="comp-box" data-aos="zoom-in">
+                <div class="comp-row comp-header"><span>Features</span><span>Standard Dev</span><span style="color:rgb(216, 115, 255);">WebNexa Elite</span></div>
+                <div class="comp-row"><span>Architecture</span><span class="comp-val">Monolithic</span><span class="comp-val best"><i class="fas fa-layer-group"></i> Microservices</span></div>
+                <div class="comp-row"><span>Testing</span><span class="comp-val">Manual Unit</span><span class="comp-val best"><i class="fas fa-shield-halved"></i> Automated CI/CD</span></div>
+                <div class="comp-row"><span>Maintenance</span><span class="comp-val">Reactive Only</span><span class="comp-val best"><i class="fas fa-heart-pulse"></i> 24/7 Predictive</span></div>
+                <div class="comp-row" style="border:none;"><span>Database</span><span class="comp-val">Static DB</span><span class="comp-val best"><i class="fas fa-database"></i> High-Load Sharding</span></div>
             </div>
         </div>
-        <div class="row mt-5">
-            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="100">
-                <div class="process-item">
-                    <div class="process-icon"><i class="fa-solid fa-lightbulb"></i></div>
-                    <h4>Discovery & Conception</h4>
-                    <p>We delve deep into your business needs, user requirements, and technical feasibility to define the project scope and vision.</p>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
-                <div class="process-item">
-                    <div class="process-icon"><i class="fa-solid fa-pencil-ruler"></i></div>
-                    <h4>Design & Architecture</h4>
-                    <p>Crafting intuitive user interfaces (UI/UX) and designing a robust, scalable technical architecture that supports your long-term goals.</p>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="300">
-                <div class="process-item">
-                    <div class="process-icon"><i class="fa-solid fa-code"></i></div>
-                    <h4>Development & Iteration</h4>
-                    <p>Our skilled developers build the software in agile sprints, delivering functional modules for your review and feedback at each stage.</p>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="400">
-                <div class="process-item">
-                    <div class="process-icon"><i class="fa-solid fa-rocket"></i></div>
-                    <h4>Deployment & Support</h4>
-                    <p>Seamless deployment, user training, and continuous maintenance, support, and optimization to ensure sustained performance and evolution.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+    </section>
 
-<!-- WHAT WE DELIVER SECTION -->
-<section class="content-section bg-light">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 text-center">
-                <div class="ser-head" data-aos="fade-up">
-                    <div class="hed">
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowLeft.svg" width="6%" alt="">
-                        <span>Your Deliverables</span>
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowRight.svg" width="6%" alt="">
-                    </div>
-                    <h3>What Our Custom Software Development Services Deliver</h3>
+    <!-- 5. BENCHMARKING -->
+    <section class="content-block">
+        <div class="container">
+            <div class="perf-box" data-aos="zoom-in">
+                <div class="perf-circle"><h2>99.9</h2><span>Uptime %</span></div>
+                <div class="flex-grow-1">
+                    <h3 style="font-weight: 900; margin-bottom: 25px;">Engineered for <br> <span class="gradient-tech-text">Zero-Fault Reliability</span></h3>
+                    <p style="color: #94a3b8; font-size: 17px;">Our software architectures are designed to maintain 100% data integrity even under extreme operational stress.</p>
                 </div>
             </div>
         </div>
-        <div class="row mt-5">
-            <div class="col-lg-4 d-flex align-items-stretch mb-4" data-aos="fade-up" data-aos-delay="100">
-                <div class="icon-card w-100">
-                    <div class="icon"><i class="fa-solid fa-cogs"></i></div>
-                    <div class="text">
-                        <h5>Tailored & Efficient Solutions</h5>
-                        <p>Software precisely designed to automate and optimize your unique business processes, leading to significant efficiency gains.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 d-flex align-items-stretch mb-4" data-aos="fade-up" data-aos-delay="200">
-                <div class="icon-card w-100">
-                    <div class="icon"><i class="fa-solid fa-lock"></i></div>
-                    <div class="text">
-                        <h5>Robust, Secure & Scalable Platforms</h5>
-                        <p>High-quality software built with best-in-class security, designed to handle growth and future technological advancements.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 d-flex align-items-stretch mb-4" data-aos="fade-up" data-aos-delay="300">
-                <div class="icon-card w-100">
-                    <div class="icon"><i class="fa-solid fa-chart-line"></i></div>
-                    <div class="text">
-                        <h5>Competitive Advantage & Innovation</h5>
-                        <p>Proprietary software that differentiates your business, enables unique services, and drives market leadership.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+    </section>
 
-<!-- WHO IS THIS FOR SECTION -->
-<section class="content-section">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 text-center">
-                <div class="ser-head" data-aos="fade-up">
-                    <h3>Who Needs Custom Software Development?</h3>
-                </div>
-            </div>
+    <!-- 6. MAINTENANCE STRIP -->
+    <section class="py-5" style="background: rgb(114, 79, 255); color:#fff;">
+        <div class="container d-flex justify-content-between align-items-center flex-wrap gap-3">
+            <h4 style="margin:0; font-weight:900;">24/7 SYSTEM GOVERNANCE ACTIVE</h4>
+            <div style="font-weight:700; letter-spacing:1px; background:rgba(0,0,0,0.2); padding:10px 25px; border-radius:50px;">STATUS: FULLY OPERATIONAL</div>
         </div>
-        <div class="row mt-4 text-center">
-            <div class="col-md-4 mb-4">
-                <h5>Businesses with Unique Needs</h5>
-                <p>Companies whose specific workflows or requirements are not adequately met by off-the-shelf software solutions.</p>
-            </div>
-            <div class="col-md-4 mb-4">
-                <h5>Startups & Innovators</h5>
-                <p>Bringing novel ideas to market or building Minimum Viable Products (MVPs) that require bespoke technological foundations.</p>
-            </div>
-            <div class="col-md-4 mb-4">
-                <h5>Enterprises Seeking Automation</h5>
-                <p>Large organizations looking to automate complex processes, integrate disparate systems, or modernize legacy infrastructure.</p>
-            </div>
-        </div>
-    </div>
-</section>
+    </section>
 
-<section class="content-section contact-cta">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-10 col-lg-8">
-                <div class="ser-head text-center" data-aos="fade-up">
-                    <div class="hed">
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowLeft.svg" width="6%" alt="">
-                        <span>Let's Talk</span>
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowRight.svg" width="6%" alt="">
-                    </div>
-                    <h3>Ready to Build Your Custom Software Solution?</h3>
-                    <p class="lead mt-3">Contact us today to discuss your development needs and get a free consultation. Let's work together to achieve your business goals.</p>
-                    <a href="<?php echo BASE_URL; ?>contact.php" class="btn btn-style-one mt-4">Get in Touch</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+    <!-- 7. CTA -->
+    <?php include_once __DIR__ . '/../contact-section-shared.php'; ?>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const bg = document.getElementById('web-data-bg');
+        for (let i = 0; i < 25; i++) {
+            const drop = document.createElement('div');
+            drop.className = 'data-drop';
+            drop.style.left = Math.random() * 100 + '%';
+            drop.style.animationDelay = Math.random() * 5 + 's';
+            drop.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            bg.appendChild(drop);
+        }
+    });
+</script>
 
 <?php include_once __DIR__ . '/../footer.php'; ?>

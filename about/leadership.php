@@ -1,189 +1,89 @@
 <?php 
-$page_title = 'Leadership';
- include_once __DIR__ . '/../config.php'; include_once __DIR__ . '/../header.php'; ?>
-<?php 
-include_once __DIR__ . '/../backend/db.php';
-$page_file = 'about/leadership.php';
-$banner_res = $conn->query("SELECT * FROM page_banners WHERE page_name = '$page_file'");
-$banner_data = ($banner_res && $banner_res->num_rows > 0) ? $banner_res->fetch_assoc() : null;
-
-$display_banner_img = ($banner_data && !empty($banner_data['banner_image'])) ? $banner_data['banner_image'] : BASE_URL . 'assets/images/banner/banner-02.jpg';
-$display_banner_title = ($banner_data && !empty($banner_data['banner_title'])) ? $banner_data['banner_title'] : 'Our Leadership';
+$page_title = 'Board of Architects | WebNexa';
+include_once __DIR__ . '/../config.php'; 
+include_once __DIR__ . '/../header-new.php'; 
 ?>
 
-    <style>
-        .page-banner {
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('<?php echo $display_banner_img; ?>');
-            background-size: cover;
-            background-position: center;
-            padding-top: 220px;
-            padding-bottom: 100px;
-            text-align: center;
-            color: #fff;
-        }
+<style>
+    .leader-main { background: #05070a; color: #fff; font-family: 'Inter', sans-serif; overflow-x: hidden; }
+    
+    .leader-hero { position: relative; padding: 220px 0 100px; background: #080b12; overflow: hidden; text-align: center; }
+    .leader-hero h1 { font-size: clamp(40px, 7vw, 85px); font-weight: 900; letter-spacing: -4px; line-height: 0.95; position: relative; z-index: 10; }
 
-        .page-banner h2 {
-            font-size: 55px;
-            font-weight: 800;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
+    .leader-section { padding: 120px 0; }
+    
+    .leader-grid-v2 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
+    .leader-card-v2 { background: rgba(255, 255, 255, 0.015); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 40px; padding: 50px 40px; backdrop-filter: blur(40px); transition: 0.4s; text-align: center; position: relative; overflow: hidden; }
+    .leader-card-v2:hover { border-color: rgb(114, 79, 255); transform: translateY(-12px); background: rgba(114, 79, 255, 0.03); }
 
-        .breadcrumb-custom {
-            justify-content: center;
-            background: rgba(255, 255, 255, 0.1);
-            display: inline-flex;
-            padding: 10px 20px;
-            border-radius: 30px;
-            backdrop-filter: blur(5px);
-        }
+    .leader-img-v2 { width: 180px; height: 180px; border-radius: 50%; object-fit: cover; margin: 0 auto 30px; border: 4px solid rgba(114, 79, 255, 0.2); box-shadow: 0 0 40px rgba(114, 79, 255, 0.1); transition: 0.4s; }
+    .leader-card-v2:hover .leader-img-v2 { border-color: rgb(114, 79, 255); transform: scale(1.05); }
 
-        .breadcrumb-custom .breadcrumb-item a {
-            color: #fff;
-            text-decoration: none;
-            font-weight: 500;
-        }
+    .leader-card-v2 h4 { font-size: 28px; font-weight: 900; margin-bottom: 8px; letter-spacing: -1px; }
+    .leader-role-v2 { display: block; font-size: 12px; font-weight: 800; text-transform: uppercase; color: rgb(216, 115, 255); letter-spacing: 2px; margin-bottom: 25px; }
+    .leader-bio-v2 { color: #94a3b8; font-size: 15px; line-height: 1.7; margin-bottom: 30px; }
 
-        .breadcrumb-custom .breadcrumb-item.active {
-            color: #3C72FC;
-            font-weight: 700;
-        }
+    .leader-social-v2 { display: flex; justify-content: center; gap: 15px; }
+    .leader-social-v2 a { width: 45px; height: 45px; background: rgba(255,255,255,0.05); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; text-decoration: none; transition: 0.3s; }
+    .leader-social-v2 a:hover { background: rgb(114, 79, 255); transform: translateY(-5px); }
 
-        .content-section {
-            padding-top: 80px;
-            padding-bottom: 80px;
-        }
-        .leader-card {
-            background: #fff;
-            border-radius: 10px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.07);
-            padding: 30px;
-            margin-bottom: 30px;
-            text-align: center;
-            transition: all 0.3s ease;
-            height: 100%;
-        }
-        .leader-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 30px rgba(0,0,0,0.15);
-        }
-        .leader-card img {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 20px;
-            border: 5px solid #f1f5ff;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-        .leader-card h4 {
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 5px;
-            color: #333;
-        }
-        .leader-card p.title {
-            font-size: 16px;
-            color: #3C72FC;
-            font-weight: 600;
-            margin-bottom: 15px;
-        }
-        .leader-card p.bio {
-            font-size: 15px;
-            color: #666;
-            line-height: 1.6;
-            flex-grow: 1;
-        }
-    </style>
+    @media (max-width: 991px) { .leader-grid-v2 { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 767px) { .leader-grid-v2 { grid-template-columns: 1fr; } }
+</style>
 
-<section class="page-banner">
+<div class="leader-main">
+    <section class="leader-hero">
+        <div class="hero-glow"></div>
         <div class="container">
-            <div class="row">
-                <div class="col-md-12" data-aos="zoom-in">
-                    <h2><?php echo $display_banner_title; ?></h2>
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb breadcrumb-custom">
-                            <li class="breadcrumb-item"><a href="<?php echo BASE_URL; ?>index.php">Home</a></li>
-                            <li class="breadcrumb-item"><a href="<?php echo BASE_URL; ?>about/about.php">About Us</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Leadership</li>
-                        </ol>
-                    </nav>
-                </div>
-            </div>
+            <div class="tech-badge" data-aos="fade-down">Strategic Council</div>
+            <h1 data-aos="zoom-in">The Board of <br> <span class="gradient-tech-text">Architects</span></h1>
+            <p style="color: #94a3b8; max-width: 800px; margin: 30px auto 0; font-size: 19px; line-height: 1.8;" data-aos="fade-up">Driven by a vision of global digital engineering excellence, our leadership defines the strategic roadmap for the world's most complex enterprises.</p>
         </div>
     </section>
 
-    <!-- INTRODUCTION SECTION -->
-    <section class="content-section">
+    <section class="leader-section">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-8 offset-lg-2 text-center">
-                    <div class="ser-head" data-aos="fade-up">
-                        <div class="hed">
-                            <img src="<?php echo BASE_URL; ?>assets/images/about/arrowLeft.svg" width="6%" alt="">
-                            <span>Guiding Our Vision</span>
-                            <img src="<?php echo BASE_URL; ?>assets/images/about/arrowRight.svg" width="6%" alt="">
-                        </div>
-                        <h3>The Minds Behind Web Nexa's Success</h3>
-                        <p class="lead mt-4">At Web Nexa, our leadership team brings together a diverse blend of expertise, vision, and passion for digital innovation. With years of experience across various industries, they are committed to fostering a culture of excellence, driving strategic growth, and delivering unparalleled value to our clients. Get to know the individuals steering our company towards a future of digital transformation.</p>
+            <div class="leader-grid-v2">
+                <div class="leader-card-v2" data-aos="fade-up">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1974&auto=format&fit=crop" class="leader-img-v2" alt="CEO">
+                    <h4>Adrian Thorne</h4>
+                    <span class="leader-role-v2">Chief Executive Officer</span>
+                    <p class="leader-bio-v2">A visionary technologist with 20+ years in distributed systems and enterprise governance. Adrian founded WebNexa to bridge the gap between legacy commerce and high-frequency digital dominance.</p>
+                    <div class="leader-social-v2">
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+
+                <div class="leader-card-v2" data-aos="fade-up" data-aos-delay="100">
+                    <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=1974&auto=format&fit=crop" class="leader-img-v2" alt="CTO">
+                    <h4>Elena Vance</h4>
+                    <span class="leader-role-v2">Chief Technology Officer</span>
+                    <p class="leader-bio-v2">Architect of the WebNexa Neural Core. Elena specializes in hyper-scalable React ecosystems and fortified cloud-native infrastructures for global retail giants.</p>
+                    <div class="leader-social-v2">
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+
+                <div class="leader-card-v2" data-aos="fade-up" data-aos-delay="200">
+                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1976&auto=format&fit=crop" class="leader-img-v2" alt="CMO">
+                    <h4>Marcus Sterling</h4>
+                    <span class="leader-role-v2">Chief Marketing Officer</span>
+                    <p class="leader-bio-v2">The master of performance-driven digital growth. Marcus leads our "Revenue-First" marketing protocol, scaling brand visibility across 40+ global markets.</p>
+                    <div class="leader-social-v2">
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fas fa-envelope"></i></a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- LEADER PROFILES SECTION -->
-    <section class="content-section bg-light">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up">
-                    <div class="leader-card">
-                        <img src="<?php echo BASE_URL; ?>assets/images/team/team-member-1.jpg" alt="[Leader Name] Photo">
-                        <h4>[Leader Name]</h4>
-                        <p class="title">Chief Executive Officer (CEO)</p>
-                        <p class="bio">A visionary leader with over 20 years of experience in the tech industry, [Leader Name] founded Web Nexa with the goal of revolutionizing digital services. Their strategic insight and dedication to innovation have been instrumental in the company's growth and success.</p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="100">
-                    <div class="leader-card">
-                        <img src="<?php echo BASE_URL; ?>assets/images/team/team-member-2.jpg" alt="[Leader Name] Photo">
-                        <h4>[Leader Name]</h4>
-                        <p class="title">Chief Technology Officer (CTO)</p>
-                        <p class="bio">As CTO, [Leader Name] is the driving force behind Web Nexa's technological advancements. With a deep expertise in software architecture and emerging technologies, they ensure our solutions are robust, scalable, and at the forefront of the industry.</p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
-                    <div class="leader-card">
-                        <img src="<?php echo BASE_URL; ?>assets/images/team/team-member-3.jpg" alt="[Leader Name] Photo">
-                        <h4>[Leader Name]</h4>
-                        <p class="title">Chief Marketing Officer (CMO)</p>
-                        <p class="bio">[Leader Name] leads our dynamic marketing efforts, shaping Web Nexa's brand presence and client acquisition strategies. Their innovative approach to digital marketing ensures our message resonates with our audience and drives business growth.</p>
-                    </div>
-                </div>
-                <!-- Add more leader cards as needed -->
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA SECTION -->
-    <section class="content-section contact-cta">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-10 col-lg-8">
-                    <div class="ser-head text-center" data-aos="fade-up">
-                        <div class="hed text-center">
-                            <img src="<?php echo BASE_URL; ?>assets/images/about/arrowLeft.svg" width="6%" alt="">
-                            <span>Connect with Us</span>
-                            <img src="<?php echo BASE_URL; ?>assets/images/about/arrowRight.svg" width="6%" alt="">
-                        </div>
-                        <h3>Inspired by Our Visionaries?</h3>
-                        <p class="lead mt-3">Learn more about our team and how our leadership guides our commitment to your success. Contact us today.</p>
-                        <a href="<?php echo BASE_URL; ?>contact.php" class="btn btn-style-one mt-4">Get in Touch</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <?php include_once __DIR__ . '/../contact-section-shared.php'; ?>
+</div>
 
 <?php include_once __DIR__ . '/../footer.php'; ?>

@@ -3,5 +3,5 @@
 // This allows for portability of the site to different subdirectories or domains.
 // Example: If your site is in a 'webnexa' folder, the value should be '/webnexa/'.
 // If your site is at the root of a domain, the value should be '/'.
-define('BASE_URL', 'http://localhost:8000');
+define('BASE_URL', 'http://localhost:800/');
 define('SITE_NAME', 'Web Nexa Technologies');

@@ -1,311 +1,154 @@
 <?php 
-$page_title = 'Mobile Apps';
- include_once __DIR__ . '/../config.php'; include_once __DIR__ . '/../header.php'; ?>
+$page_title = 'Elite Mobile Apps | WebNexa';
+include_once __DIR__ . '/../config.php'; 
+include_once __DIR__ . '/../header-new.php'; 
+?>
 
-    <style>
-        .page-banner {
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('<?php echo BASE_URL; ?>assets/images/services/mobile.jpg');
-            background-size: cover;
-            background-position: center;
-            padding-top: 220px;
-            padding-bottom: 100px;
-            text-align: center;
-            color: #fff;
-        }
-        .page-banner h2 {
-            font-size: 55px;
-            font-weight: 800;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-        .breadcrumb-custom {
-            justify-content: center;
-            background: rgba(255, 255, 255, 0.1);
-            display: inline-flex;
-            padding: 10px 20px;
-            border-radius: 30px;
-            backdrop-filter: blur(5px);
-        }
-        .breadcrumb-custom .breadcrumb-item a {
-            color: #fff;
-            text-decoration: none;
-            font-weight: 500;
-        }
-        .breadcrumb-custom .breadcrumb-item.active {
-            color: #3C72FC;
-            font-weight: 700;
-        }
-        .content-section {
-            padding-top: 80px;
-            padding-bottom: 80px;
-        }
-        .icon-card {
-            display: flex;
-            align-items: flex-start;
-            background: #fff;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 5px 25px rgba(0,0,0,0.07);
-            margin-bottom: 20px;
-            transition: all 0.3s ease;
-            height: calc(100% - 20px);
-        }
-        .icon-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 35px rgba(0,0,0,0.1);
-        }
-        .icon-card .icon {
-            font-size: 30px;
-            color: #3C72FC;
-            margin-right: 20px;
-            min-width: 40px;
-        }
-        .icon-card h5 {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 5px;
-        }
-        .icon-card p {
-            font-size: 15px;
-            color: #666;
-            margin-bottom: 0;
-            line-height: 1.6;
-        }
-        .process-item {
-            text-align: center;
-            position: relative;
-        }
-        .process-item .process-icon {
-            width: 90px;
-            height: 90px;
-            background: #f1f5ff;
-            color: #3C72FC;
-            border-radius: 50%;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 40px;
-            border: 5px solid #fff;
-            box-shadow: 0 0 15px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
-        }
-        .process-item h4 {
-            font-size: 20px;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-        .contact-cta {
-            background: #f8f9fa;
-        }
-    </style>
+<style>
+    .web-dev-main { background: #05070a; color: #fff; font-family: 'Inter', sans-serif; overflow-x: hidden; }
+    .web-fixed-bg { position: fixed; inset: 0; z-index: 1; pointer-events: none; opacity: 0.2; }
+    .data-drop { position: absolute; width: 1px; height: 100px; background: linear-gradient(to bottom, transparent, rgb(114, 79, 255), transparent); animation: dropMove 5s infinite linear; }
+    @keyframes dropMove { 0% { transform: translateY(-100px); opacity: 0; } 50% { opacity: 0.5; } 100% { transform: translateY(100vh); opacity: 0; } }
 
-    <section class="page-banner">
+    .tech-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(114, 79, 255, 0.1); border: 1px solid rgba(114, 79, 255, 0.2); padding: 6px 18px; border-radius: 100px; font-size: 12px; font-weight: 800; color: rgb(216, 115, 255); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 25px; }
+    .section-title { font-size: clamp(32px, 4.5vw, 54px); font-weight: 900; line-height: 1.1; letter-spacing: -2px; }
+    .content-block { padding: 120px 0; position: relative; z-index: 10; }
+    .container { position: relative; z-index: 10; max-width: 1350px; }
+    .glass-card { background: rgba(255, 255, 255, 0.015); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 40px; backdrop-filter: blur(40px); transition: 0.4s; padding: 45px; height: 100%; display: flex; flex-direction: column; }
+    .glass-card:hover { border-color: rgba(114, 79, 255, 0.4); transform: translateY(-10px); background: rgba(114, 79, 255, 0.03); }
+
+    .web-hero { position: relative; padding: 220px 0 120px; background: #080b12; overflow: hidden; text-align: center; }
+    .hero-grid { position: absolute; inset: 0; background-image: radial-gradient(rgba(114, 79, 255, 0.05) 1px, transparent 1px); background-size: 50px 50px; transform: perspective(500px) rotateX(60deg); }
+    .web-hero h1 { font-size: clamp(40px, 7vw, 85px); font-weight: 900; letter-spacing: -4px; line-height: 0.95; margin-bottom: 30px; }
+
+    .cap-grid-massive { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-top: 60px; }
+    .cap-icon { width: 55px; height: 55px; background: rgba(114, 79, 255, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 22px; color: rgb(114, 79, 255); margin-bottom: 25px; transition: 0.4s; }
+    .cap-feat-list { list-style: none; padding: 0; margin: auto 0 0; display: flex; flex-wrap: wrap; gap: 8px; }
+    .cap-feat-list li { background: rgba(255,255,255,0.03); padding: 5px 12px; border-radius: 6px; font-size: 10px; font-weight: 800; color: rgb(216, 115, 255); border: 1px solid rgba(255,255,255,0.05); text-transform: uppercase; }
+
+    .flow-timeline { position: relative; max-width: 900px; margin: 60px auto 0; padding-left: 80px; }
+    .flow-timeline::before { content: ""; position: absolute; left: 30px; top: 0; height: 100%; width: 2px; background: linear-gradient(to bottom, rgb(114, 79, 255), transparent); }
+    .flow-step { position: relative; margin-bottom: 60px; }
+    .flow-step::after { content: ""; position: absolute; left: -58px; top: 0; width: 16px; height: 18px; background: #05070a; border: 4px solid rgb(114, 79, 255); border-radius: 50%; box-shadow: 0 0 20px rgb(114, 79, 255); z-index: 5; }
+    .flow-step h5 { font-size: 22px; font-weight: 800; color: #fff; margin-bottom: 10px; }
+    .flow-step p { font-size: 16px; color: #94a3b8; }
+
+    .comp-box { background: rgba(255, 255, 255, 0.015); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 40px; padding: 60px; margin-top: 60px; }
+    .comp-row { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 40px; padding: 25px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .comp-header { font-weight: 800; color: #fff; text-transform: uppercase; letter-spacing: 1px; font-size: 12px; }
+    .comp-val { font-size: 15px; color: #94a3b8; display: flex; align-items: center; gap: 10px; }
+    .comp-val.best { color: #fff; font-weight: 700; }
+    .comp-val.best i { color: #22c55e; }
+
+    @media (max-width: 991px) { .cap-grid-massive, .comp-row { grid-template-columns: 1fr; } }
+</style>
+
+<div class="web-dev-main">
+    <div class="web-fixed-bg" id="web-data-bg"></div>
+
+    <section class="web-hero">
+        <div class="hero-grid"></div>
         <div class="container">
-            <div class="row">
-                <div class="col-md-12" data-aos="zoom-in">
-                    <h2>Mobile App Development</h2>
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb breadcrumb-custom">
-                            <li class="breadcrumb-item"><a href="<?php echo BASE_URL; ?>index.php">Home</a></li>
-                            <li class="breadcrumb-item"><a href="<?php echo BASE_URL; ?>services.php">Services</a></li>
-                            <li class="breadcrumb-item"><a href="<?php echo BASE_URL; ?>technology/technology-services.php">Technology Services</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Mobile Apps</li>
-                        </ol>
-                    </nav>
+            <div class="tech-badge" data-aos="fade-down">Native & Hybrid</div>
+            <h1 data-aos="zoom-in">Elite Mobile <br> <span class="gradient-tech-text">App Engineering</span></h1>
+            <p style="color: #94a3b8; max-width: 750px; margin: 0 auto; font-size: 19px; line-height: 1.8;" data-aos="fade-up">We build high-performance mobile applications that deliver native speed, flawless UX, and deep hardware integration across iOS and Android.</p>
+        </div>
+    </section>
+
+    <section class="content-block" style="background: #080b12; border-top: 1px solid rgba(255,255,255,0.05);">
+        <div class="container">
+            <div class="text-center" data-aos="fade-up">
+                <div class="tech-badge">Execution Protocol</div>
+                <h2 class="section-title">The App <br> <span class="gradient-tech-text">Production Line</span></h2>
+            </div>
+            <div class="flow-timeline">
+                <div class="flow-step" data-aos="fade-right">
+                    <h5>UX Architecture</h5>
+                    <p>Mapping complex user journeys into high-fidelity wireframes and motion prototypes.</p>
+                </div>
+                <div class="flow-step" data-aos="fade-right" data-aos-delay="100">
+                    <h5>Cross-Platform Build</h5>
+                    <p>Engineering native-speed apps using Flutter or React Native with modular components.</p>
+                </div>
+                <div class="flow-step" data-aos="fade-right" data-aos-delay="200">
+                    <h5>API Integration</h5>
+                    <p>Syncing mobile interfaces with secure cloud backends via encrypted REST/GraphQL endpoints.</p>
+                </div>
+                <div class="flow-step" data-aos="fade-right" data-aos-delay="300">
+                    <h5>Global Launch</h5>
+                    <p>App Store & Play Store deployment with automated CI/CD pipelines and live monitoring.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="content-section">
+    <section class="content-block">
         <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="ser-head text-center mb-5" data-aos="fade-up">
-                        <div class="hed text-center">
-                            <img src="<?php echo BASE_URL; ?>assets/images/about/arrowLeft.svg" width="6%" alt="">
-                            <span>Ideas in the Palm of Your Hand</span>
-                            <img src="<?php echo BASE_URL; ?>assets/images/about/arrowRight.svg" width="6%" alt="">
-                        </div>
-                        <h3>Engaging and Intuitive Mobile Apps</h3>
-                    </div>
-                </div>
+            <div class="text-center" data-aos="fade-up">
+                <div class="tech-badge">System Scope</div>
+                <h2 class="section-title">Mobile Engineering <span class="gradient-tech-text">Matrix</span></h2>
             </div>
-            <div class="row">
-                <div class="col-lg-8 offset-lg-2 text-center lead">
-                    <p>Connect with your customers wherever they are with a custom-built mobile app. Our team designs and develops beautiful, intuitive, and high-performance applications for iOS and Android. We handle the entire lifecycle, from strategy and design to development, testing, and deployment on the app stores, ensuring your app delivers a seamless user experience.</p>
+            <div class="cap-grid-massive">
+                <div class="glass-card" data-aos="fade-up">
+                    <div class="cap-icon"><i class="fas fa-mobile-screen"></i></div>
+                    <h4>Consumer <br> Applications</h4>
+                    <p>High-retention apps for retail and social networks designed for millions of downloads.</p>
+                    <ul class="cap-feat-list"><li>Push Logic</li><li>Deep Links</li><li>Apple Pay</li></ul>
+                </div>
+                <div class="glass-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="cap-icon"><i class="fas fa-briefcase"></i></div>
+                    <h4>Enterprise <br> Field Tools</h4>
+                    <p>Robust apps that empower workers with live data, GPS, and automated reporting.</p>
+                    <ul class="cap-feat-list"><li>MDM Ready</li><li>Role Access</li><li>GPS Live</li></ul>
+                </div>
+                <div class="glass-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="cap-icon"><i class="fas fa-wifi"></i></div>
+                    <h4>IoT & Hardware <br> Sync</h4>
+                    <p>Connecting mobile interfaces to smart hardware via BLE and Wi-Fi protocols.</p>
+                    <ul class="cap-feat-list"><li>BLE Sync</li><li>Smart Home</li><li>Firmware OTA</li></ul>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- WHY IT MATTERS SECTION -->
-<section class="content-section bg-light">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-6 mb-4" data-aos="fade-right">
-                <img src="<?php echo BASE_URL; ?>assets/images/services/mobile.jpg" class="img-fluid rounded shadow-lg" alt="Mobile App Development Importance">
+    <section class="content-block" style="background: #080b12;">
+        <div class="container">
+            <div class="text-center" data-aos="fade-up">
+                <div class="tech-badge">Competitive Analysis</div>
+                <h2 class="section-title">Standard Apps vs <br> <span class="gradient-tech-text">WebNexa Engineering</span></h2>
             </div>
-            <div class="col-lg-6 mb-4" data-aos="fade-left">
-                <div class="ser-head text-start">
-                    <div class="hed text-start">
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowLeft.svg" width="6%" alt="">
-                        <span>Why Mobile Apps?</span>
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowRight.svg" width="6%" alt="">
-                    </div>
-                    <h3>Connect Directly with Your Audience, Anytime, Anywhere</h3>
-                    <p class="mt-4">Mobile apps have become an indispensable part of daily life, offering businesses a direct and personalized channel to connect with their customers. A well-designed mobile app enhances user engagement, streamlines customer interactions, and provides unique functionalities that websites cannot. It fosters brand loyalty, opens up new revenue streams, and gives you a competitive edge in an increasingly mobile-first world, ensuring your brand is always just a tap away.</p>
-                    <ul class="list-unstyled mt-3">
-                        <li class="mb-2"><i class="fa fa-check text-success me-2"></i>Provide a personalized and seamless experience for your users.</li>
-                        <li class="mb-2"><i class="fa fa-check text-success me-2"></i>Increase customer engagement, loyalty, and brand visibility.</li>
-                        <li class="mb-2"><i class="fa fa-check text-success me-2"></i>Unlock new business opportunities and revenue streams.</li>
-                    </ul>
-                </div>
+            <div class="comp-box" data-aos="zoom-in">
+                <div class="comp-row comp-header"><span>Features</span><span>Standard App</span><span style="color:rgb(216, 115, 255);">WebNexa Elite</span></div>
+                <div class="comp-row"><span>Performance</span><span class="comp-val">Web-View Lag</span><span class="comp-val best"><i class="fas fa-bolt"></i> Native 60FPS</span></div>
+                <div class="comp-row"><span>Offline Logic</span><span class="comp-val">Inconsistent</span><span class="comp-val best"><i class="fas fa-database"></i> Full Local Sync</span></div>
+                <div class="comp-row"><span>Security</span><span class="comp-val">Basic Auth</span><span class="comp-val best"><i class="fas fa-fingerprint"></i> Biometric FaceID</span></div>
+                <div class="comp-row" style="border:none;"><span>Backend</span><span class="comp-val">Shared API</span><span class="comp-val best"><i class="fas fa-server"></i> Serverless Lambda</span></div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- OUR MOBILE APP DEVELOPMENT PROCESS SECTION -->
-<section class="content-section">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 text-center">
-                <div class="ser-head" data-aos="fade-up">
-                    <div class="hed">
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowLeft.svg" width="6%" alt="">
-                        <span>Our Workflow</span>
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowRight.svg" width="6%" alt="">
-                    </div>
-                    <h3>Our Agile Mobile App Development Process</h3>
-                </div>
-            </div>
+    <section class="py-5" style="background: rgb(114, 79, 255); color:#fff;">
+        <div class="container d-flex justify-content-between align-items-center flex-wrap gap-3">
+            <h4 style="margin:0; font-weight:900;">24/7 MOBILE SYSTEM GOVERNANCE ACTIVE</h4>
+            <div style="font-weight:700; letter-spacing:1px; background:rgba(0,0,0,0.2); padding:10px 25px; border-radius:50px;">STATUS: CONTINUOUS DELIVERY</div>
         </div>
-        <div class="row mt-5">
-            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="100">
-                <div class="process-item">
-                    <div class="process-icon"><i class="fa-solid fa-lightbulb"></i></div>
-                    <h4>Strategy & Concept</h4>
-                    <p>Defining your app's core purpose, target audience, key features, and platform strategy (iOS, Android, or Cross-Platform).</p>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
-                <div class="process-item">
-                    <div class="process-icon"><i class="fa-solid fa-mobile-alt"></i></div>
-                    <h4>UI/UX Design</h4>
-                    <p>Creating intuitive wireframes, stunning visual designs, and seamless user experiences that delight your users.</p>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="300">
-                <div class="process-item">
-                    <div class="process-icon"><i class="fa-solid fa-code"></i></div>
-                    <h4>Development & Testing</h4>
-                    <p>Building the app with clean, efficient code and conducting rigorous testing to ensure functionality, performance, and security.</p>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="400">
-                <div class="process-item">
-                    <div class="process-icon"><i class="fa-solid fa-cloud-arrow-up"></i></div>
-                    <h4>Deployment & Support</h4>
-                    <p>Assisting with app store submission, launching your app, and providing ongoing maintenance, updates, and feature enhancements.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+    </section>
 
-<!-- WHAT WE DELIVER SECTION -->
-<section class="content-section bg-light">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 text-center">
-                <div class="ser-head" data-aos="fade-up">
-                    <div class="hed">
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowLeft.svg" width="6%" alt="">
-                        <span>Your Deliverables</span>
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowRight.svg" width="6%" alt="">
-                    </div>
-                    <h3>What Our Mobile App Development Services Deliver</h3>
-                </div>
-            </div>
-        </div>
-        <div class="row mt-5">
-            <div class="col-lg-4 d-flex align-items-stretch mb-4" data-aos="fade-up" data-aos-delay="100">
-                <div class="icon-card w-100">
-                    <div class="icon"><i class="fa-solid fa-mobile-screen-button"></i></div>
-                    <div class="text">
-                        <h5>Custom iOS & Android Applications</h5>
-                        <p>High-performance, feature-rich native or cross-platform mobile apps tailored to your unique specifications and user needs.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 d-flex align-items-stretch mb-4" data-aos="fade-up" data-aos-delay="200">
-                <div class="icon-card w-100">
-                    <div class="icon"><i class="fa-solid fa-palette"></i></div>
-                    <div class="text">
-                        <h5>Intuitive & Engaging User Experiences</h5>
-                        <p>Beautifully designed interfaces that are easy to navigate, delight users, and drive high retention rates.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 d-flex align-items-stretch mb-4" data-aos="fade-up" data-aos-delay="300">
-                <div class="icon-card w-100">
-                    <div class="icon"><i class="fa-solid fa-shield-alt"></i></div>
-                    <div class="text">
-                        <h5>Secure & Scalable Mobile Solutions</h5>
-                        <p>Robust mobile apps built with cutting-edge technologies, ensuring data security and future scalability.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+    <?php include_once __DIR__ . '/../contact-section-shared.php'; ?>
+</div>
 
-<!-- WHO IS THIS FOR SECTION -->
-<section class="content-section">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 text-center">
-                <div class="ser-head" data-aos="fade-up">
-                    <h3>Who Benefits from Mobile App Development?</h3>
-                </div>
-            </div>
-        </div>
-        <div class="row mt-4 text-center">
-            <div class="col-md-4 mb-4">
-                <h5>Businesses Seeking Customer Engagement</h5>
-                <p>Companies looking to provide unique services, enhance customer loyalty, and offer personalized experiences through a dedicated app.</p>
-            </div>
-            <div class="col-md-4 mb-4">
-                <h5>Startups with Innovative Concepts</h5>
-                <p>Entrepreneurs bringing new ideas to market that require a custom mobile application to disrupt industries or create new user value.</p>
-            </div>
-            <div class="col-md-4 mb-4">
-                <h5>Enterprises Optimizing Operations</h5>
-                <p>Large organizations aiming to streamline internal processes, improve employee productivity, or offer enhanced B2B solutions via mobile apps.</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="content-section contact-cta">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-10 col-lg-8">
-                <div class="ser-head text-center" data-aos="fade-up">
-                    <div class="hed">
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowLeft.svg" width="6%" alt="">
-                        <span>Let's Talk</span>
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowRight.svg" width="6%" alt="">
-                    </div>
-                    <h3>Ready to Bring Your Mobile App Idea to Life?</h3>
-                    <p class="lead mt-3">Contact us today to discuss your mobile app needs and get a free consultation. Let's work together to achieve your business goals.</p>
-                    <a href="<?php echo BASE_URL; ?>contact.php" class="btn btn-style-one mt-4">Get in Touch</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const bg = document.getElementById('web-data-bg');
+        for (let i = 0; i < 25; i++) {
+            const drop = document.createElement('div');
+            drop.className = 'data-drop';
+            drop.style.left = Math.random() * 100 + '%';
+            drop.style.animationDelay = Math.random() * 5 + 's';
+            drop.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            bg.appendChild(drop);
+        }
+    });
+</script>
 
 <?php include_once __DIR__ . '/../footer.php'; ?>

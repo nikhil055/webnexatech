@@ -1,319 +1,132 @@
 <?php 
-$page_title = 'Apparel Solution';
- include_once __DIR__ . '/../../config.php'; include_once __DIR__ . '/../../header.php'; ?>
-<?php 
-include_once __DIR__ . '/../../backend/db.php';
-$page_file = 'solutions/e-commerce/apparel-solution.php';
-$banner_res = $conn->query("SELECT * FROM page_banners WHERE page_name = '$page_file'");
-$banner_data = ($banner_res && $banner_res->num_rows > 0) ? $banner_res->fetch_assoc() : null;
-
-$display_banner_img = ($banner_data && !empty($banner_data['banner_image'])) ? $banner_data['banner_image'] : BASE_URL . 'assets/images/header-icon/solution/apparel-stores.png';
-$display_banner_title = ($banner_data && !empty($banner_data['banner_title'])) ? $banner_data['banner_title'] : 'Apparel E-commerce Solution';
+$page_title = 'Apparel E-Commerce Engineering | WebNexa';
+include_once __DIR__ . '/../../config.php'; 
+include_once __DIR__ . '/../../header-new.php'; 
 ?>
 
-    <style>
-        .page-banner {
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('<?php echo $display_banner_img; ?>');
-            background-size: cover;
-            background-position: center;
-            padding-top: 220px;
-            padding-bottom: 100px;
-            text-align: center;
-            color: #fff;
-        }
-        .page-banner h2 {
-            font-size: 55px;
-            font-weight: 800;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-        .breadcrumb-custom {
-            justify-content: center;
-            background: rgba(255, 255, 255, 0.1);
-            display: inline-flex;
-            padding: 10px 20px;
-            border-radius: 30px;
-            backdrop-filter: blur(5px);
-        }
-        .breadcrumb-custom .breadcrumb-item a {
-            color: #fff;
-            text-decoration: none;
-            font-weight: 500;
-        }
-        .breadcrumb-custom .breadcrumb-item.active {
-            color: #3C72FC;
-            font-weight: 700;
-        }
-        .content-section {
-            padding-top: 80px;
-            padding-bottom: 80px;
-        }
-        .icon-card {
-            display: flex;
-            align-items: flex-start;
-            background: #fff;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 5px 25px rgba(0,0,0,0.07);
-            margin-bottom: 20px;
-            transition: all 0.3s ease;
-            height: calc(100% - 20px);
-        }
-        .icon-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 35px rgba(0,0,0,0.1);
-        }
-        .icon-card .icon {
-            font-size: 30px;
-            color: #3C72FC;
-            margin-right: 20px;
-            min-width: 40px;
-        }
-        .icon-card h5 {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 5px;
-        }
-        .icon-card p {
-            font-size: 15px;
-            color: #666;
-            margin-bottom: 0;
-            line-height: 1.6;
-        }
-        .process-item {
-            text-align: center;
-            position: relative;
-        }
-        .process-item .process-icon {
-            width: 90px;
-            height: 90px;
-            background: #f1f5ff;
-            color: #3C72FC;
-            border-radius: 50%;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 40px;
-            border: 5px solid #fff;
-            box-shadow: 0 0 15px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
-        }
-        .process-item h4 {
-            font-size: 20px;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-        .contact-cta {
-            background: #f8f9fa;
-        }
-    </style>
+<style>
+    .solution-main { background: #05070a; color: #fff; font-family: 'Inter', sans-serif; overflow-x: hidden; }
+    .solution-hero { position: relative; padding: 220px 0 120px; background: #080b12; overflow: hidden; }
+    .hero-visual { position: absolute; top: 0; right: -10%; width: 60%; height: 100%; background: radial-gradient(circle, rgba(114, 79, 255, 0.1) 0%, transparent 70%); filter: blur(100px); }
+    
+    .tech-matrix { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; padding: 100px 0; }
+    .matrix-card { background: rgba(255, 255, 255, 0.015); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 40px; padding: 45px; backdrop-filter: blur(40px); transition: 0.4s; }
+    .matrix-card:hover { border-color: rgb(114, 79, 255); transform: translateY(-12px); background: rgba(114, 79, 255, 0.03); }
+    .matrix-card i { font-size: 35px; color: rgb(216, 115, 255); margin-bottom: 25px; display: block; }
+    
+    .advantage-table { background: rgba(255, 255, 255, 0.01); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 40px; overflow: hidden; margin-top: 60px; }
+    .advantage-table th { background: rgba(114, 79, 255, 0.1); padding: 25px; font-weight: 900; color: #fff; text-transform: uppercase; letter-spacing: 2px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .advantage-table td { padding: 20px 25px; border-bottom: 1px solid rgba(255,255,255,0.05); color: #94a3b8; font-size: 15px; }
+    .advantage-table tr:last-child td { border-bottom: none; }
+    .check-v { color: #10b981; margin-right: 10px; }
 
-<section class="page-banner">
+    @media (max-width: 991px) { .tech-matrix { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 767px) { .tech-matrix { grid-template-columns: 1fr; } }
+</style>
+
+<div class="solution-main">
+    <section class="solution-hero">
+        <div class="hero-visual"></div>
         <div class="container">
-            <div class="row">
-                <div class="col-md-12" data-aos="zoom-in">
-                    <h2><?php echo $display_banner_title; ?></h2>
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb breadcrumb-custom">
-                            <li class="breadcrumb-item"><a href="<?php echo BASE_URL; ?>index.php">Home</a></li>
-                            <li class="breadcrumb-item"><a href="<?php echo BASE_URL; ?>solutions.php">Solutions</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Apparel Solution</li>
-                        </ol>
-                    </nav>
+            <div class="row align-items-center">
+                <div class="col-lg-7" data-aos="fade-right">
+                    <div class="tech-badge">E-Commerce Protocol v4.0</div>
+                    <h1 class="display-3 fw-900 mb-4">Apparel Store <br> <span class="gradient-tech-text">Engineering</span></h1>
+                    <p class="lead opacity-75 mb-5">Architecting high-frequency fashion ecosystems. We deploy sub-second checkout flows, AI-driven size recommendation engines, and dynamic inventory sync for global apparel brands.</p>
+                    <div class="d-flex gap-3">
+                        <a href="#matrix" class="btn btn-style-one">Technical Specs</a>
+                        <a href="<?php echo BASE_URL; ?>contact.php" class="btn btn-style-one outline">System Audit</a>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="content-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="ser-head text-center mb-5" data-aos="fade-up">
-                        <div class="hed text-center">
-                            <img src="<?php echo BASE_URL; ?>assets/images/about/arrowLeft.svg" width="6%" alt="">
-                            <span>Dress for Success Online</span>
-                            <img src="<?php echo BASE_URL; ?>assets/images/about/arrowRight.svg" width="6%" alt="">
-                        </div>
-                        <h3>The Ultimate E-commerce Platform for Fashion Brands</h3>
-                    </div>
-                </div>
+    <!-- STATUS STRIP -->
+    <div style="background: #000; border-y: 1px solid rgba(255,255,255,0.1); padding: 15px 0;">
+        <div class="container d-flex justify-content-between align-items-center font-monospace opacity-50 small">
+            <span>CORE: NEXT.JS 15</span>
+            <span>DB: POSTGRESQL + REDIS</span>
+            <span>LATENCY: < 80MS</span>
+            <span>UPTIME: 99.99%</span>
+        </div>
+    </div>
+
+    <section class="container py-5" id="matrix">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <div class="tech-badge">The Mastery Matrix</div>
+            <h2 class="display-5 fw-900">Apparel <span class="gradient-tech-text">Logic Modules</span></h2>
+        </div>
+
+        <div class="tech-matrix">
+            <div class="matrix-card" data-aos="fade-up">
+                <i class="fas fa-arrows-alt-v"></i>
+                <h4>Size-Fit Engine</h4>
+                <p>Advanced algorithmic recommendation engine that reduces return rates by 40% through precise user profile matching.</p>
             </div>
-            <div class="row">
-                <div class="col-lg-8 offset-lg-2 text-center lead">
-                    <p>The online fashion market is fast-paced and visually driven. Our Apparel E-commerce Solution is a comprehensive platform designed to meet the unique needs of clothing and accessory brands. From stunning product displays to seamless inventory management, we provide the tools you need to create an exceptional shopping experience and grow your fashion empire online.</p>
-                </div>
+            <div class="matrix-card" data-aos="fade-up" data-aos-delay="100">
+                <i class="fas fa-bolt"></i>
+                <h4>Ultra-Fast Filter</h4>
+                <p>Instantaneous facet search using Elasticsearch, allowing users to browse 10,000+ SKUs in real-time without reloading.</p>
             </div>
+            <div class="matrix-card" data-aos="fade-up" data-aos-delay="200">
+                <i class="fas fa-layer-group"></i>
+                <h4>Lookbook Sync</h4>
+                <p>Integrated shoppable media modules where every pixel of a campaign video can be converted to an add-to-cart action.</p>
+            </div>
+            <div class="matrix-card" data-aos="fade-up" data-aos-delay="300">
+                <i class="fas fa-sync-alt"></i>
+                <h4>Omnichannel Inventory</h4>
+                <p>Real-time sync between physical retail warehouses and global digital storefronts via custom ERP hooks.</p>
+            </div>
+            <div class="matrix-card" data-aos="fade-up" data-aos-delay="400">
+                <i class="fas fa-mobile-alt"></i>
+                <h4>PWA Experience</h4>
+                <p>A native-app-like mobile experience with offline browsing and push notifications for flash sales.</p>
+            </div>
+            <div class="matrix-card" data-aos="fade-up" data-aos-delay="500">
+                <i class="fas fa-shield-virus"></i>
+                <h4>Fraud Guard</h4>
+                <p>Machine-learning-based transaction screening to prevent bot attacks and fraudulent chargebacks.</p>
+            </div>
+        </div>
+
+        <div class="advantage-table" data-aos="fade-up">
+            <table class="w-100">
+                <thead>
+                    <tr>
+                        <th style="width: 40%;">Strategic Advantage</th>
+                        <th style="width: 30%;">Standard Solution</th>
+                        <th style="width: 30%;">WebNexa Elite</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Server-Side Rendering</td>
+                        <td>Limited / Template Based</td>
+                        <td><i class="fas fa-check-circle check-v"></i> Full Next.js ISR/SSR</td>
+                    </tr>
+                    <tr>
+                        <td>Checkout Latency</td>
+                        <td>3 - 5 Seconds</td>
+                        <td><i class="fas fa-check-circle check-v"></i> < 1.2 Seconds</td>
+                    </tr>
+                    <tr>
+                        <td>AI Recommendation</td>
+                        <td>Static / Manual</td>
+                        <td><i class="fas fa-check-circle check-v"></i> Neural Network Driven</td>
+                    </tr>
+                    <tr>
+                        <td>Inventory Refresh</td>
+                        <td>15 - 30 Minutes</td>
+                        <td><i class="fas fa-check-circle check-v"></i> Real-time (Webhook)</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </section>
 
-    <!-- WHY IT MATTERS SECTION -->
-<section class="content-section bg-light">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-6 mb-4" data-aos="fade-right">
-                <img src="<?php echo BASE_URL; ?>assets/images/header-icon/solution/apparel-stores.png" class="img-fluid rounded shadow-lg" alt="Apparel E-commerce Importance">
-            </div>
-            <div class="col-lg-6 mb-4" data-aos="fade-left">
-                <div class="ser-head text-start">
-                    <div class="hed text-start">
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowLeft.svg" width="6%" alt="">
-                        <span>Why Online Apparel?</span>
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowRight.svg" width="6%" alt="">
-                    </div>
-                    <h3>Showcase Your Collection, Reach a Global Audience</h3>
-                    <p class="mt-4">The apparel industry thrives on trends, visuals, and emotional connection. An e-commerce solution tailored for fashion allows you to present your collections beautifully, engage customers with immersive experiences, and manage complex inventory with ease. It's crucial for expanding your market reach beyond physical stores, enabling personalized shopping, and driving sales in a competitive, style-conscious market. A robust online presence is no longer a luxury but a necessity for fashion brands looking to grow.</p>
-                    <ul class="list-unstyled mt-3">
-                        <li class="mb-2"><i class="fa fa-check text-success me-2"></i>Expand your brand's reach to a global customer base.</li>
-                        <li class="mb-2"><i class="fa fa-check text-success me-2"></i>Offer a seamless and visually engaging shopping experience.</li>
-                        <li class="mb-2"><i class="fa fa-check text-success me-2"></i>Effectively manage complex apparel inventory with multiple variants.</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- OUR APPAREL E-COMMERCE SOLUTION PROCESS SECTION -->
-<section class="content-section">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 text-center">
-                <div class="ser-head" data-aos="fade-up">
-                    <div class="hed">
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowLeft.svg" width="6%" alt="">
-                        <span>Our Workflow</span>
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowRight.svg" width="6%" alt="">
-                    </div>
-                    <h3>How We Build Your Apparel E-commerce Platform</h3>
-                </div>
-            </div>
-        </div>
-        <div class="row mt-5">
-            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="100">
-                <div class="process-item">
-                    <div class="process-icon"><i class="fa-solid fa-shirt"></i></div>
-                    <h4>Concept & Collection Integration</h4>
-                    <p>Understanding your brand, target audience, and current collection to define the platform's features and design.</p>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
-                <div class="process-item">
-                    <div class="process-icon"><i class="fa-solid fa-palette"></i></div>
-                    <h4>Visual Design & UX</h4>
-                    <p>Creating a visually stunning and intuitive user experience tailored for fashion retail, with focus on product presentation.</p>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="300">
-                <div class="process-item">
-                    <div class="process-icon"><i class="fa-solid fa-code"></i></div>
-                    <h4>Development & Variant Management</h4>
-                    <p>Building the e-commerce store with robust backend for inventory, size/color variants, and secure payment gateways.</p>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="400">
-                <div class="process-item">
-                    <div class="process-icon"><i class="fa-solid fa-rocket"></i></div>
-                    <h4>Launch & Marketing Integration</h4>
-                    <p>Launching the platform and integrating with marketing tools for SEO, social media, and email campaigns to drive sales.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- WHAT YOU RECEIVE SECTION -->
-<section class="content-section bg-light">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 text-center">
-                <div class="ser-head" data-aos="fade-up">
-                    <div class="hed">
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowLeft.svg" width="6%" alt="">
-                        <span>Your Deliverables</span>
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowRight.svg" width="6%" alt="">
-                    </div>
-                    <h3>What Our Apparel E-commerce Solution Delivers</h3>
-                </div>
-            </div>
-        </div>
-        <div class="row mt-5">
-            <div class="col-lg-4 d-flex align-items-stretch mb-4" data-aos="fade-up" data-aos-delay="100">
-                <div class="icon-card w-100">
-                    <div class="icon"><i class="fa-solid fa-store-alt"></i></div>
-                    <div class="text">
-                        <h5>Custom Online Boutique</h5>
-                        <p>A beautifully designed, fully functional e-commerce store tailored to your fashion brand, ready to showcase your collections.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 d-flex align-items-stretch mb-4" data-aos="fade-up" data-aos-delay="200">
-                <div class="icon-card w-100">
-                    <div class="icon"><i class="fa-solid fa-boxes"></i></div>
-                    <div class="text">
-                        <h5>Streamlined Inventory & Order Management</h5>
-                        <p>Intuitive backend tools to efficiently manage product variants, stock levels, orders, and customer data.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 d-flex align-items-stretch mb-4" data-aos="fade-up" data-aos-delay="300">
-                <div class="icon-card w-100">
-                    <div class="icon"><i class="fa-solid fa-chart-line"></i></div>
-                    <div class="text">
-                        <h5>Increased Sales & Brand Loyalty</h5>
-                        <p>An optimized platform designed to convert visitors into loyal customers, boosting revenue and brand recognition.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- WHO IS THIS FOR SECTION -->
-<section class="content-section">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 text-center">
-                <div class="ser-head" data-aos="fade-up">
-                    <h3>Who Benefits from Our Apparel E-commerce Solution?</h3>
-                </div>
-            </div>
-        </div>
-        <div class="row mt-4 text-center">
-            <div class="col-md-4 mb-4">
-                <h5>Fashion Boutiques & Retailers</h5>
-                <p>Establishing or expanding their online presence with a dedicated platform for clothing, accessories, and footwear.</p>
-            </div>
-            <div class="col-md-4 mb-4">
-                <h5>Emerging Fashion Brands</h5>
-                <p>New designers and brands looking for a scalable and customizable e-commerce platform to launch their collections.</p>
-            </div>
-            <div class="col-md-4 mb-4">
-                <h5>Apparel Wholesalers</h5>
-                <p>Transitioning to B2B e-commerce to streamline orders, manage wholesale accounts, and expand distribution channels online.</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="content-section contact-cta">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-10 col-lg-8">
-                <div class="ser-head text-center" data-aos="fade-up">
-                    <div class="hed">
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowLeft.svg" width="6%" alt="">
-                        <span>Let's Talk</span>
-                        <img src="<?php echo BASE_URL; ?>assets/images/about/arrowRight.svg" width="6%" alt="">
-                    </div>
-                    <h3>Ready to Launch Your Online Apparel Store?</h3>
-                    <p class="lead mt-3">Contact us today to discuss your e-commerce needs and get a free consultation. Let's work together to achieve your business goals.</p>
-                    <a href="<?php echo BASE_URL; ?>contact.php" class="btn btn-style-one mt-4">Get in Touch</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+    <?php include_once __DIR__ . '/../../contact-section-shared.php'; ?>
+</div>
 
 <?php include_once __DIR__ . '/../../footer.php'; ?>
