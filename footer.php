@@ -140,32 +140,27 @@
                       <ul class="p-0">
                           <li>
                               <i class="fa-solid fa-angles-right"></i>
-
-                              <a class="items " href="<?php echo BASE_URL; ?>index.php">Home</a>
+                              <a class="items " href="<?php echo BASE_URL; ?>/index.php">Home</a>
                           </li>
 
                           <li>
                               <i class="fa-solid fa-angles-right"></i>
-
-                              <a class="items " href="<?php echo BASE_URL; ?>about/about.php">About</a>
+                              <a class="items " href="<?php echo BASE_URL; ?>/about.php">About</a>
                           </li>
 
                           <li>
                               <i class="fa-solid fa-angles-right"></i>
-
-                              <a class="items " href="<?php echo BASE_URL; ?>about/gallery.php">Gallery</a>
+                              <a class="items " href="<?php echo BASE_URL; ?>/gallery.php">Gallery</a>
                           </li>
 
                           <li>
                               <i class="fa-solid fa-angles-right"></i>
-
-                              <a class="items " href="<?php echo BASE_URL; ?>work/work.php">Work</a>
+                              <a class="items " href="<?php echo BASE_URL; ?>/work.php">Work</a>
                           </li>
 
                           <li>
                               <i class="fa-solid fa-angles-right"></i>
-
-                              <a class="items " href="<?php echo BASE_URL; ?>get-in-touch.php">Contact</a>
+                              <a class="items " href="<?php echo BASE_URL; ?>/contact.php">Contact</a>
                           </li>
 
                       </ul>
@@ -239,7 +234,7 @@
                               <label class="input-checkbox">
                                   <input type="checkbox" name="agree" id="agreeCheckbox">
                                   <span class="checkmark"></span>
-                                  I agree to the <a class="text-underline" href="<?php echo BASE_URL; ?>homhjom/contact.php" target="_blank">Privacy
+                                  I agree to the <a class="text-underline" href="<?php echo BASE_URL; ?>/contact.php" target="_blank">Privacy
                                       Policy.</a>
                               </label>
                               <br>
@@ -365,7 +360,7 @@
         <div id="chat-window-box" class="shadow-lg">
             <div class="chat-top-bar">
                 <div class="position-relative">
-                    <img src="assets/images/logo-web/favicon.jpg" alt="AI">
+                    <img src="<?php echo BASE_URL; ?>/assets/images/logo-web/favicon.jpg" alt="AI">
                     <div style="width: 12px; height: 12px; background: #00d1b2; border-radius: 50%; position: absolute; bottom: 0; right: 0; border: 2px solid white;"></div>
                 </div>
                 <div class="flex-grow-1">
@@ -404,7 +399,7 @@
 
             const postMsg = (text, sender) => {
                 const div = document.createElement('div');
-                div.className = `chat-msg ${sender}-bubble`;
+                div.className = `chat-msg \${sender}-bubble`;
                 div.innerText = text;
                 messagesArea.appendChild(div);
                 messagesArea.scrollTop = messagesArea.scrollHeight;
@@ -437,7 +432,7 @@
                         currentStep = 1;
                     } else if(currentStep === 1) {
                         capturedData.fullname = msg;
-                        postMsg(`Nice to meet you, ${msg}! What is your Email Address?`, 'bot');
+                        postMsg(`Nice to meet you, \${msg}! What is your Email Address?`, 'bot');
                         chatInput.placeholder = "Enter your email...";
                         currentStep = 2;
                     } else if(currentStep === 2) {
@@ -454,7 +449,7 @@
                         capturedData.message = msg;
                         postMsg("Perfect! Submitting your details to our experts...", 'bot');
                         
-                        fetch('<?php echo BASE_URL; ?>backend/api/contact.php', {
+                        fetch('<?php echo BASE_URL; ?>/backend/api/contact.php', {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify(capturedData)
@@ -500,12 +495,3 @@
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
